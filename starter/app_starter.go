@@ -5,7 +5,6 @@ import (
 
 	"encoding/json"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"os"
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -27,11 +26,8 @@ import (
 )
 
 var (
-	DefaultCLIHome = os.ExpandEnv("$HOME/.nscli")
-
-	DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
-
 	ModuleBasics sdk.ModuleBasicManager
+	Cdc          *codec.Codec
 )
 
 //AppStarter is a drop in to make simple hello world blockchains
@@ -47,6 +43,7 @@ func init() {
 		distr.AppModuleBasic{},
 		slashing.AppModuleBasic{},
 	)
+
 }
 
 type AppStarter struct {
@@ -61,7 +58,6 @@ type AppStarter struct {
 	tkeyStaking      *sdk.TransientStoreKey
 	keyDistr         *sdk.KVStoreKey
 	tkeyDistr        *sdk.TransientStoreKey
-	keyNS            *sdk.KVStoreKey
 	keyParams        *sdk.KVStoreKey
 	tkeyParams       *sdk.TransientStoreKey
 	keySlashing      *sdk.KVStoreKey
@@ -74,13 +70,27 @@ type AppStarter struct {
 	distrKeeper         distr.Keeper
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	paramsKeeper        params.Keeper
-
-	mm *sdk.ModuleManager
+	Cdc                 *codec.Codec
+	mm                  *sdk.ModuleManager
 }
 
-func NewAppStarter(appName string, cdc *codec.Codec, logger tlog.Logger, db dbm.DB) *AppStarter {
+func MakeCodec() *codec.Codec {
+	cdc := codec.New()
+	ModuleBasics.RegisterCodec(cdc)
+	sdk.RegisterCodec(cdc)
+	codec.RegisterCrypto(cdc)
+	return cdc
+}
+
+func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, moduleBasics ...sdk.AppModuleBasic) *AppStarter {
+
+	cdc := MakeCodec()
 
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
+
+	for _, mb := range moduleBasics {
+		ModuleBasics = append(ModuleBasics, mb)
+	}
 
 	var app = &AppStarter{
 		BaseApp:          bApp,
@@ -94,6 +104,8 @@ func NewAppStarter(appName string, cdc *codec.Codec, logger tlog.Logger, db dbm.
 		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
 		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
 		keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
+		//mm:               *sdk.ModuleManager,
+		cdc: cdc,
 	}
 
 	// The ParamsKeeper handles parameter storage for the application
@@ -168,7 +180,21 @@ func NewAppStarter(appName string, cdc *codec.Codec, logger tlog.Logger, db dbm.
 		slashing.NewAppModule(app.slashingKeeper, app.stakingKeeper),
 		staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
 	)
+	return app
+}
 
+// GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
+type GenesisState map[string]json.RawMessage
+
+func NewDefaultGenesisState() GenesisState {
+	return ModuleBasics.DefaultGenesis()
+}
+
+func (app *AppStarter) GetCodec() *codec.Codec {
+	return app.cdc
+}
+
+func (app *AppStarter) InitializeStarter() {
 	app.mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
 	app.mm.SetOrderEndBlockers(staking.ModuleName)
 
@@ -216,14 +242,6 @@ func NewAppStarter(appName string, cdc *codec.Codec, logger tlog.Logger, db dbm.
 	if err != nil {
 		cmn.Exit(err.Error())
 	}
-	return app
-}
-
-// GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
-type GenesisState map[string]json.RawMessage
-
-func NewDefaultGenesisState() GenesisState {
-	return ModuleBasics.DefaultGenesis()
 }
 
 func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
