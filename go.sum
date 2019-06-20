@@ -68,6 +68,8 @@ github.com/cosmos/ledger-cosmos-go v0.10.3/go.mod h1:J8//BsAGTo3OC/vDLjMRFLW6q0W
 github.com/cosmos/ledger-go v0.9.2/go.mod h1:oZJ2hHAZROdlHiwTg4t7kP+GKIIkBT+o6c9QWFanOyI=
 github.com/cosmos/sdk-application-tutorial v0.0.0-20190614122023-5cf21d7ef86a h1:NMIJ7SfAHRGtSnX/bHZUFSos07eqmjAccgukSdcgpjs=
 github.com/cosmos/sdk-application-tutorial v0.0.0-20190614122023-5cf21d7ef86a/go.mod h1:mzFAi/PLLnADgR/HbkEY3BW9Vjj2IXFxNxkKcAo++Ko=
+github.com/cosmos/sdk-application-tutorial v0.0.0-20190618104828-6b0d9db75155 h1:qUFdeTM315Yn36yEDozhI0t1jJb4n/MzwAq9zsM/MLc=
+github.com/cosmos/sdk-application-tutorial v0.0.0-20190618104828-6b0d9db75155/go.mod h1:mzFAi/PLLnADgR/HbkEY3BW9Vjj2IXFxNxkKcAo++Ko=
 github.com/cpuguy83/go-md2man v1.0.8/go.mod h1:N6JayAiVKtlHSnuTCeuLSQVs75hb8q+dYQLjr7cDsKY=
 github.com/cpuguy83/go-md2man v1.0.10/go.mod h1:SmD6nW6nTyfqj6ABTjUi3V3JVMnlJmwcJI5acqYI6dE=
 github.com/davecgh/go-spew v0.0.0-20171005155431-ecdeabc65495/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -109,6 +111,7 @@ github.com/go-logfmt/logfmt v0.4.0 h1:MP4Eh7ZCb31lleYCFuwm0oe4/YGak+5l1vA2NOE80n
 github.com/go-logfmt/logfmt v0.4.0/go.mod h1:3RMwSq7FuexP4Kalkev3ejPJsZTpXXBr9+V4qmtdjCk=
 github.com/go-ole/go-ole v1.2.1/go.mod h1:7FAglXiTm7HKlQRDeOQ6ZNUHidzCWXuZWq/1dTyBNF8=
 github.com/go-ole/go-ole v1.2.4/go.mod h1:XCwSNxSkXRo4vlyPy93sltvi/qJq0jqQhjqQNIwKuxM=
+github.com/go-stack/stack v1.8.0 h1:5SgMzNM5HxrEjV0ww2lTmX6E2Izsfxas4+YHWRs3Lsk=
 github.com/go-stack/stack v1.8.0/go.mod h1:v0f6uXyyMGvRgIKkXu+yp6POWl0qKG85gN/melR3HDY=
 github.com/go-toolsmith/astcast v0.0.0-20181028201508-b7a89ed70af1/go.mod h1:TEo3Ghaj7PsZawQHxT/oBvo4HK/sl1RcuUHDKTTju+o=
 github.com/go-toolsmith/astcast v1.0.0 h1:JojxlmI6STnFVG9yOImLeGREv8W2ocNUM+iOhR6jE7g=
@@ -433,6 +436,7 @@ github.com/stamblerre/gocode v0.0.0-20190327203809-810592086997 h1:LF81AGV63kJox
 github.com/stamblerre/gocode v0.0.0-20190327203809-810592086997/go.mod h1:EM2T8YDoTCvGXbEpFHxarbpv7VE26QD1++Cb1Pbh7Gs=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+github.com/stretchr/objx v0.2.0 h1:Hbg2NidpLE8veEBkEZTL3CvlkUIVzuU9jDplZO54c48=
 github.com/stretchr/objx v0.2.0/go.mod h1:qt09Ya8vawLte6SNmTgCsAVtYtaKzEcn8ATUoHMkEqE=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.3.0 h1:TivCn/peBQ7UY8ooIcPgZFpTNSz0Q2U6UrFlUfqbe0Q=
@@ -441,6 +445,8 @@ github.com/syndtr/goleveldb v0.0.0-20180708030551-c4c61651e9e3 h1:sAlSBRDl4psFR3
 github.com/syndtr/goleveldb v0.0.0-20180708030551-c4c61651e9e3/go.mod h1:Z4AUp2Km+PwemOoO/VB5AOx9XSsIItzFjoJlOSiYmn0=
 github.com/syndtr/goleveldb v1.0.0 h1:fBdIW9lB4Iz0n9khmH8w27SJ3QEJ7+IgjPEwGSZiFdE=
 github.com/syndtr/goleveldb v1.0.0/go.mod h1:ZVVdQEZoIme9iO1Ch2Jdy24qqXrMMOU6lpPAyBWyWuQ=
+github.com/tendermint/abci v0.12.0 h1:GKd0zWVp2WHw1Rm9ZWZjRel17qZzOEM0UiQAfuDCHW4=
+github.com/tendermint/abci v0.12.0/go.mod h1:EAyrOYaqYOztXaaDWmGjN2/4m7tLyCkge7kKg3Qtows=
 github.com/tendermint/btcd v0.1.1 h1:0VcxPfflS2zZ3RiOAHkBiFUcPvbtRj5O7zHmcJWHV7s=
 github.com/tendermint/btcd v0.1.1/go.mod h1:DC6/m53jtQzr/NFmMNEu0rxf18/ktVoVtMrnDD5pN+U=
 github.com/tendermint/crypto v0.0.0-20180820045704-3764759f34a5 h1:u8i49c+BxloX3XQ55cvzFNXplizZP/q00i+IlttUjAU=
@@ -456,6 +462,8 @@ github.com/tendermint/iavl v0.12.2/go.mod h1:EoKMMv++tDOL5qKKVnoIqtVPshRrEPeJ0Ws
 github.com/tendermint/tendermint v0.31.5/go.mod h1:ymcPyWblXCplCPQjbOYbrF1fWnpslATMVqiGgWbZrlc=
 github.com/tendermint/tendermint v0.31.7 h1:2xhlEqmrvm+wJxgPTFpUHb0wgT9KFyi3n3FVG+dOlKU=
 github.com/tendermint/tendermint v0.31.7/go.mod h1:ymcPyWblXCplCPQjbOYbrF1fWnpslATMVqiGgWbZrlc=
+github.com/tendermint/tmlibs v0.9.0 h1:3aU/D2v3aecqpODOuBXCfi950bHTefD5Pps5X3XuJDc=
+github.com/tendermint/tmlibs v0.9.0/go.mod h1:4L0tAKpLTioy14VnmbXYTLIJN0pCMiehxDMdN6zZfM8=
 github.com/timakin/bodyclose v0.0.0-20190407043127-4a873e97b2bb h1:lI9ufgFfvuqRctP9Ny8lDDLbSWCMxBPletcSqrnyFYM=
 github.com/timakin/bodyclose v0.0.0-20190407043127-4a873e97b2bb/go.mod h1:Qimiffbc6q9tBWlVV6x0P9sat/ao1xEkREYPPj9hphk=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=

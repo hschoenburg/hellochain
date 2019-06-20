@@ -10,18 +10,17 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/module"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
-	abci "github.com/tendermint/tendermint/abci/types"
 )
 
 type ServerCommandParams struct {
 	DefaultNodeHome string
 	DefaultCLIHome  string
-	cdc             *codec.Codec
+	Cdc             *codec.Codec
 	CmdName         string
 	CmdDesc         string
-	ModuleBasics    sdk.ModuleBasicManager
-	App             abci.Application
+	ModuleBasics    module.BasicManager
 	AppCreator      server.AppCreator
 	AppExporter     server.AppExporter
 }
@@ -45,14 +44,13 @@ func NewServerCommand(params ServerCommandParams) *cobra.Command {
 	}
 
 	rootCmd.AddCommand(
-		genutilcli.InitCmd(ctx, params.cdc, params.ModuleBasics, params.DefaultNodeHome),
-		genutilcli.CollectGenTxsCmd(ctx, params.cdc, genaccounts.AppModuleBasic{}, params.DefaultNodeHome),
-		genutilcli.GenTxCmd(ctx, params.cdc, params.ModuleBasics, staking.AppModuleBasic{}, genaccounts.AppModuleBasic{}, params.DefaultNodeHome, params.DefaultCLIHome),
-		genutilcli.ValidateGenesisCmd(ctx, params.cdc, params.ModuleBasics),
-		// AddGenesisAccountCmd allows users to add accounts to the genesis file
-		genaccscli.AddGenesisAccountCmd(ctx, params.cdc, params.DefaultNodeHome, params.DefaultCLIHome),
+		genutilcli.InitCmd(ctx, params.Cdc, params.ModuleBasics, params.DefaultNodeHome),
+		genutilcli.CollectGenTxsCmd(ctx, params.Cdc, genaccounts.AppModuleBasic{}, params.DefaultNodeHome),
+		genutilcli.GenTxCmd(ctx, params.Cdc, params.ModuleBasics, staking.AppModuleBasic{}, genaccounts.AppModuleBasic{}, params.DefaultNodeHome, params.DefaultCLIHome),
+		genutilcli.ValidateGenesisCmd(ctx, params.Cdc, params.ModuleBasics),
+		genaccscli.AddGenesisAccountCmd(ctx, params.Cdc, params.DefaultNodeHome, params.DefaultCLIHome),
 	)
 
-	server.AddCommands(ctx, params.cdc, rootCmd, params.AppCreator, params.AppExporter)
+	server.AddCommands(ctx, params.Cdc, rootCmd, params.AppCreator, params.AppExporter)
 	return rootCmd
 }

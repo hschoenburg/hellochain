@@ -4,20 +4,13 @@ import (
 	"encoding/json"
 	"io"
 
-	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
-	genaccscli "github.com/cosmos/cosmos-sdk/x/auth/genaccounts/client/cli"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	app "github.com/cosmos/hellochain"
 	"github.com/cosmos/hellochain/starter"
 
-	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/libs/log"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
-	app "github.com/cosmos/hellochain"
-	abci "github.com/tendermint/tendermint/abci/types"
+	abci "github.com/tendermint/abci/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	tmtypes "github.com/tendermint/tendermint/types"
 )
@@ -32,13 +25,12 @@ func main() {
 
 		DefaultNodeHome: app.DefaultNodeHome,
 		DefaultCLIHome:  app.DefaultCLIHome,
-		cdc:             *codec.Codec,
+		Cdc:             cdc,
 		CmdName:         "hcd",
 		CmdDesc:         "hellochain AppDaemon",
 		ModuleBasics:    app.ModuleBasics,
-		App:             app,
-		AppCreator:      app.NewHelloChainApp,
-		AppExporter:     exportTMStateAndValidators,
+		AppCreator:      newApp,
+		AppExporter:     ExportAppStateAndValidators,
 	}
 
 	serverCmd := starter.NewServerCommand(params)
@@ -51,7 +43,11 @@ func main() {
 	}
 }
 
-func exportAppStateAndTMValidators(
+func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
+	return app.NewHelloChainApp(logger, db)
+}
+
+func ExportAppStateAndValidators(
 	logger log.Logger, db dbm.DB, traceStore io.Writer, height int64, forZeroHeight bool, jailWhiteList []string,
 ) (json.RawMessage, []tmtypes.GenesisValidator, error) {
 

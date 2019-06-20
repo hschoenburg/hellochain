@@ -1,21 +1,16 @@
 package hellochain
 
 import (
-	"encoding/json"
 	"os"
-
-	tmtypes "github.com/tendermint/tendermint/types"
-
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/x/auth"
 
 	"github.com/cosmos/hellochain/starter"
 	"github.com/cosmos/hellochain/x/greeter"
 
-	bam "github.com/cosmos/cosmos-sdk/baseapp"
+	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	abci "github.com/tendermint/tendermint/abci/types"
-	cmn "github.com/tendermint/tendermint/libs/common"
+
+	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/types/module"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	tlog "github.com/tendermint/tendermint/libs/log"
 )
@@ -25,30 +20,45 @@ const appName = "hellochain"
 var (
 	DefaultCLIHome  = os.ExpandEnv("$HOME/.hellocli")
 	DefaultNodeHome = os.ExpandEnv("$HOME/.hellod")
-	ModuleBasics    sdk.ModuleBasicManager
+	ModuleBasics    module.BasicManager
 )
 
 type helloChainApp struct {
 	*starter.AppStarter
-	keyGreeter    *sdk.KVStoreKey
+	KeyGreeter    *sdk.KVStoreKey
 	greeterKeeper greeter.Keeper
+}
+
+func MakeCodec() *codec.Codec {
+	cdc := codec.New()
+	ModuleBasics.RegisterCodec(cdc)
+	sdk.RegisterCodec(cdc)
+	codec.RegisterCrypto(cdc)
+	return cdc
 }
 
 func NewHelloChainApp(logger tlog.Logger, db dbm.DB) *helloChainApp {
 
-	appStarter := starter.NewAppStarter(appName, logger, db, greeter.AppModuleBasic{})
+	cdc := MakeCodec()
+
+	appStarter := starter.NewAppStarter(appName, logger, db, cdc, greeter.AppModuleBasic{})
 
 	keyGreeter := sdk.NewKVStoreKey(appName)
 
-	greeter.RegisterCodec(appStarter.Cdc)
+	greeterKeeper := greeter.NewKeeper(keyGreeter, appStarter.Cdc)
 
 	var app = &helloChainApp{
 		appStarter,
 		keyGreeter,
-		greeter.NewKeeper(keyGreeter, appStarter.Cdc),
+		greeterKeeper,
 	}
 
-	app.mm.Modules[greeter.Name()] = greeter.NewAppModule(app.greeterKeeper)
+	greeterMod := greeter.NewAppModule(greeterKeeper)
+	fmt.Printf("%v", greeterMod)
+
+	greeterMod.RegisterCodec(cdc)
+
+	app.Mm.Modules[greeterMod.Name()] = greeterMod
 
 	app.MountStore(keyGreeter, sdk.StoreTypeDB)
 

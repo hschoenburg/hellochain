@@ -12,7 +12,8 @@ require (
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd v0.0.0-20190612170431-362f06ec6bc1 // indirect
 	github.com/cosiner/argv v0.0.1 // indirect
-	github.com/cosmos/cosmos-sdk v0.28.2-0.20190604125914-75de63ce3166
+	github.com/cosmos/cosmos-sdk v0.28.2-0.20190605232616-5f9c3fdf8895
+	github.com/cosmos/sdk-application-tutorial v0.0.0-20190618104828-6b0d9db75155
 	github.com/davidrjenni/reftools v0.0.0-20190411195930-981bbac422f8 // indirect
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/fatih/gomodifytags v0.0.0-20190517204355-df91c5bc7551 // indirect
@@ -32,6 +33,7 @@ require (
 	github.com/google/pprof v0.0.0-20190515194954-54271f7e092f // indirect
 	github.com/google/shlex v0.0.0-20181106134648-c34317bd91bf // indirect
 	github.com/googleapis/gax-go/v2 v2.0.5 // indirect
+	github.com/gorilla/mux v1.7.0
 	github.com/gostaticanalysis/analysisutil v0.0.0-20190329151158-56bca42c7635 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.9.1 // indirect
 	github.com/josharian/impl v0.0.0-20180228163738-3d0f908298c4 // indirect
@@ -65,8 +67,11 @@ require (
 	github.com/spf13/viper v1.4.0
 	github.com/stamblerre/gocode v0.0.0-20190327203809-810592086997 // indirect
 	github.com/stretchr/objx v0.2.0 // indirect
+	github.com/stretchr/testify v1.3.0
+	github.com/tendermint/abci v0.12.0
 	github.com/tendermint/go-amino v0.15.0
 	github.com/tendermint/tendermint v0.31.7
+	github.com/tendermint/tmlibs v0.9.0 // indirect
 	github.com/ugorji/go v1.1.5-pre // indirect
 	github.com/valyala/fasthttp v1.3.0 // indirect
 	github.com/zmb3/gogetdoc v0.0.0-20190228002656-b37376c5da6a // indirect

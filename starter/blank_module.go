@@ -2,8 +2,12 @@ package starter
 
 import (
 	"encoding/json"
+	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/gorilla/mux"
+	"github.com/spf13/cobra"
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
@@ -16,19 +20,9 @@ type BlankModule struct {
 	keeper interface{}
 }
 
-// type check to ensure the interface is properly implemented
-var (
-	_ sdk.AppModule      = BlankModule{}
-	_ sdk.AppModuleBasic = BlankModuleBasic{}
-)
-
 func NewBlankModule(name string, keeper interface{}) BlankModule {
 
-	var module = BlankModule{
-		BlankModuleBasic: BlankModuleBasic{name},
-		keeper:           keeper,
-	}
-	return module
+	return BlankModule{BlankModuleBasic{name}, keeper}
 }
 
 func (bm BlankModuleBasic) Name() string {
@@ -62,6 +56,20 @@ func (bm BlankModule) NewQuerierHandler() sdk.Querier {
 	panic("not implemented")
 }
 
+func (bm BlankModuleBasic) GetQueryCmd(*codec.Codec) *cobra.Command {
+	panic("not implemented")
+}
+
+func (bm BlankModuleBasic) GetTxCmd(*codec.Codec) *cobra.Command {
+	panic("not implemented")
+}
+
+// Register rest routes
+func (BlankModuleBasic) RegisterRESTRoutes(ctx context.CLIContext, rtr *mux.Router, cdc *codec.Codec) {
+	//rest.RegisterRoutes(ctx, rtr, cdc, StoreKey)
+	panic("not implemented")
+}
+
 func (bm BlankModule) BeginBlock(_ sdk.Context, _ abci.RequestBeginBlock) sdk.Tags {
 	return sdk.EmptyTags()
 }
@@ -85,3 +93,9 @@ func (bm BlankModule) NewHandler() sdk.Handler {
 func (bm BlankModule) QuerierRoute() string {
 	return bm.ModuleName
 }
+
+// type check to ensure the interface is properly implemented
+var (
+	_ module.AppModule      = BlankModule{}
+	_ module.AppModuleBasic = BlankModuleBasic{}
+)

@@ -8,6 +8,8 @@ import (
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/module"
+	//ttbci "github.com/tendermint/abci/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
 	dbm "github.com/tendermint/tendermint/libs/db"
@@ -26,14 +28,14 @@ import (
 )
 
 var (
-	ModuleBasics sdk.ModuleBasicManager
+	ModuleBasics module.BasicManager
 	Cdc          *codec.Codec
 )
 
 //AppStarter is a drop in to make simple hello world blockchains
 
 func init() {
-	ModuleBasics = sdk.NewModuleBasicManager(
+	ModuleBasics = module.NewBasicManager(
 		genaccounts.AppModuleBasic{},
 		genutil.AppModuleBasic{},
 		auth.AppModuleBasic{},
@@ -48,7 +50,6 @@ func init() {
 
 type AppStarter struct {
 	*bam.BaseApp
-	cdc *codec.Codec
 
 	// Keys to access the substores
 	keyMain          *sdk.KVStoreKey
@@ -71,25 +72,54 @@ type AppStarter struct {
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	paramsKeeper        params.Keeper
 	Cdc                 *codec.Codec
-	mm                  *sdk.ModuleManager
+	Mm                  *module.Manager
 }
 
-func MakeCodec() *codec.Codec {
-	cdc := codec.New()
-	ModuleBasics.RegisterCodec(cdc)
-	sdk.RegisterCodec(cdc)
-	codec.RegisterCrypto(cdc)
-	return cdc
+func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+	var genesisState GenesisState
+
+	err := app.Cdc.UnmarshalJSON(req.AppStateBytes, &genesisState)
+	if err != nil {
+		panic(err)
+	}
+
+	return app.Mm.InitGenesis(ctx, genesisState)
 }
 
-func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, moduleBasics ...sdk.AppModuleBasic) *AppStarter {
+func (app *AppStarter) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+	return app.Mm.BeginBlock(ctx, req)
+}
+func (app *AppStarter) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+	return app.Mm.EndBlock(ctx, req)
+}
+func (app *AppStarter) LoadHeight(height int64) error {
+	return app.LoadVersion(height, app.keyMain)
+}
 
-	cdc := MakeCodec()
+//_________________________________________________________
+
+func (app *AppStarter) ExportAppStateAndValidators(forZeroHeight bool, jailWhiteList []string,
+) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+
+	// as if they could withdraw from the start of the next block
+	ctx := app.NewContext(true, abci.Header{Height: app.LastBlockHeight()})
+
+	genState := app.Mm.ExportGenesis(ctx)
+	appState, err = codec.MarshalJSONIndent(app.Cdc, genState)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	validators = staking.WriteValidators(ctx, app.stakingKeeper)
+
+	return appState, validators, nil
+}
+func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Codec, moduleBasics ...module.AppModuleBasic) *AppStarter {
 
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
 	for _, mb := range moduleBasics {
-		ModuleBasics = append(ModuleBasics, mb)
+		ModuleBasics[mb.Name()] = mb
 	}
 
 	var app = &AppStarter{
@@ -104,12 +134,11 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, moduleBasics .
 		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
 		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
 		keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
-		//mm:               *sdk.ModuleManager,
-		cdc: cdc,
+		Mm:               &module.Manager{},
 	}
 
 	// The ParamsKeeper handles parameter storage for the application
-	app.paramsKeeper = params.NewKeeper(app.cdc, app.keyParams, app.tkeyParams, params.DefaultCodespace)
+	app.paramsKeeper = params.NewKeeper(app.Cdc, app.keyParams, app.tkeyParams, params.DefaultCodespace)
 	// Set specific supspaces
 	authSubspace := app.paramsKeeper.Subspace(auth.DefaultParamspace)
 	bankSupspace := app.paramsKeeper.Subspace(bank.DefaultParamspace)
@@ -119,7 +148,7 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, moduleBasics .
 
 	// The AccountKeeper handles address -> account lookups
 	app.accountKeeper = auth.NewAccountKeeper(
-		app.cdc,
+		app.Cdc,
 		app.keyAccount,
 		authSubspace,
 		auth.ProtoBaseAccount,
@@ -137,7 +166,7 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, moduleBasics .
 
 	// The staking keeper
 	stakingKeeper := staking.NewKeeper(
-		app.cdc,
+		app.Cdc,
 		app.keyStaking,
 		app.tkeyStaking,
 		app.bankKeeper,
@@ -146,17 +175,16 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, moduleBasics .
 	)
 
 	app.distrKeeper = distr.NewKeeper(
-		app.cdc,
+		app.Cdc,
 		app.keyDistr,
 		distrSubspace,
 		app.bankKeeper,
-		&stakingKeeper,
-		app.feeCollectionKeeper,
+		&stakingKeeper, app.feeCollectionKeeper,
 		distr.DefaultCodespace,
 	)
 
 	app.slashingKeeper = slashing.NewKeeper(
-		app.cdc,
+		app.Cdc,
 		app.keySlashing,
 		&stakingKeeper,
 		slashingSubspace,
@@ -171,7 +199,7 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, moduleBasics .
 			app.slashingKeeper.Hooks()),
 	)
 
-	app.mm = sdk.NewModuleManager(
+	app.Mm = module.NewManager(
 		genaccounts.NewAppModule(app.accountKeeper),
 		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
@@ -191,15 +219,15 @@ func NewDefaultGenesisState() GenesisState {
 }
 
 func (app *AppStarter) GetCodec() *codec.Codec {
-	return app.cdc
+	return app.Cdc
 }
 
 func (app *AppStarter) InitializeStarter() {
-	app.mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
-	app.mm.SetOrderEndBlockers(staking.ModuleName)
+	app.Mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
+	app.Mm.SetOrderEndBlockers(staking.ModuleName)
 
 	// Sets the order of Genesis - Order matters, genutil is to always come last
-	app.mm.SetOrderInitGenesis(
+	app.Mm.SetOrderInitGenesis(
 		genaccounts.ModuleName,
 		distr.ModuleName,
 		staking.ModuleName,
@@ -210,7 +238,7 @@ func (app *AppStarter) InitializeStarter() {
 	)
 
 	// register all module routes and module queriers
-	app.mm.RegisterRoutes(app.Router(), app.QueryRouter())
+	app.Mm.RegisterRoutes(app.Router(), app.QueryRouter())
 
 	// The initChainer handles translating the genesis.json file into initial state for the network
 	app.SetInitChainer(app.InitChainer)
@@ -242,44 +270,4 @@ func (app *AppStarter) InitializeStarter() {
 	if err != nil {
 		cmn.Exit(err.Error())
 	}
-}
-
-func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
-	var genesisState GenesisState
-
-	err := app.cdc.UnmarshalJSON(req.AppStateBytes, &genesisState)
-	if err != nil {
-		panic(err)
-	}
-
-	return app.mm.InitGenesis(ctx, genesisState)
-}
-
-func (app *AppStarter) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
-	return app.mm.BeginBlock(ctx, req)
-}
-func (app *AppStarter) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
-	return app.mm.EndBlock(ctx, req)
-}
-func (app *AppStarter) LoadHeight(height int64) error {
-	return app.LoadVersion(height, app.keyMain)
-}
-
-//_________________________________________________________
-
-func (app *AppStarter) ExportAppStateAndValidators(forZeroHeight bool, jailWhiteList []string,
-) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
-
-	// as if they could withdraw from the start of the next block
-	ctx := app.NewContext(true, abci.Header{Height: app.LastBlockHeight()})
-
-	genState := app.mm.ExportGenesis(ctx)
-	appState, err = codec.MarshalJSONIndent(app.cdc, genState)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	validators = staking.WriteValidators(ctx, app.stakingKeeper)
-
-	return appState, validators, nil
 }
