@@ -70,6 +70,7 @@ github.com/cosmos/sdk-application-tutorial v0.0.0-20190614122023-5cf21d7ef86a h1
 github.com/cosmos/sdk-application-tutorial v0.0.0-20190614122023-5cf21d7ef86a/go.mod h1:mzFAi/PLLnADgR/HbkEY3BW9Vjj2IXFxNxkKcAo++Ko=
 github.com/cosmos/sdk-application-tutorial v0.0.0-20190618104828-6b0d9db75155 h1:qUFdeTM315Yn36yEDozhI0t1jJb4n/MzwAq9zsM/MLc=
 github.com/cosmos/sdk-application-tutorial v0.0.0-20190618104828-6b0d9db75155/go.mod h1:mzFAi/PLLnADgR/HbkEY3BW9Vjj2IXFxNxkKcAo++Ko=
+github.com/cosmos/sdk-application-tutorial v0.0.0-20190620003537-4657c5dd502f h1:ZI9FTQB892k3k2+kdmFUcjDovUWeOzXVzVl2LyMs8RU=
 github.com/cpuguy83/go-md2man v1.0.8/go.mod h1:N6JayAiVKtlHSnuTCeuLSQVs75hb8q+dYQLjr7cDsKY=
 github.com/cpuguy83/go-md2man v1.0.10/go.mod h1:SmD6nW6nTyfqj6ABTjUi3V3JVMnlJmwcJI5acqYI6dE=
 github.com/davecgh/go-spew v0.0.0-20171005155431-ecdeabc65495/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

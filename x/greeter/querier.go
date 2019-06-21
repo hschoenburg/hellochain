@@ -25,12 +25,6 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 	}
 }
 
-type QueryResGreetings map[string][]Greeting
-
-func (q QueryResGreetings) String() string {
-	return fmt.Sprintf("%v", q)
-}
-
 func queryGreetings(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
 
 	var greetingList QueryResGreetings

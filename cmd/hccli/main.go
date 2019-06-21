@@ -15,6 +15,7 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/module"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
@@ -80,9 +81,9 @@ func main() {
 		txCmd(cdc, mc),
 		client.LineBreak,
 		lcd.ServeCommand(cdc, reghellochainineBreak,
-		keys.Commands(),
-		client.LineBreak,
-	)
+			keys.Commands(),
+			client.LineBreak,
+		))
 
 	executor := cli.PrepareMainCmd(rootCmd, "NS", app.DefaultCLIHome)
 	err := executor.Execute()

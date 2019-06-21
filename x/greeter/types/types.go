@@ -30,9 +30,3 @@ Recipient: %s
 Body: %s`, g.Sender, g.Recipient, g.Body))
 
 }
-
-type QueryResGreetings map[string][]Greeting
-
-func (q QueryResGreetings) String() string {
-	return fmt.Sprintf("%v", q)
-}
