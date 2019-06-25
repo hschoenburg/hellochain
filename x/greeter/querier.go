@@ -1,7 +1,6 @@
 package greeter
 
 import (
-	"fmt"
 	"github.com/cosmos/cosmos-sdk/codec"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -45,14 +44,4 @@ func queryGreetings(ctx sdk.Context, path []string, req abci.RequestQuery, keepe
 	}
 
 	return hellos, nil
-}
-
-// Query Result Payload for a resolve query
-type QueryResResolve struct {
-	Value string `json:"value"`
-}
-
-// implement fmt.Stringer
-func (r QueryResResolve) String() string {
-	return r.Value
 }

@@ -15,7 +15,7 @@ type MsgSayHello struct {
 }
 
 // NewMsgSetName is a constructor function for MsgSetName
-func NewMsgSayHello(body string, sender sdk.AccAddress, recipient sdk.AccAddress) MsgSayHello {
+func NewMsgSayHello(sender sdk.AccAddress, body string, recipient sdk.AccAddress) MsgSayHello {
 	return MsgSayHello{
 		Body:      body,
 		Sender:    sender,

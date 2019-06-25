@@ -24,22 +24,20 @@ import (
 	distClient "github.com/cosmos/cosmos-sdk/x/distribution/client"
 	dist "github.com/cosmos/cosmos-sdk/x/distribution/client/rest"
 	"github.com/cosmos/cosmos-sdk/x/mint"
-	mintclient "github.com/cosmos/cosmos-sdk/x/mint/client"
+	//mintclient "github.com/cosmos/cosmos-sdk/x/mint/client"
 	mintrest "github.com/cosmos/cosmos-sdk/x/mint/client/rest"
 	sl "github.com/cosmos/cosmos-sdk/x/slashing"
-	slashingclient "github.com/cosmos/cosmos-sdk/x/slashing/client"
+	//slashingclient "github.com/cosmos/cosmos-sdk/x/slashing/client"
 	slashing "github.com/cosmos/cosmos-sdk/x/slashing/client/rest"
 	st "github.com/cosmos/cosmos-sdk/x/staking"
-	stakingclient "github.com/cosmos/cosmos-sdk/x/staking/client"
+	//stakingclient "github.com/cosmos/cosmos-sdk/x/staking/client"
 	staking "github.com/cosmos/cosmos-sdk/x/staking/client/rest"
 	app "github.com/cosmos/hellochain"
-	nsclient "github.com/cosmos/sdk-application-tutorial/x/nameservice/client"
-	nsrest "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
 )
 
 const (
 	storeAcc = "acc"
-	storeNS  = "nameservice"
+	storeNS  = "greeting"
 )
 
 func main() {

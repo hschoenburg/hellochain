@@ -11,6 +11,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
+	"github.com/cosmos/hellochain/x/greeter"
 
 	"github.com/gorilla/mux"
 )
@@ -21,8 +22,8 @@ const (
 
 // RegisterRoutes - Central function to define routes that get registered by the main application
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, storeName string) {
-	r.HandleFunc(fmt.Sprintf("/%s/hello", storeName), greetingsHandler(cdc, cliCtx, storeName)).Methods("GET")
-	r.HandleFunc(fmt.Sprintf("/%s/hello", storeName), SayHelloHandler(cdc, cliCtx)).Methods("POST")
+	r.HandleFunc(fmt.Sprintf("/%s/greetings", storeName), greetingsHandler(cdc, cliCtx, storeName)).Methods("GET")
+	r.HandleFunc(fmt.Sprintf("/%s/greet", storeName), sayHelloHandler(cdc, cliCtx)).Methods("POST")
 }
 
 type sayHelloReq struct {
@@ -54,14 +55,8 @@ func sayHelloHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFu
 			return
 		}
 
-		coins, err := sdk.ParseCoins(req.Amount)
-		if err != nil {
-			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
-			return
-		}
-
 		// create the message
-		msg := types.NewMsgSayHello(req.Body, req.Sender, req.Recipient)
+		msg := types.NewMsgSayHello(req.Sender, req.Body, req.Recipient)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
@@ -74,7 +69,7 @@ func sayHelloHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFu
 
 func greetingsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", storeName), nil)
+		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/greeter/greetings", storeName), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
