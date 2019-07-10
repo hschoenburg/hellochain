@@ -5,13 +5,12 @@ import (
 	"net/http"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
-	app "github.com/cosmos/hellochain"
+	"github.com/cosmos/hellochain/x/greeter"
 
 	clientrest "github.com/cosmos/cosmos-sdk/client/rest"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
-	"github.com/cosmos/hellochain/x/greeter"
 
 	"github.com/gorilla/mux"
 )
@@ -56,7 +55,7 @@ func sayHelloHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFu
 		}
 
 		// create the message
-		msg := types.NewMsgSayHello(req.Sender, req.Body, req.Recipient)
+		msg := greeter.NewMsgSayHello(sender, req.Body, recipient)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())

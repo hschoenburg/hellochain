@@ -1,12 +1,13 @@
 package greeter
 
 import (
+
 	//"encoding/json"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	starter "github.com/cosmos/hellochain/starter"
-	//"github.com/spf13/cobra"
+	"github.com/spf13/cobra"
 )
 
 // Gets the entire Whois metadata struct for a name
@@ -34,23 +35,13 @@ func (am AppModule) NewQuerierHandler() sdk.Querier {
 	return NewQuerier(am.keeper)
 }
 
-/*
 func (am AppModule) QuerierRoute() string {
 	return am.ModuleName
-}
-
-func (am AppModule) DefaultGenesis() json.RawMessage {
-	return nil
-}
-
-func (am AppModule) ValidateGenesis(json.RawMessage) error {
-	return nil
 }
 
 func (am AppModule) GetQueryCmd(*codec.Codec) *cobra.Command {
 	panic("not implemented")
 }
-*/
 
 func NewAppModule(keeper Keeper) AppModule {
 	blank := starter.NewBlankModule(ModuleName, keeper)

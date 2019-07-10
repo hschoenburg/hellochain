@@ -12,7 +12,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	dbm "github.com/tendermint/tendermint/libs/db"
-	tlog "github.com/tendermint/tendermint/libs/log"
+	"github.com/tendermint/tendermint/libs/log"
 )
 
 const appName = "hellochain"
@@ -20,7 +20,7 @@ const appName = "hellochain"
 var (
 	DefaultCLIHome  = os.ExpandEnv("$HOME/.hellocli")
 	DefaultNodeHome = os.ExpandEnv("$HOME/.hellod")
-	ModuleBasics    module.BasicManager
+	ModuleBasics    = module.BasicManager{}
 )
 
 type helloChainApp struct {
@@ -37,7 +37,7 @@ func MakeCodec() *codec.Codec {
 	return cdc
 }
 
-func NewHelloChainApp(logger tlog.Logger, db dbm.DB) *helloChainApp {
+func NewHelloChainApp(logger log.Logger, db dbm.DB) *helloChainApp {
 
 	cdc := MakeCodec()
 

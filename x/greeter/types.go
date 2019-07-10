@@ -25,9 +25,7 @@ func NewGreeting(sender sdk.AccAddress, receiver sdk.AccAddress, body string) Gr
 
 // implement fmt.Stringer
 func (g Greeting) String() string {
-	return strings.TrimSpace(fmt.Sprintf(`Sender: %s
-Recipient: %s
-Body: %s`, g.Sender, g.Recipient, g.Body))
+	return strings.TrimSpace(fmt.Sprintf(`Sender: %s Recipient: %s Body: %s`, g.Sender.String(), g.Recipient.String(), g.Body))
 
 }
 
