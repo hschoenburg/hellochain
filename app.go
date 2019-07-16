@@ -10,7 +10,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/types/module"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 )
@@ -20,7 +19,7 @@ const appName = "hellochain"
 var (
 	DefaultCLIHome  = os.ExpandEnv("$HOME/.hellocli")
 	DefaultNodeHome = os.ExpandEnv("$HOME/.hellod")
-	ModuleBasics    = module.BasicManager{}
+	ModuleBasics    = starter.ModuleBasics
 )
 
 type helloChainApp struct {

@@ -1,4 +1,4 @@
-package greeter
+package types
 
 import (
 	"encoding/json"

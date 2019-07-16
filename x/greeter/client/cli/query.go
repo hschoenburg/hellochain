@@ -6,13 +6,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
-	g "github.com/cosmos/hellochain/x/greeter"
+	g "github.com/cosmos/hellochain/x/greeter/types"
 	"github.com/spf13/cobra"
 )
 
 func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	greeterQueryCmd := &cobra.Command{
-		Use:                        g.ModuleName,
+		Use:                        "greetings",
 		Short:                      "Querying commands for the greeter module",
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,

@@ -9,12 +9,12 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
-	g "github.com/cosmos/hellochain/x/greeter"
+	g "github.com/cosmos/hellochain/x/greeter/types"
 )
 
 func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	greetingTxCmd := &cobra.Command{
-		Use:                        g.ModuleName,
+		Use:                        "greeter",
 		Short:                      "greeter transaction subcommands",
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,

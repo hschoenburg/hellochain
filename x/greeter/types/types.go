@@ -1,10 +1,14 @@
-package greeter
+package types
 
 import (
 	"fmt"
 	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+)
+
+const (
+	storeKey = "greeterStore"
 )
 
 // Whois is a struct that contains all the metadata of a name

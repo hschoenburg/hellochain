@@ -33,14 +33,11 @@ func main() {
 		AppExporter:     ExportAppStateAndValidators,
 	}
 
-	serverCmd, err := starter.NewServerCommand(params)
-	if err != nil {
-		panic(err)
-	}
+	serverCmd := starter.NewServerCommand(params)
 
 	// prepare and add flags
 	executor := cli.PrepareBaseCmd(serverCmd, "HC", params.DefaultNodeHome)
-	err = executor.Execute()
+	err := executor.Execute()
 	if err != nil {
 		panic(err)
 	}

@@ -30,16 +30,16 @@ func (bm BlankModuleBasic) Name() string {
 }
 
 func (BlankModuleBasic) RegisterCodec(cdc *codec.Codec) {
-	panic("not implemented")
+	panic("RegisterCodec not implemented")
 }
 
 // Validation check of the Genesis
 func (bm BlankModuleBasic) ValidateGenesis(bz json.RawMessage) error {
-	return nil
+	panic("ValidateGenesisnot implemented")
 }
 
 func (bm BlankModuleBasic) DefaultGenesis() json.RawMessage {
-	return nil
+	panic("DeafultGenesis not implemented")
 }
 
 func (bm BlankModule) Name() string {
@@ -53,21 +53,21 @@ func (bm BlankModule) Route() string {
 }
 
 func (bm BlankModule) NewQuerierHandler() sdk.Querier {
-	panic("not implemented")
+	panic("NewQuerierHandler not implemented")
 }
 
 func (bm BlankModuleBasic) GetQueryCmd(*codec.Codec) *cobra.Command {
-	panic("not implemented")
+	panic("GetQueryCmd not implemented")
 }
 
 func (bm BlankModuleBasic) GetTxCmd(*codec.Codec) *cobra.Command {
-	panic("not implemented")
+	panic("GetTxCmd not implemented")
 }
 
 // Register rest routes
 func (BlankModuleBasic) RegisterRESTRoutes(ctx context.CLIContext, rtr *mux.Router, cdc *codec.Codec) {
 	//rest.RegisterRoutes(ctx, rtr, cdc, StoreKey)
-	panic("not implemented")
+	panic("RegisterRESTRoutes not implemented")
 }
 
 func (bm BlankModule) BeginBlock(_ sdk.Context, _ abci.RequestBeginBlock) sdk.Tags {
@@ -87,7 +87,7 @@ func (bm BlankModule) ExportGenesis(ctx sdk.Context) json.RawMessage {
 }
 
 func (bm BlankModule) NewHandler() sdk.Handler {
-	panic("not implemented")
+	panic("NewHandler not implemented")
 }
 
 func (bm BlankModule) QuerierRoute() string {

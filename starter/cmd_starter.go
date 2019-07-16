@@ -52,7 +52,7 @@ func NewCLICommand(params CLICommandParams) *cobra.Command {
 
 	rootCmd := &cobra.Command{
 		Use:   "hccli",
-		Short: "nameservice Client",
+		Short: "hellochain Client",
 	}
 
 	rootCmd.PersistentFlags().String(client.FlagChainID, "", "Chain ID of tendermint node")
@@ -161,7 +161,7 @@ type ServerCommandParams struct {
 	AppExporter     server.AppExporter
 }
 
-func NewServerCommand(params ServerCommandParams) (*cobra.Command, error) {
+func NewServerCommand(params ServerCommandParams) *cobra.Command {
 
 	cobra.EnableCommandSorting = false
 
@@ -188,5 +188,5 @@ func NewServerCommand(params ServerCommandParams) (*cobra.Command, error) {
 	)
 
 	server.AddCommands(ctx, params.Cdc, rootCmd, params.AppCreator, params.AppExporter)
-	return rootCmd, nil
+	return rootCmd
 }

@@ -123,6 +123,7 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Cod
 	}
 
 	var app = &AppStarter{
+		Cdc:              cdc,
 		BaseApp:          bApp,
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),

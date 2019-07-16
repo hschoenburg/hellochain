@@ -7,14 +7,16 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	starter "github.com/cosmos/hellochain/starter"
+	"github.com/cosmos/hellochain/x/greeter/client/cli"
 	"github.com/spf13/cobra"
 )
 
-// Gets the entire Whois metadata struct for a name
-const ModuleName = "greeter"
-
 type AppModuleBasic struct {
 	starter.BlankModuleBasic
+}
+
+func Name(ab AppModuleBasic) string {
+	return ModuleName
 }
 
 type AppModule struct {
@@ -39,8 +41,13 @@ func (am AppModule) QuerierRoute() string {
 	return am.ModuleName
 }
 
-func (am AppModule) GetQueryCmd(*codec.Codec) *cobra.Command {
-	panic("not implemented")
+func (ab AppModuleBasic) GetQueryCmd(cdc *codec.Codec) *cobra.Command {
+	return cli.GetQueryCmd(StoreKey, cdc)
+
+}
+
+func (ab AppModuleBasic) GetTxCmd(cdc *codec.Codec) *cobra.Command {
+	return cli.GetTxCmd(StoreKey, cdc)
 }
 
 func NewAppModule(keeper Keeper) AppModule {
