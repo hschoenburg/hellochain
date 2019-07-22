@@ -32,7 +32,7 @@ func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "say [body] [addr]",
-		Short: "send a greeting to aanother user",
+		Short: "send a greeting to aanother user Usage: say [body] [address]",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)

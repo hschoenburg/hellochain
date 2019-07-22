@@ -12,7 +12,7 @@ import (
 
 func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	greeterQueryCmd := &cobra.Command{
-		Use:                        "greetings",
+		Use:                        "greeter",
 		Short:                      "Querying commands for the greeter module",
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
@@ -24,11 +24,11 @@ func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	return greeterQueryCmd
 }
 
-// GetCmdResolveName queries information about a name
+// GetCmdResolveGreetings queries all greetings
 func GetCmdGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "greetings [addr]",
-		Short: "query greetings",
+		Use:   "greeter [addr]",
+		Short: "query greetings. Usage query [address]",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)

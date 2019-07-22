@@ -25,10 +25,15 @@ func main() {
 
 	rootCmd := starter.NewCLICommand(params)
 
+	txCmd := starter.TxCmd(cdc)
+	queryCmd := starter.QueryCmd(cdc)
+
+	rootCmd.AddCommand(txCmd, queryCmd)
+
 	// add more Tx and Query commands
 	app.ModuleBasics["greeter"] = greeter.AppModuleBasic{}
-	app.ModuleBasics.AddTxCommands(starter.TxCmd(cdc), cdc)
-	app.ModuleBasics.AddQueryCommands(starter.QueryCmd(cdc), cdc)
+	app.ModuleBasics.AddTxCommands(txCmd, cdc)
+	app.ModuleBasics.AddQueryCommands(queryCmd, cdc)
 
 	executor := cli.PrepareMainCmd(rootCmd, "HC", app.DefaultCLIHome)
 	err := executor.Execute()

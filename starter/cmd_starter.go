@@ -66,8 +66,6 @@ func NewCLICommand(params CLICommandParams) *cobra.Command {
 	rootCmd.AddCommand(
 		rpc.StatusCommand(),
 		client.ConfigCmd(params.CLIHome),
-		QueryCmd(params.Cdc),
-		TxCmd(params.Cdc),
 		client.LineBreak,
 		lcd.ServeCommand(params.Cdc, params.RegisterRoutes),
 		client.LineBreak,
