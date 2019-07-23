@@ -29,6 +29,10 @@ func (AppModule) RegisterCodec(cdc *codec.Codec) {
 	RegisterCodec(cdc)
 }
 
+func (AppModuleBasic) RegisterCodec(cdc *codec.Codec) {
+	RegisterCodec(cdc)
+}
+
 func (am AppModule) NewHandler() sdk.Handler {
 	return NewHandler(am.keeper)
 }

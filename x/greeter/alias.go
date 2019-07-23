@@ -11,10 +11,11 @@ const (
 )
 
 var (
-	NewMsgSayHello = types.NewMsgSayHello
-	NewGreeting    = types.NewGreeting
-	ModuleCdc      = types.ModuleCdc
-	RegisterCodec  = types.RegisterCodec
+	NewMsgSayHello       = types.NewMsgSayHello
+	NewQueryResGreetings = types.NewQueryResGreetings
+	NewGreeting          = types.NewGreeting
+	ModuleCdc            = types.ModuleCdc
+	RegisterCodec        = types.RegisterCodec
 )
 
 type (

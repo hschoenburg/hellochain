@@ -1,5 +1,7 @@
 # Hello Chain
 
+### WIP not ready for public yet
+
 A "Hello World" tutorial for the Cosmos SDK
 
 #Questions

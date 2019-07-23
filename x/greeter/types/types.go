@@ -19,7 +19,7 @@ type Greeting struct {
 }
 
 // Returns a new Whois with the minprice as the price
-func NewGreeting(sender sdk.AccAddress, receiver sdk.AccAddress, body string) Greeting {
+func NewGreeting(sender sdk.AccAddress, body string, receiver sdk.AccAddress) Greeting {
 	return Greeting{
 		Recipient: receiver,
 		Sender:    sender,
@@ -37,4 +37,8 @@ type QueryResGreetings map[string][]Greeting
 
 func (q QueryResGreetings) String() string {
 	return fmt.Sprintf("%v", q)
+}
+
+func NewQueryResGreetings() QueryResGreetings {
+	return make(map[string][]Greeting)
 }

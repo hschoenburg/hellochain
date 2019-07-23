@@ -6,6 +6,7 @@ import (
 
 	app "github.com/cosmos/hellochain"
 	"github.com/cosmos/hellochain/starter"
+	//"github.com/cosmos/hellochain/x/greeter"
 
 	"github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/libs/log"
@@ -19,6 +20,7 @@ import (
 
 func main() {
 
+	//app.ModuleBasics["greeter"] = greeter.AppModuleBasic{}
 	cdc := app.MakeCodec()
 
 	params := starter.ServerCommandParams{

@@ -24,7 +24,7 @@ func handleMsgSayHello(ctx sdk.Context, keeper Keeper, msg MsgSayHello) sdk.Resu
 		return sdk.ErrUnauthorized("Missing Recipient").Result() // If not, throw an error
 	}
 
-	greeting := NewGreeting(msg.Sender, msg.Recipient, msg.Body)
+	greeting := NewGreeting(msg.Sender, msg.Body, msg.Recipient)
 
 	keeper.SetGreeting(ctx, greeting)
 

@@ -6,41 +6,45 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
-	g "github.com/cosmos/hellochain/x/greeter/types"
+	. "github.com/cosmos/hellochain/x/greeter/types"
 	"github.com/spf13/cobra"
 )
 
 func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	greeterQueryCmd := &cobra.Command{
-		Use:                        "greeter",
+		Use:                        ModuleName,
 		Short:                      "Querying commands for the greeter module",
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
 		RunE:                       utils.ValidateCmd,
 	}
 	greeterQueryCmd.AddCommand(client.GetCommands(
-		GetCmdGreetings(storeKey, cdc),
+		GetCmdListGreetings(storeKey, cdc),
 	)...)
 	return greeterQueryCmd
 }
 
 // GetCmdResolveGreetings queries all greetings
-func GetCmdGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
+func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "greeter [addr]",
-		Short: "query greetings. Usage query [address]",
+		Use:   "list [addr]",
+		Short: "list greetings for address. Usage list [address]",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
+			fmt.Printf("LISTING GREETINGS? -- %v\n", queryRoute)
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			addr := args[0]
+			fmt.Printf("$$$ custom/%s/list/%s \n", queryRoute, addr)
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/greetings/%s", queryRoute, addr), nil)
+			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list/%s", queryRoute, addr), nil)
 			if err != nil {
-				fmt.Printf("could not find greetings for address - %s \n", addr)
+				fmt.Printf("%v \n could not find greetings for address - %s \n", addr, err)
+				fmt.Printf("*****custom/%s/list/%s", queryRoute, addr)
+
 				return nil
 			}
 
-			var out g.QueryResGreetings
+			out := NewQueryResGreetings()
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},

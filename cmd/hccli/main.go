@@ -15,6 +15,8 @@ const (
 
 func main() {
 
+	app.ModuleBasics["greeter"] = greeter.AppModuleBasic{}
+
 	cdc := app.MakeCodec()
 
 	params := starter.CLICommandParams{
@@ -31,7 +33,6 @@ func main() {
 	rootCmd.AddCommand(txCmd, queryCmd)
 
 	// add more Tx and Query commands
-	app.ModuleBasics["greeter"] = greeter.AppModuleBasic{}
 	app.ModuleBasics.AddTxCommands(txCmd, cdc)
 	app.ModuleBasics.AddQueryCommands(queryCmd, cdc)
 
