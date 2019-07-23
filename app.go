@@ -6,7 +6,7 @@ import (
 	"github.com/cosmos/hellochain/starter"
 	"github.com/cosmos/hellochain/x/greeter"
 
-	"fmt"
+	//"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -21,6 +21,10 @@ var (
 	DefaultNodeHome = os.ExpandEnv("$HOME/.hellod")
 	ModuleBasics    = starter.ModuleBasics
 )
+
+func init() {
+	ModuleBasics[greeter.ModuleName] = greeter.AppModuleBasic{}
+}
 
 type helloChainApp struct {
 	*starter.AppStarter
@@ -40,7 +44,7 @@ func NewHelloChainApp(logger log.Logger, db dbm.DB) *helloChainApp {
 
 	cdc := MakeCodec()
 
-	appStarter := starter.NewAppStarter(appName, logger, db, cdc, greeter.AppModuleBasic{})
+	appStarter := starter.NewAppStarter(appName, logger, db, cdc)
 
 	keyGreeter := sdk.NewKVStoreKey(appName)
 
@@ -53,15 +57,16 @@ func NewHelloChainApp(logger log.Logger, db dbm.DB) *helloChainApp {
 	}
 
 	greeterMod := greeter.NewAppModule(greeterKeeper)
-	fmt.Printf("%v", greeterMod)
 
-	greeterMod.RegisterCodec(cdc)
+	//greeterMod.RegisterCodec(cdc)
 
 	app.Mm.Modules[greeterMod.Name()] = greeterMod
 
-	app.MountStore(keyGreeter, sdk.StoreTypeDB)
-
 	app.InitializeStarter()
+	app.Mm.OrderExportGenesis = append(app.Mm.OrderExportGenesis, greeter.ModuleName)
+	app.Mm.OrderInitGenesis = append(app.Mm.OrderInitGenesis, greeter.ModuleName)
+
+	app.MountStore(keyGreeter, sdk.StoreTypeDB)
 
 	return app
 }

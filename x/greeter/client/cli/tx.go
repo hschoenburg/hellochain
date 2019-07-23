@@ -10,7 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
-	g "github.com/cosmos/hellochain/x/greeter/types"
+	. "github.com/cosmos/hellochain/x/greeter/types"
 )
 
 func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
@@ -33,7 +33,7 @@ func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "say [body] [addr]",
-		Short: "send a greeting to aanother user Usage: say [body] [address]",
+		Short: "send a greeting to another user. Usage: say [body] [address]",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
@@ -52,7 +52,7 @@ func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := g.NewMsgSayHello(sender, body, recipient)
+			msg := NewMsgSayHello(sender, body, recipient)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err

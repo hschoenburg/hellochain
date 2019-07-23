@@ -35,7 +35,7 @@ func (BlankModuleBasic) RegisterCodec(cdc *codec.Codec) {
 
 // Validation check of the Genesis
 func (bm BlankModuleBasic) ValidateGenesis(bz json.RawMessage) error {
-	panic("ValidateGenesisnot implemented")
+	panic("ValidateGenesis not implemented")
 }
 
 func (bm BlankModuleBasic) DefaultGenesis() json.RawMessage {

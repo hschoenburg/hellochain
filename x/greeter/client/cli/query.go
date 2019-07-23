@@ -31,15 +31,12 @@ func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		Short: "list greetings for address. Usage list [address]",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Printf("LISTING GREETINGS? -- %v\n", queryRoute)
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			addr := args[0]
-			fmt.Printf("$$$ custom/%s/list/%s \n", queryRoute, addr)
 
 			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list/%s", queryRoute, addr), nil)
 			if err != nil {
 				fmt.Printf("%v \n could not find greetings for address - %s \n", addr, err)
-				fmt.Printf("*****custom/%s/list/%s", queryRoute, addr)
 
 				return nil
 			}

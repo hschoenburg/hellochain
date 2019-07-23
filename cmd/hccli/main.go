@@ -9,13 +9,7 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 )
 
-const (
-	storeGr = "greeter"
-)
-
 func main() {
-
-	app.ModuleBasics["greeter"] = greeter.AppModuleBasic{}
 
 	cdc := app.MakeCodec()
 
@@ -30,11 +24,10 @@ func main() {
 	txCmd := starter.TxCmd(cdc)
 	queryCmd := starter.QueryCmd(cdc)
 
-	rootCmd.AddCommand(txCmd, queryCmd)
-
 	// add more Tx and Query commands
 	app.ModuleBasics.AddTxCommands(txCmd, cdc)
 	app.ModuleBasics.AddQueryCommands(queryCmd, cdc)
+	rootCmd.AddCommand(txCmd, queryCmd)
 
 	executor := cli.PrepareMainCmd(rootCmd, "HC", app.DefaultCLIHome)
 	err := executor.Execute()
@@ -45,5 +38,5 @@ func main() {
 
 func registerRoutes(rs *lcd.RestServer) {
 	starter.RegisterRoutes(rs)
-	grest.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, storeGr)
+	grest.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, greeter.ModuleName)
 }

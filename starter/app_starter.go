@@ -114,13 +114,16 @@ func (app *AppStarter) ExportAppStateAndValidators(forZeroHeight bool, jailWhite
 
 	return appState, validators, nil
 }
-func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Codec, moduleBasics ...module.AppModuleBasic) *AppStarter {
+
+func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Codec) *AppStarter {
 
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
-	for _, mb := range moduleBasics {
-		ModuleBasics[mb.Name()] = mb
-	}
+	/*
+		for _, mb := range moduleBasics {
+			ModuleBasics[mb.Name()] = mb
+		}
+	*/
 
 	var app = &AppStarter{
 		Cdc:              cdc,

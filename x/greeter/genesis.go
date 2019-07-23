@@ -1,7 +1,7 @@
 package greeter
 
 import (
-	//"fmt"
+	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
@@ -16,19 +16,17 @@ func NewGenesisState(greetings []Greeting) GenesisState {
 }
 
 func ValidateGenesis(data GenesisState) error {
-	/*
-		for _, record := range data.WhoisRecords {
-			if record.Owner == nil {
-				return fmt.Errorf("Invalid WhoisRecord: Value: %s. Error: Missing Owner", record.Value)
-			}
-			if record.Value == "" {
-				return fmt.Errorf("Invalid WhoisRecord: Owner: %s. Error: Missing Value", record.Owner)
-			}
-			if record.Price == nil {
-				return fmt.Errorf("Invalid WhoisRecord: Value: %s. Error: Missing Price", record.Value)
-			}
+	for _, record := range data.Greetings {
+		if record.Recipient == nil {
+			return fmt.Errorf("Invalid Greeting: %s. Error: Missing Recipient", record)
 		}
-	*/
+		if record.Sender == nil {
+			return fmt.Errorf("Invalid Greeting:  %s. Error: Missing Sender", record)
+		}
+		if record.Body == "" {
+			return fmt.Errorf("Invalid Greeting: Value: %s. Error: Missing Body", record)
+		}
+	}
 	return nil
 }
 
@@ -46,15 +44,13 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) []abci.Valid
 }
 
 func ExportGenesis(ctx sdk.Context, k Keeper) GenesisState {
-	/*
-		var records []Greetings
-		iterator := k.GetGreetingsIterator(ctx)
-		for ; iterator.Valid(); iterator.Next() {
-			name := string(iterator.Key())
-			var whois Whois
-			whois = k.GetWhois(ctx, name)
-			records = append(records, whois)
-		}
-	*/
+	var records []Greeting
+	iterator := k.GetGreetingsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+		addr := sdk.AccAddress(iterator.Key())
+		var greeting Greeting
+		greeting = k.GetGreeting(ctx, addr)
+		records = append(records, greeting)
+	}
 	return GenesisState{Greetings: []Greeting{}}
 }

@@ -16,11 +16,8 @@ import (
 	tmtypes "github.com/tendermint/tendermint/types"
 )
 
-//TODO how to make this shorter?
-
 func main() {
 
-	//app.ModuleBasics["greeter"] = greeter.AppModuleBasic{}
 	cdc := app.MakeCodec()
 
 	params := starter.ServerCommandParams{
@@ -32,7 +29,7 @@ func main() {
 		CmdDesc:         "hellochain AppDaemon",
 		ModuleBasics:    app.ModuleBasics,
 		AppCreator:      newApp,
-		AppExporter:     ExportAppStateAndValidators,
+		AppExporter:     exportAppStateAndValidators,
 	}
 
 	serverCmd := starter.NewServerCommand(params)
@@ -49,20 +46,18 @@ func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application
 	return app.NewHelloChainApp(logger, db)
 }
 
-func ExportAppStateAndValidators(
+func exportAppStateAndValidators(
 	logger log.Logger, db dbm.DB, traceStore io.Writer, height int64, forZeroHeight bool, jailWhiteList []string,
 ) (json.RawMessage, []tmtypes.GenesisValidator, error) {
 
+	hcApp := app.NewHelloChainApp(logger, db)
+
 	if height != -1 {
-		hcApp := app.NewHelloChainApp(logger, db)
 		err := hcApp.LoadHeight(height)
 		if err != nil {
 			return nil, nil, err
 		}
-		return hcApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 	}
-
-	hcApp := app.NewHelloChainApp(logger, db)
 
 	return hcApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 }

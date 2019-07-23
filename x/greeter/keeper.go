@@ -37,7 +37,7 @@ func (k Keeper) SetGreeting(ctx sdk.Context, greeting Greeting) {
 		return
 	}
 	store := ctx.KVStore(k.storeKey)
-	store.Set(greeting.Recipient, k.cdc.MustMarshalBinaryBare(greeting))
+	store.Set(greeting.Recipient.Bytes(), k.cdc.MustMarshalBinaryBare(greeting))
 }
 
 // Get an iterator over all names in which the keys are the names and the values are the whois
