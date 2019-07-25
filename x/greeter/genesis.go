@@ -3,6 +3,8 @@ package greeter
 import (
 	"fmt"
 
+	//TODO we might be able to skip this entirely and rely on blank module to do everything?
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 )

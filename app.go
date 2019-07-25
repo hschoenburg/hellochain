@@ -32,6 +32,8 @@ type helloChainApp struct {
 	greeterKeeper greeter.Keeper
 }
 
+// TODO maybe figure out how to hide the codec entirely inside starter?
+
 func MakeCodec() *codec.Codec {
 	cdc := codec.New()
 	ModuleBasics.RegisterCodec(cdc)
@@ -42,7 +44,7 @@ func MakeCodec() *codec.Codec {
 
 func NewHelloChainApp(logger log.Logger, db dbm.DB) *helloChainApp {
 
-	cdc := MakeCodec()
+	cdc := MakeCodec() // TODO put this in starter?
 
 	appStarter := starter.NewAppStarter(appName, logger, db, cdc)
 
@@ -63,6 +65,7 @@ func NewHelloChainApp(logger log.Logger, db dbm.DB) *helloChainApp {
 	app.Mm.Modules[greeterMod.Name()] = greeterMod
 
 	app.InitializeStarter()
+
 	app.Mm.OrderExportGenesis = append(app.Mm.OrderExportGenesis, greeter.ModuleName)
 	app.Mm.OrderInitGenesis = append(app.Mm.OrderInitGenesis, greeter.ModuleName)
 

@@ -42,6 +42,8 @@ func main() {
 	}
 }
 
+// TODO pull these functions into starter? by just passing app to starter?
+
 func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
 	return app.NewHelloChainApp(logger, db)
 }

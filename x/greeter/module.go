@@ -11,13 +11,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// TODO trim this way down. Keep the file but limit it to the basic implementation. Add maybe one or two genesis functions?
+
 type AppModuleBasic struct {
 	starter.BlankModuleBasic
 }
 
+/*
 func Name(ab AppModuleBasic) string {
 	return ModuleName
 }
+*/
 
 type AppModule struct {
 	starter.BlankModule

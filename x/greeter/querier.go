@@ -24,10 +24,6 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 	}
 }
 
-func queryDefault(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	return nil, nil
-}
-
 func listGreetings(ctx sdk.Context, params []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
 
 	greetingList := NewQueryResGreetings()
