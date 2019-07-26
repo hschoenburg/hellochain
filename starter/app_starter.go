@@ -1,7 +1,7 @@
 package starter
 
 import (
-	"fmt"
+	//"fmt"
 	. "github.com/tendermint/tendermint/abci/types"
 	tmtypes "github.com/tendermint/tendermint/types"
 	"os"
@@ -28,7 +28,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/params"
-	"github.com/cosmos/cosmos-sdk/x/slashing"
+	//"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 )
 
@@ -49,9 +49,9 @@ func init() {
 		auth.AppModuleBasic{},
 		bank.AppModuleBasic{},
 		params.AppModuleBasic{},
-		staking.AppModuleBasic{},
-		distr.AppModuleBasic{},
-		slashing.AppModuleBasic{},
+		//staking.AppModuleBasic{},
+		//distr.AppModuleBasic{},
+		//slashing.AppModuleBasic{},
 	)
 
 }
@@ -72,10 +72,10 @@ type AppStarter struct {
 	keySlashing      *sdk.KVStoreKey
 
 	// Keepers
-	accountKeeper       auth.AccountKeeper
-	bankKeeper          bank.Keeper
-	stakingKeeper       staking.Keeper
-	slashingKeeper      slashing.Keeper
+	accountKeeper auth.AccountKeeper
+	bankKeeper    bank.Keeper
+	stakingKeeper staking.Keeper
+	//slashingKeeper      slashing.Keeper
 	distrKeeper         distr.Keeper
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	paramsKeeper        params.Keeper
@@ -89,16 +89,18 @@ func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) a
 
 	server.UpgradeOldPrivValFile(config)
 
-	nodeID, _, err := genutil.InitializeNodeValidatorFiles(config)
+	_, _, err := genutil.InitializeNodeValidatorFiles(config)
 
 	privValidator := pvm.LoadOrGenFilePV(
 		config.PrivValidatorKeyFile(), config.PrivValidatorStateFile())
-	valPubKey := privValidator.GetPubKey()
+	//valPubKey := privValidator.GetPubKey()
+	valPubKey := tmtypes.TM2PB.PubKey(privValidator.GetPubKey())
 
-	fmt.Printf("PUBKEY BABY? %v for NODE: %v \n", valPubKey.Bytes(), nodeID)
+	//fmt.Printf("PUBKEY BABY? %v for NODE: %v \n", valPubKey.String(), nodeID)
 
-	//	update := abci.ValidatorUpdate{valPubKey, 100}
-	update := Ed25519ValidatorUpdate(valPubKey.Bytes(), 100)
+	update := abci.ValidatorUpdate{
+		PubKey: valPubKey,
+		Power:  100}
 
 	// retrieve validator and send lots of voting power?
 	// examine how privValidator key is retrieved for the node
@@ -163,14 +165,14 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Cod
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
 		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
-		keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
-		tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
-		keyDistr:         sdk.NewKVStoreKey(distr.StoreKey),
-		tkeyDistr:        sdk.NewTransientStoreKey(distr.TStoreKey),
-		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
-		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
-		keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
-		Mm:               &module.Manager{},
+		//keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
+		//tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
+		//keyDistr:         sdk.NewKVStoreKey(distr.StoreKey),
+		//tkeyDistr:        sdk.NewTransientStoreKey(distr.TStoreKey),
+		keyParams:  sdk.NewKVStoreKey(params.StoreKey),
+		tkeyParams: sdk.NewTransientStoreKey(params.TStoreKey),
+		//keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
+		Mm: &module.Manager{},
 	}
 
 	// The ParamsKeeper handles parameter storage for the application
@@ -178,9 +180,9 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Cod
 	// Set specific supspaces
 	authSubspace := app.paramsKeeper.Subspace(auth.DefaultParamspace)
 	bankSupspace := app.paramsKeeper.Subspace(bank.DefaultParamspace)
-	stakingSubspace := app.paramsKeeper.Subspace(staking.DefaultParamspace)
-	distrSubspace := app.paramsKeeper.Subspace(distr.DefaultParamspace)
-	slashingSubspace := app.paramsKeeper.Subspace(slashing.DefaultParamspace)
+	//stakingSubspace := app.paramsKeeper.Subspace(staking.DefaultParamspace)
+	//distrSubspace := app.paramsKeeper.Subspace(distr.DefaultParamspace)
+	//slashingSubspace := app.paramsKeeper.Subspace(slashing.DefaultParamspace)
 
 	// The AccountKeeper handles address -> account lookups
 	app.accountKeeper = auth.NewAccountKeeper(
@@ -200,49 +202,51 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Cod
 	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
 	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
 
-	// The staking keeper
-	stakingKeeper := staking.NewKeeper(
-		app.Cdc,
-		app.keyStaking,
-		app.tkeyStaking,
-		app.bankKeeper,
-		stakingSubspace,
-		staking.DefaultCodespace,
-	)
+	/*
+		// The staking keeper
+		stakingKeeper := staking.NewKeeper(
+			app.Cdc,
+			app.keyStaking,
+			app.tkeyStaking,
+			app.bankKeeper,
+			stakingSubspace,
+			staking.DefaultCodespace,
+		)
 
-	app.distrKeeper = distr.NewKeeper(
-		app.Cdc,
-		app.keyDistr,
-		distrSubspace,
-		app.bankKeeper,
-		&stakingKeeper, app.feeCollectionKeeper,
-		distr.DefaultCodespace,
-	)
+		app.distrKeeper = distr.NewKeeper(
+			app.Cdc,
+			app.keyDistr,
+			distrSubspace,
+			app.bankKeeper,
+			&stakingKeeper, app.feeCollectionKeeper,
+			distr.DefaultCodespace,
+		)
 
-	app.slashingKeeper = slashing.NewKeeper(
-		app.Cdc,
-		app.keySlashing,
-		&stakingKeeper,
-		slashingSubspace,
-		slashing.DefaultCodespace,
-	)
+		app.slashingKeeper = slashing.NewKeeper(
+			app.Cdc,
+			app.keySlashing,
+			&stakingKeeper,
+			slashingSubspace,
+			slashing.DefaultCodespace,
+		)
 
-	// register the staking hooks
-	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
-	app.stakingKeeper = *stakingKeeper.SetHooks(
-		staking.NewMultiStakingHooks(
-			app.distrKeeper.Hooks(),
-			app.slashingKeeper.Hooks()),
-	)
+		// register the staking hooks
+		// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
+		app.stakingKeeper = *stakingKeeper.SetHooks(
+			staking.NewMultiStakingHooks(
+				app.distrKeeper.Hooks(),
+				app.slashingKeeper.Hooks()),
+		)
+	*/
 
 	app.Mm = module.NewManager(
 		genaccounts.NewAppModule(app.accountKeeper),
 		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
-		distr.NewAppModule(app.distrKeeper),
-		slashing.NewAppModule(app.slashingKeeper, app.stakingKeeper),
-		staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
+		//distr.NewAppModule(app.distrKeeper),
+	//	slashing.NewAppModule(app.slashingKeeper, app.stakingKeeper),
+	//staking.NewAppModule(app.stakingKeeper, app.feeCollectionKeeper, app.distrKeeper, app.accountKeeper),
 	)
 	return app
 }
@@ -259,17 +263,17 @@ func (app *AppStarter) GetCodec() *codec.Codec {
 }
 
 func (app *AppStarter) InitializeStarter() {
-	app.Mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
-	app.Mm.SetOrderEndBlockers(staking.ModuleName)
+	//app.Mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
+	//app.Mm.SetOrderEndBlockers(staking.ModuleName)
 
 	// Sets the order of Genesis - Order matters, genutil is to always come last
 	app.Mm.SetOrderInitGenesis(
 		genaccounts.ModuleName,
-		distr.ModuleName,
-		staking.ModuleName,
+		//distr.ModuleName,
+		//staking.ModuleName,
 		auth.ModuleName,
 		bank.ModuleName,
-		slashing.ModuleName,
+		//slashing.ModuleName,
 		genutil.ModuleName,
 	)
 
@@ -293,11 +297,11 @@ func (app *AppStarter) InitializeStarter() {
 		app.keyMain,
 		app.keyAccount,
 		app.keyFeeCollection,
-		app.keyStaking,
-		app.tkeyStaking,
-		app.keyDistr,
-		app.tkeyDistr,
-		app.keySlashing,
+		//app.keyStaking,
+		//app.tkeyStaking,
+		//app.keyDistr,
+		//app.tkeyDistr,
+		//app.keySlashing,
 		app.keyParams,
 		app.tkeyParams,
 	)

@@ -1,6 +1,7 @@
 package greeter
 
 import (
+	"fmt"
 	"github.com/cosmos/cosmos-sdk/codec"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -43,6 +44,7 @@ func (k Keeper) SetGreeting(ctx sdk.Context, greeting Greeting) {
 
 // Get an iterator over all names in which the keys are the names and the values are the whois
 func (k Keeper) GetGreetingsIterator(ctx sdk.Context) sdk.Iterator {
+	fmt.Printf("*** GetGreetingsIterator with key*** %v\n", k.storeKey)
 	store := ctx.KVStore(k.storeKey)
 	return sdk.KVStorePrefixIterator(store, nil)
 }

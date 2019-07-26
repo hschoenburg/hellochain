@@ -40,11 +40,17 @@ func main() {
 }
 
 // TODO pull these functions into starter? by just passing app to starter?
+// rename to newApp
+// add interface to starter - expectedApp interface
+// with NewApp
+// starter.GetNewApp(app) returns func with new proper signature
+// starter.
 
 func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
 	return app.NewHelloChainApp(logger, db)
 }
 
+// same as above GetExporter(app) returns proper function
 func exportAppStateAndValidators(
 	logger log.Logger, db dbm.DB, traceStore io.Writer, height int64, forZeroHeight bool, jailWhiteList []string,
 ) (json.RawMessage, []tmtypes.GenesisValidator, error) {

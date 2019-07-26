@@ -11,6 +11,7 @@ import (
 )
 
 func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
+
 	greeterQueryCmd := &cobra.Command{
 		Use:                        "greeter",
 		Short:                      "Querying commands for the greeter module",
@@ -26,6 +27,7 @@ func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 
 // GetCmdResolveGreetings queries all greetings
 func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
+
 	return &cobra.Command{
 		Use:   "list [addr]",
 		Short: "list greetings for address. Usage list [address]",
@@ -34,9 +36,12 @@ func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			addr := args[0]
 
+			fmt.Printf("CmdList Greetings: route : %s\n", queryRoute)
+
 			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list/%s", queryRoute, addr), nil)
 			if err != nil {
-				fmt.Printf("%v \n could not find greetings for address - %s \n", addr, err)
+
+				fmt.Printf("%v \n could not find greetings for address - %s  at route %s \n", err, addr, queryRoute)
 
 				return nil
 			}

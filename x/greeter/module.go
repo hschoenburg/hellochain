@@ -1,7 +1,7 @@
 package greeter
 
 import (
-	"encoding/json"
+	//"encoding/json"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
@@ -27,17 +27,6 @@ type AppModule struct {
 
 func (AppModuleBasic) RegisterCodec(cdc *codec.Codec) {
 	cdc.RegisterConcrete(MsgSayHello{}, "greeter/SayHello", nil)
-}
-
-type GenesisState struct {
-	Greetings []Greeting `json:"greetings"`
-}
-
-func (AppModuleBasic) DefaultGenesis() json.RawMessage {
-	genesisData := GenesisState{
-		Greetings: []Greeting{},
-	}
-	return ModuleCdc.MustMarshalJSON(genesisData)
 }
 
 func (am AppModule) NewHandler() sdk.Handler {

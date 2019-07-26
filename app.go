@@ -1,13 +1,19 @@
 package hellochain
 
+// TODO organize import statements into blocks.
+// stdlib at top, then anything from 3rd party, then tendermint, then cosmos
+
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/hellochain/starter"
-	"github.com/cosmos/hellochain/x/greeter"
-	types "github.com/cosmos/hellochain/x/greeter/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
+
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/cosmos/hellochain/starter"
+	"github.com/cosmos/hellochain/x/greeter"
+
+	gtypes "github.com/cosmos/hellochain/x/greeter/types"
 )
 
 const appName = "hellochain"
@@ -16,8 +22,13 @@ var (
 	ModuleBasics = starter.ModuleBasics
 )
 
+// hacky?
+
+//BuildModuleBasics(greeter.appModuleBasic{})
+// TODO put starter in separate repo?
+
 func init() {
-	ModuleBasics[types.ModuleName] = greeter.AppModuleBasic{}
+	ModuleBasics[gtypes.ModuleName] = greeter.AppModuleBasic{}
 }
 
 type helloChainApp struct {
@@ -40,7 +51,7 @@ func NewHelloChainApp(logger log.Logger, db dbm.DB) *helloChainApp {
 
 	appStarter := starter.NewAppStarter(appName, logger, db, cdc)
 
-	greeterKey := sdk.NewKVStoreKey(types.StoreKey)
+	greeterKey := sdk.NewKVStoreKey(gtypes.StoreKey)
 
 	greeterKeeper := greeter.NewKeeper(greeterKey, appStarter.Cdc)
 
@@ -54,9 +65,9 @@ func NewHelloChainApp(logger log.Logger, db dbm.DB) *helloChainApp {
 
 	app.Mm.Modules[greeterMod.Name()] = greeterMod
 
-	app.InitializeStarter()
-
 	app.MountStore(greeterKey, sdk.StoreTypeDB)
+
+	app.InitializeStarter()
 
 	return app
 }

@@ -15,7 +15,9 @@ const (
 
 // NewQuerier is the module level router for state queries
 func NewQuerier(keeper Keeper) sdk.Querier {
+
 	return func(ctx sdk.Context, path []string, req abci.RequestQuery) (res []byte, err sdk.Error) {
+		fmt.Printf("NewQuerier: using this keeper %v\n ", keeper)
 		switch path[0] {
 		case ListGreetings:
 			return listGreetings(ctx, path[1:], req, keeper)
@@ -26,10 +28,11 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 }
 
 func listGreetings(ctx sdk.Context, params []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
-
+	fmt.Printf("1 listGreetings: params: %v \n", params)
 	greetingList := NewQueryResGreetings()
-
+	fmt.Println("2 *****  list ?r*******")
 	iterator := keeper.GetGreetingsIterator(ctx)
+	fmt.Println("3*****  list Greetings in querier*******")
 
 	addr, err := sdk.AccAddressFromBech32(params[0])
 	if err != nil {
