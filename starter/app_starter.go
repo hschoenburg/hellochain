@@ -1,11 +1,15 @@
 package starter
 
 import (
+	"fmt"
+	. "github.com/tendermint/tendermint/abci/types"
 	tmtypes "github.com/tendermint/tendermint/types"
 	"os"
 
 	"encoding/json"
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/server"
+	pvm "github.com/tendermint/tendermint/privval"
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -36,6 +40,7 @@ var (
 )
 
 //AppStarter is a drop in to make simple hello world blockchains
+// TODO put starter in a utils/ dir of the tutorials repo
 
 func init() {
 	ModuleBasics = module.NewBasicManager(
@@ -79,14 +84,38 @@ type AppStarter struct {
 }
 
 func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+	config := server.NewDefaultContext().Config
+	config.SetRoot(DefaultNodeHome)
+
+	server.UpgradeOldPrivValFile(config)
+
+	nodeID, _, err := genutil.InitializeNodeValidatorFiles(config)
+
+	privValidator := pvm.LoadOrGenFilePV(
+		config.PrivValidatorKeyFile(), config.PrivValidatorStateFile())
+	valPubKey := privValidator.GetPubKey()
+
+	fmt.Printf("PUBKEY BABY? %v for NODE: %v \n", valPubKey.Bytes(), nodeID)
+
+	//	update := abci.ValidatorUpdate{valPubKey, 100}
+	update := Ed25519ValidatorUpdate(valPubKey.Bytes(), 100)
+
+	// retrieve validator and send lots of voting power?
+	// examine how privValidator key is retrieved for the node
+	// return  ResponseInitChain
+	// then pull out staking, distr, feeCollection, slashing --- maybe bank?
+	// look in GenesisInit code
 	var genesisState GenesisState
 
-	err := app.Cdc.UnmarshalJSON(req.AppStateBytes, &genesisState)
+	err = app.Cdc.UnmarshalJSON(req.AppStateBytes, &genesisState)
 	if err != nil {
 		panic(err)
 	}
 
-	return app.Mm.InitGenesis(ctx, genesisState)
+	genesis := app.Mm.InitGenesis(ctx, genesisState)
+	// plop POA validaor into Validators
+	genesis.Validators = append(genesis.Validators, update)
+	return genesis
 }
 
 func (app *AppStarter) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
