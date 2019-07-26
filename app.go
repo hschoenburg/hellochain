@@ -1,15 +1,11 @@
 package hellochain
 
 import (
-	"os"
-
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/hellochain/starter"
 	"github.com/cosmos/hellochain/x/greeter"
-
-	//"fmt"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-
-	"github.com/cosmos/cosmos-sdk/codec"
+	types "github.com/cosmos/hellochain/x/greeter/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 )
@@ -17,22 +13,18 @@ import (
 const appName = "hellochain"
 
 var (
-	DefaultCLIHome  = os.ExpandEnv("$HOME/.hellocli")
-	DefaultNodeHome = os.ExpandEnv("$HOME/.hellod")
-	ModuleBasics    = starter.ModuleBasics
+	ModuleBasics = starter.ModuleBasics
 )
 
 func init() {
-	ModuleBasics[greeter.ModuleName] = greeter.AppModuleBasic{}
+	ModuleBasics[types.ModuleName] = greeter.AppModuleBasic{}
 }
 
 type helloChainApp struct {
 	*starter.AppStarter
-	KeyGreeter    *sdk.KVStoreKey
+	greeterKey    *sdk.KVStoreKey
 	greeterKeeper greeter.Keeper
 }
-
-// TODO maybe figure out how to hide the codec entirely inside starter?
 
 func MakeCodec() *codec.Codec {
 	cdc := codec.New()
@@ -44,32 +36,27 @@ func MakeCodec() *codec.Codec {
 
 func NewHelloChainApp(logger log.Logger, db dbm.DB) *helloChainApp {
 
-	cdc := MakeCodec() // TODO put this in starter?
+	cdc := MakeCodec()
 
 	appStarter := starter.NewAppStarter(appName, logger, db, cdc)
 
-	keyGreeter := sdk.NewKVStoreKey(appName)
+	greeterKey := sdk.NewKVStoreKey(types.StoreKey)
 
-	greeterKeeper := greeter.NewKeeper(keyGreeter, appStarter.Cdc)
+	greeterKeeper := greeter.NewKeeper(greeterKey, appStarter.Cdc)
 
 	var app = &helloChainApp{
 		appStarter,
-		keyGreeter,
+		greeterKey,
 		greeterKeeper,
 	}
 
 	greeterMod := greeter.NewAppModule(greeterKeeper)
 
-	//greeterMod.RegisterCodec(cdc)
-
 	app.Mm.Modules[greeterMod.Name()] = greeterMod
 
 	app.InitializeStarter()
 
-	app.Mm.OrderExportGenesis = append(app.Mm.OrderExportGenesis, greeter.ModuleName)
-	app.Mm.OrderInitGenesis = append(app.Mm.OrderInitGenesis, greeter.ModuleName)
-
-	app.MountStore(keyGreeter, sdk.StoreTypeDB)
+	app.MountStore(greeterKey, sdk.StoreTypeDB)
 
 	return app
 }

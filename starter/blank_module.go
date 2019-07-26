@@ -20,6 +20,8 @@ type BlankModule struct {
 	keeper interface{}
 }
 
+type BlankModuleGenesisState []string
+
 func NewBlankModule(name string, keeper interface{}) BlankModule {
 
 	return BlankModule{BlankModuleBasic{name}, keeper}
@@ -35,11 +37,16 @@ func (BlankModuleBasic) RegisterCodec(cdc *codec.Codec) {
 
 // Validation check of the Genesis
 func (bm BlankModuleBasic) ValidateGenesis(bz json.RawMessage) error {
-	panic("ValidateGenesis not implemented")
+	return nil
+	//panic("ValidateGenesis not implemented")
 }
 
 func (bm BlankModuleBasic) DefaultGenesis() json.RawMessage {
-	panic("DeafultGenesis not implemented")
+
+	data := BlankModuleGenesisState{bm.ModuleName}
+	cdc := codec.New()
+	return cdc.MustMarshalJSON(data)
+
 }
 
 func (bm BlankModule) Name() string {

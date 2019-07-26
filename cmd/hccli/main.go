@@ -1,11 +1,8 @@
 package main
 
 import (
-	"github.com/cosmos/cosmos-sdk/client/lcd"
 	app "github.com/cosmos/hellochain"
 	starter "github.com/cosmos/hellochain/starter"
-	greeter "github.com/cosmos/hellochain/x/greeter"
-	grest "github.com/cosmos/hellochain/x/greeter/client/rest"
 	"github.com/tendermint/tendermint/libs/cli"
 )
 
@@ -14,9 +11,8 @@ func main() {
 	cdc := app.MakeCodec()
 
 	params := starter.CLICommandParams{
-		RegisterRoutes: registerRoutes,
-		Cdc:            cdc,
-		CLIHome:        app.DefaultCLIHome,
+		Cdc:     cdc,
+		CLIHome: starter.DefaultCLIHome,
 	}
 
 	rootCmd := starter.NewCLICommand(params)
@@ -29,14 +25,9 @@ func main() {
 	app.ModuleBasics.AddQueryCommands(queryCmd, cdc)
 	rootCmd.AddCommand(txCmd, queryCmd)
 
-	executor := cli.PrepareMainCmd(rootCmd, "HC", app.DefaultCLIHome)
+	executor := cli.PrepareMainCmd(rootCmd, "HC", params.CLIHome)
 	err := executor.Execute()
 	if err != nil {
 		panic(err)
 	}
-}
-
-func registerRoutes(rs *lcd.RestServer) {
-	starter.RegisterRoutes(rs)
-	grest.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, greeter.ModuleName)
 }

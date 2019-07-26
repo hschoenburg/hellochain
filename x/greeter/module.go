@@ -1,27 +1,23 @@
 package greeter
 
 import (
-
-	//"encoding/json"
+	"encoding/json"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	starter "github.com/cosmos/hellochain/starter"
 	"github.com/cosmos/hellochain/x/greeter/client/cli"
+	. "github.com/cosmos/hellochain/x/greeter/types"
 	"github.com/spf13/cobra"
 )
 
-// TODO trim this way down. Keep the file but limit it to the basic implementation. Add maybe one or two genesis functions?
+var (
+	ModuleCdc = codec.New()
+)
 
 type AppModuleBasic struct {
 	starter.BlankModuleBasic
 }
-
-/*
-func Name(ab AppModuleBasic) string {
-	return ModuleName
-}
-*/
 
 type AppModule struct {
 	starter.BlankModule
@@ -29,12 +25,19 @@ type AppModule struct {
 	ModuleName string
 }
 
-func (AppModule) RegisterCodec(cdc *codec.Codec) {
-	RegisterCodec(cdc)
+func (AppModuleBasic) RegisterCodec(cdc *codec.Codec) {
+	cdc.RegisterConcrete(MsgSayHello{}, "greeter/SayHello", nil)
 }
 
-func (AppModuleBasic) RegisterCodec(cdc *codec.Codec) {
-	RegisterCodec(cdc)
+type GenesisState struct {
+	Greetings []Greeting `json:"greetings"`
+}
+
+func (AppModuleBasic) DefaultGenesis() json.RawMessage {
+	genesisData := GenesisState{
+		Greetings: []Greeting{},
+	}
+	return ModuleCdc.MustMarshalJSON(genesisData)
 }
 
 func (am AppModule) NewHandler() sdk.Handler {

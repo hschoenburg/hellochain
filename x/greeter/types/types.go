@@ -8,7 +8,8 @@ import (
 )
 
 const (
-	storeKey = "greeterStore"
+	ModuleName = "greeter"
+	StoreKey   = ModuleName
 )
 
 // Whois is a struct that contains all the metadata of a name

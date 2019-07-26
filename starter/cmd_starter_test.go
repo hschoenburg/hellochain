@@ -1,10 +1,8 @@
 package starter
 
 import (
-	"github.com/cosmos/cosmos-sdk/types/module"
-	//"github.com/stretchr/testify/assert"
-	//"github.com/stretchr/testify/mock"
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/libs/db"
@@ -39,9 +37,9 @@ func TestNewServerCmd(t *testing.T) {
 
 	require.IsType(t, cobra.Command, cmd)
 
-	//app := NewAppStarter(appName, logger, dbt, cdc)
+	app := NewAppStarter(appName, logger, dbt, cdc)
 
-	//require.Equal(t, len(app.Mm.Modules), 7, "app starter should load 7 modules into its manager on init")
+	require.Equal(t, len(app.Mm.Modules), 7, "app starter should load 7 modules into its manager on init")
 
 }
 

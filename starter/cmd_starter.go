@@ -35,9 +35,8 @@ const (
 )
 
 type CLICommandParams struct {
-	RegisterRoutes func(*lcd.RestServer)
-	Cdc            *codec.Codec
-	CLIHome        string
+	Cdc     *codec.Codec
+	CLIHome string
 }
 
 func NewCLICommand(params CLICommandParams) *cobra.Command {
@@ -67,7 +66,7 @@ func NewCLICommand(params CLICommandParams) *cobra.Command {
 		rpc.StatusCommand(),
 		client.ConfigCmd(params.CLIHome),
 		client.LineBreak,
-		lcd.ServeCommand(params.Cdc, params.RegisterRoutes),
+		lcd.ServeCommand(params.Cdc, RegisterRoutes),
 		client.LineBreak,
 		keys.Commands(),
 		client.LineBreak,
@@ -149,14 +148,12 @@ func initConfig(cmd *cobra.Command) error {
 ///////////////////////////////////////////////////////////////////////////////
 
 type ServerCommandParams struct {
-	DefaultNodeHome string
-	DefaultCLIHome  string
-	Cdc             *codec.Codec
-	CmdName         string
-	CmdDesc         string
-	ModuleBasics    module.BasicManager
-	AppCreator      server.AppCreator
-	AppExporter     server.AppExporter
+	Cdc          *codec.Codec
+	CmdName      string
+	CmdDesc      string
+	ModuleBasics module.BasicManager
+	AppCreator   server.AppCreator
+	AppExporter  server.AppExporter
 }
 
 func NewServerCommand(params ServerCommandParams) *cobra.Command {
@@ -178,11 +175,11 @@ func NewServerCommand(params ServerCommandParams) *cobra.Command {
 	}
 
 	rootCmd.AddCommand(
-		genutilcli.InitCmd(ctx, params.Cdc, params.ModuleBasics, params.DefaultNodeHome),
-		genutilcli.CollectGenTxsCmd(ctx, params.Cdc, genaccounts.AppModuleBasic{}, params.DefaultNodeHome),
-		genutilcli.GenTxCmd(ctx, params.Cdc, params.ModuleBasics, staking.AppModuleBasic{}, genaccounts.AppModuleBasic{}, params.DefaultNodeHome, params.DefaultCLIHome),
+		genutilcli.InitCmd(ctx, params.Cdc, params.ModuleBasics, DefaultNodeHome),
+		genutilcli.CollectGenTxsCmd(ctx, params.Cdc, genaccounts.AppModuleBasic{}, DefaultNodeHome),
+		genutilcli.GenTxCmd(ctx, params.Cdc, params.ModuleBasics, staking.AppModuleBasic{}, genaccounts.AppModuleBasic{}, DefaultNodeHome, DefaultCLIHome),
 		genutilcli.ValidateGenesisCmd(ctx, params.Cdc, params.ModuleBasics),
-		genaccscli.AddGenesisAccountCmd(ctx, params.Cdc, params.DefaultNodeHome, params.DefaultCLIHome),
+		genaccscli.AddGenesisAccountCmd(ctx, params.Cdc, DefaultNodeHome, DefaultCLIHome),
 	)
 
 	server.AddCommands(ctx, params.Cdc, rootCmd, params.AppCreator, params.AppExporter)

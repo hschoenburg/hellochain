@@ -1,7 +1,6 @@
 package starter
 
 import (
-	//"github.com/cosmos/cosmos-sdk/types/module"
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
 

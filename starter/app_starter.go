@@ -2,6 +2,7 @@ package starter
 
 import (
 	tmtypes "github.com/tendermint/tendermint/types"
+	"os"
 
 	"encoding/json"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -28,8 +29,10 @@ import (
 )
 
 var (
-	ModuleBasics module.BasicManager
-	Cdc          *codec.Codec
+	ModuleBasics    module.BasicManager
+	Cdc             *codec.Codec
+	DefaultCLIHome  = os.ExpandEnv("$HOME/.hellocli")
+	DefaultNodeHome = os.ExpandEnv("$HOME/.hellod")
 )
 
 //AppStarter is a drop in to make simple hello world blockchains

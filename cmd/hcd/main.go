@@ -6,7 +6,6 @@ import (
 
 	app "github.com/cosmos/hellochain"
 	"github.com/cosmos/hellochain/starter"
-	//"github.com/cosmos/hellochain/x/greeter"
 
 	"github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/libs/log"
@@ -22,20 +21,18 @@ func main() {
 
 	params := starter.ServerCommandParams{
 
-		DefaultNodeHome: app.DefaultNodeHome,
-		DefaultCLIHome:  app.DefaultCLIHome,
-		Cdc:             cdc,
-		CmdName:         "hcd",
-		CmdDesc:         "hellochain AppDaemon",
-		ModuleBasics:    app.ModuleBasics,
-		AppCreator:      newApp,
-		AppExporter:     exportAppStateAndValidators,
+		Cdc:          cdc,
+		CmdName:      "hcd",
+		CmdDesc:      "hellochain AppDaemon",
+		ModuleBasics: app.ModuleBasics,
+		AppCreator:   newApp,
+		AppExporter:  exportAppStateAndValidators,
 	}
 
 	serverCmd := starter.NewServerCommand(params)
 
 	// prepare and add flags
-	executor := cli.PrepareBaseCmd(serverCmd, "HC", params.DefaultNodeHome)
+	executor := cli.PrepareBaseCmd(serverCmd, "HC", starter.DefaultNodeHome)
 	err := executor.Execute()
 	if err != nil {
 		panic(err)

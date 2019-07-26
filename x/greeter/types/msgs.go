@@ -5,7 +5,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-const RouterKey = ModuleName
+const RouterKey = "greeter"
 
 // MsgSetName defines a SetName message
 type MsgSayHello struct {
