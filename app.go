@@ -4,11 +4,11 @@ package hellochain
 // stdlib at top, then anything from 3rd party, then tendermint, then cosmos
 
 import (
-	dbm "github.com/tendermint/tendermint/libs/db"
-	"github.com/tendermint/tendermint/libs/log"
-
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	abci "github.com/tendermint/tendermint/abci/types"
+	dbm "github.com/tendermint/tendermint/libs/db"
+	"github.com/tendermint/tendermint/libs/log"
 
 	"github.com/cosmos/hellochain/starter"
 	"github.com/cosmos/hellochain/x/greeter"
@@ -45,7 +45,7 @@ func MakeCodec() *codec.Codec {
 	return cdc
 }
 
-func NewHelloChainApp(logger log.Logger, db dbm.DB) *helloChainApp {
+func NewHelloChainApp(logger log.Logger, db dbm.DB) abci.Application {
 
 	cdc := MakeCodec()
 
@@ -60,6 +60,8 @@ func NewHelloChainApp(logger log.Logger, db dbm.DB) *helloChainApp {
 		greeterKey,
 		greeterKeeper,
 	}
+
+	app.BuildModuleBasics(greeter.AppModuleBasic{})
 
 	greeterMod := greeter.NewAppModule(greeterKeeper)
 

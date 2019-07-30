@@ -2,22 +2,26 @@ package starter
 
 import (
 	//"fmt"
+	"github.com/cosmos/cosmos-sdk/server"
 	. "github.com/tendermint/tendermint/abci/types"
+	"github.com/tendermint/tendermint/libs/log"
+
+	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	tmtypes "github.com/tendermint/tendermint/types"
+	"io"
 	"os"
+
+	abci "github.com/tendermint/tendermint/abci/types"
+	dbm "github.com/tendermint/tendermint/libs/db"
 
 	"encoding/json"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/server"
 	pvm "github.com/tendermint/tendermint/privval"
 
-	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	//ttbci "github.com/tendermint/abci/types"
-	abci "github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
-	dbm "github.com/tendermint/tendermint/libs/db"
 	tlog "github.com/tendermint/tendermint/libs/log"
 
 	"github.com/cosmos/cosmos-sdk/x/auth"
@@ -26,10 +30,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
 
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	distr "github.com/cosmos/cosmos-sdk/x/distribution"
+	//distr "github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/cosmos/cosmos-sdk/x/params"
 	//"github.com/cosmos/cosmos-sdk/x/slashing"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	//"github.com/cosmos/cosmos-sdk/x/staking"
 )
 
 var (
@@ -37,6 +41,8 @@ var (
 	Cdc             *codec.Codec
 	DefaultCLIHome  = os.ExpandEnv("$HOME/.hellocli")
 	DefaultNodeHome = os.ExpandEnv("$HOME/.hellod")
+
+//var _ Application = (*BaseApplication)(nil)
 )
 
 //AppStarter is a drop in to make simple hello world blockchains
@@ -63,20 +69,20 @@ type AppStarter struct {
 	keyMain          *sdk.KVStoreKey
 	keyAccount       *sdk.KVStoreKey
 	keyFeeCollection *sdk.KVStoreKey
-	keyStaking       *sdk.KVStoreKey
-	tkeyStaking      *sdk.TransientStoreKey
-	keyDistr         *sdk.KVStoreKey
-	tkeyDistr        *sdk.TransientStoreKey
-	keyParams        *sdk.KVStoreKey
-	tkeyParams       *sdk.TransientStoreKey
-	keySlashing      *sdk.KVStoreKey
+	//keyStaking       *sdk.KVStoreKey
+	//tkeyStaking      *sdk.TransientStoreKey
+	//keyDistr         *sdk.KVStoreKey
+	//tkeyDistr        *sdk.TransientStoreKey
+	keyParams  *sdk.KVStoreKey
+	tkeyParams *sdk.TransientStoreKey
+	//	keySlashing      *sdk.KVStoreKey
 
 	// Keepers
 	accountKeeper auth.AccountKeeper
 	bankKeeper    bank.Keeper
-	stakingKeeper staking.Keeper
+	//stakingKeeper staking.Keeper
 	//slashingKeeper      slashing.Keeper
-	distrKeeper         distr.Keeper
+	//distrKeeper         distr.Keeper
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	paramsKeeper        params.Keeper
 	Cdc                 *codec.Codec
@@ -144,7 +150,7 @@ func (app *AppStarter) ExportAppStateAndValidators(forZeroHeight bool, jailWhite
 		return nil, nil, err
 	}
 
-	validators = staking.WriteValidators(ctx, app.stakingKeeper)
+	//validators = staking.WriteValidators(ctx, app.stakingKeeper)
 
 	return appState, validators, nil
 }
@@ -152,12 +158,6 @@ func (app *AppStarter) ExportAppStateAndValidators(forZeroHeight bool, jailWhite
 func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Codec) *AppStarter {
 
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
-
-	/*
-		for _, mb := range moduleBasics {
-			ModuleBasics[mb.Name()] = mb
-		}
-	*/
 
 	var app = &AppStarter{
 		Cdc:              cdc,
@@ -218,7 +218,8 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Cod
 			app.keyDistr,
 			distrSubspace,
 			app.bankKeeper,
-			&stakingKeeper, app.feeCollectionKeeper,
+			&stakingKeeper,
+			app.feeCollectionKeeper,
 			distr.DefaultCodespace,
 		)
 
@@ -241,7 +242,8 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Cod
 
 	app.Mm = module.NewManager(
 		genaccounts.NewAppModule(app.accountKeeper),
-		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
+		//genutil.NewAppModule(app.accountKeeper,
+		//app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 		//distr.NewAppModule(app.distrKeeper),
@@ -261,6 +263,14 @@ func NewDefaultGenesisState() GenesisState {
 func (app *AppStarter) GetCodec() *codec.Codec {
 	return app.Cdc
 }
+
+func (app *AppStarter) BuildModuleBasics(...moduleBasics []moduleBasic{}) {
+
+		for _, mb := range moduleBasics {
+			ModuleBasics[mb.Name()] = mb
+		}
+	}
+
 
 func (app *AppStarter) InitializeStarter() {
 	//app.Mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
@@ -311,3 +321,34 @@ func (app *AppStarter) InitializeStarter() {
 		cmn.Exit(err.Error())
 	}
 }
+
+func NewAppCreator(creator func(log.Logger, dbm.DB) abci.Application) server.AppCreator {
+	return func(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
+		app := creator(logger, db)
+		return app
+	}
+}
+
+func NewAppExporter(creator func(log.Logger, dbm.DB) abci.Application) server.AppExporter {
+	return func(logger log.Logger, db dbm.DB, traceStore io.Writer, height int64, forZeroHeight bool, jailWhiteList []string) (json.RawMessage, []tmtypes.GenesisValidator, error) {
+
+		//App := creator(logger, db)
+
+		return nil, nil, nil
+
+		/*
+			TODO not sure how to fix this. LoadHeight and ExportAppState are not on abci.Application
+			if height != -1 {
+				err := App.LoadHeight(height)
+				if err != nil {
+				}
+			}
+
+			json, vals, err := App.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
+			return json, vals, err
+
+		*/
+	}
+}
+
+var _ abci.Application = AppStarter{}
