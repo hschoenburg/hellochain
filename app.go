@@ -1,17 +1,13 @@
 package hellochain
 
-// TODO organize import statements into blocks.
-// stdlib at top, then anything from 3rd party, then tendermint, then cosmos
-
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/hellochain/starter"
 	abci "github.com/tendermint/tendermint/abci/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	"github.com/cosmos/hellochain/starter"
 	"github.com/cosmos/hellochain/x/greeter"
-
 	gtypes "github.com/cosmos/hellochain/x/greeter/types"
 )
 

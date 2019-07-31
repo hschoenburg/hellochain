@@ -2,12 +2,15 @@ package cli
 
 import (
 	"fmt"
+
+	"github.com/spf13/cobra"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
+
 	types "github.com/cosmos/hellochain/x/greeter/types"
-	"github.com/spf13/cobra"
 )
 
 func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
@@ -36,12 +39,8 @@ func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			addr := args[0]
 
-			fmt.Printf("CmdList Greetings: route : %s\n", queryRoute)
-
 			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list/%s", queryRoute, addr), nil)
 			if err != nil {
-
-				fmt.Printf("%v \n could not find greetings for address - %s  at route %s \n", err, addr, queryRoute)
 
 				return nil
 			}
