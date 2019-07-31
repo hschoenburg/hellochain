@@ -89,6 +89,15 @@ type AppStarter struct {
 	Mm                  *module.Manager
 }
 
+func MakeCodec() *codec.Codec {
+	cdc := codec.New()
+	ModuleBasics.RegisterCodec(cdc)
+	sdk.RegisterCodec(cdc)
+	codec.RegisterCrypto(cdc)
+	Cdc = cdc
+	return cdc
+}
+
 func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	config := server.NewDefaultContext().Config
 	config.SetRoot(DefaultNodeHome)
@@ -121,7 +130,6 @@ func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) a
 	}
 
 	genesis := app.Mm.InitGenesis(ctx, genesisState)
-	// plop POA validaor into Validators
 	genesis.Validators = append(genesis.Validators, update)
 	return genesis
 }
@@ -155,12 +163,24 @@ func (app *AppStarter) ExportAppStateAndValidators(forZeroHeight bool, jailWhite
 	return appState, validators, nil
 }
 
-func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Codec) *AppStarter {
+func BuildModuleBasics(moduleBasics ...module.AppModuleBasic) {
 
-	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
+	for _, mb := range moduleBasics {
+		ModuleBasics[mb.Name()] = mb
+	}
+	Cdc = MakeCodec()
+}
+
+func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, moduleBasics ...module.AppModuleBasic) *AppStarter {
+
+	BuildModuleBasics(moduleBasics...)
+
+	Cdc = MakeCodec()
+
+	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(Cdc))
 
 	var app = &AppStarter{
-		Cdc:              cdc,
+		Cdc:              Cdc,
 		BaseApp:          bApp,
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
@@ -200,7 +220,7 @@ func NewAppStarter(appName string, logger tlog.Logger, db dbm.DB, cdc *codec.Cod
 	)
 
 	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
-	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
+	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(Cdc, app.keyFeeCollection)
 
 	/*
 		// The staking keeper
@@ -263,14 +283,6 @@ func NewDefaultGenesisState() GenesisState {
 func (app *AppStarter) GetCodec() *codec.Codec {
 	return app.Cdc
 }
-
-func (app *AppStarter) BuildModuleBasics(...moduleBasics []moduleBasic{}) {
-
-		for _, mb := range moduleBasics {
-			ModuleBasics[mb.Name()] = mb
-		}
-	}
-
 
 func (app *AppStarter) InitializeStarter() {
 	//app.Mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
@@ -337,15 +349,18 @@ func NewAppExporter(creator func(log.Logger, dbm.DB) abci.Application) server.Ap
 		return nil, nil, nil
 
 		/*
-			TODO not sure how to fix this. LoadHeight and ExportAppState are not on abci.Application
-			if height != -1 {
-				err := App.LoadHeight(height)
-				if err != nil {
-				}
-			}
+			TODO
+			Missing functionality here.
+			Not sure how to fix this. LoadHeight and ExportAppState are not on abci.Application interface
 
-			json, vals, err := App.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
-			return json, vals, err
+				if height != -1 {
+					err := App.LoadHeight(height)
+					if err != nil {
+					}
+				}
+
+				json, vals, err := App.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
+				return json, vals, err
 
 		*/
 	}

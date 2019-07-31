@@ -15,9 +15,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/lcd"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/module"
+	//"github.com/cosmos/cosmos-sdk/types/module"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
@@ -34,12 +33,7 @@ const (
 	storeAcc = "acc"
 )
 
-type CLICommandParams struct {
-	Cdc     *codec.Codec
-	CLIHome string
-}
-
-func NewCLICommand(params CLICommandParams) *cobra.Command {
+func NewCLICommand() *cobra.Command {
 
 	cobra.EnableCommandSorting = false
 
@@ -64,9 +58,9 @@ func NewCLICommand(params CLICommandParams) *cobra.Command {
 	// Construct Root Command
 	rootCmd.AddCommand(
 		rpc.StatusCommand(),
-		client.ConfigCmd(params.CLIHome),
+		client.ConfigCmd(DefaultCLIHome),
 		client.LineBreak,
-		lcd.ServeCommand(params.Cdc, RegisterRoutes),
+		lcd.ServeCommand(Cdc, RegisterRoutes),
 		client.LineBreak,
 		keys.Commands(),
 		client.LineBreak,
@@ -148,12 +142,12 @@ func initConfig(cmd *cobra.Command) error {
 ///////////////////////////////////////////////////////////////////////////////
 
 type ServerCommandParams struct {
-	Cdc          *codec.Codec
-	CmdName      string
-	CmdDesc      string
-	ModuleBasics module.BasicManager
-	AppCreator   server.AppCreator
-	AppExporter  server.AppExporter
+	//Cdc          *codec.Codec
+	CmdName string
+	CmdDesc string
+	//ModuleBasics module.BasicManager
+	AppCreator  server.AppCreator
+	AppExporter server.AppExporter
 }
 
 func NewServerCommand(params ServerCommandParams) *cobra.Command {
@@ -168,6 +162,8 @@ func NewServerCommand(params ServerCommandParams) *cobra.Command {
 
 	ctx := server.NewDefaultContext()
 
+	cdc := MakeCodec()
+
 	rootCmd := &cobra.Command{
 		Use:               params.CmdName,
 		Short:             params.CmdDesc,
@@ -175,13 +171,13 @@ func NewServerCommand(params ServerCommandParams) *cobra.Command {
 	}
 
 	rootCmd.AddCommand(
-		genutilcli.InitCmd(ctx, params.Cdc, params.ModuleBasics, DefaultNodeHome),
-		genutilcli.CollectGenTxsCmd(ctx, params.Cdc, genaccounts.AppModuleBasic{}, DefaultNodeHome),
-		genutilcli.GenTxCmd(ctx, params.Cdc, params.ModuleBasics, staking.AppModuleBasic{}, genaccounts.AppModuleBasic{}, DefaultNodeHome, DefaultCLIHome),
-		genutilcli.ValidateGenesisCmd(ctx, params.Cdc, params.ModuleBasics),
-		genaccscli.AddGenesisAccountCmd(ctx, params.Cdc, DefaultNodeHome, DefaultCLIHome),
+		genutilcli.InitCmd(ctx, cdc, ModuleBasics, DefaultNodeHome),
+		genutilcli.CollectGenTxsCmd(ctx, cdc, genaccounts.AppModuleBasic{}, DefaultNodeHome),
+		genutilcli.GenTxCmd(ctx, cdc, ModuleBasics, staking.AppModuleBasic{}, genaccounts.AppModuleBasic{}, DefaultNodeHome, DefaultCLIHome),
+		genutilcli.ValidateGenesisCmd(ctx, cdc, ModuleBasics),
+		genaccscli.AddGenesisAccountCmd(ctx, cdc, DefaultNodeHome, DefaultCLIHome),
 	)
 
-	server.AddCommands(ctx, params.Cdc, rootCmd, params.AppCreator, params.AppExporter)
+	server.AddCommands(ctx, cdc, rootCmd, params.AppCreator, params.AppExporter)
 	return rootCmd
 }

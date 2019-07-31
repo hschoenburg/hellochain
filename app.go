@@ -4,7 +4,6 @@ package hellochain
 // stdlib at top, then anything from 3rd party, then tendermint, then cosmos
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
@@ -22,34 +21,15 @@ var (
 	ModuleBasics = starter.ModuleBasics
 )
 
-// hacky?
-
-//BuildModuleBasics(greeter.appModuleBasic{})
-// TODO put starter in separate repo?
-
-func init() {
-	ModuleBasics[gtypes.ModuleName] = greeter.AppModuleBasic{}
-}
-
 type helloChainApp struct {
 	*starter.AppStarter
 	greeterKey    *sdk.KVStoreKey
 	greeterKeeper greeter.Keeper
 }
 
-func MakeCodec() *codec.Codec {
-	cdc := codec.New()
-	ModuleBasics.RegisterCodec(cdc)
-	sdk.RegisterCodec(cdc)
-	codec.RegisterCrypto(cdc)
-	return cdc
-}
-
 func NewHelloChainApp(logger log.Logger, db dbm.DB) abci.Application {
 
-	cdc := MakeCodec()
-
-	appStarter := starter.NewAppStarter(appName, logger, db, cdc)
+	appStarter := starter.NewAppStarter(appName, logger, db, greeter.AppModuleBasic{})
 
 	greeterKey := sdk.NewKVStoreKey(gtypes.StoreKey)
 
@@ -60,8 +40,6 @@ func NewHelloChainApp(logger log.Logger, db dbm.DB) abci.Application {
 		greeterKey,
 		greeterKeeper,
 	}
-
-	app.BuildModuleBasics(greeter.AppModuleBasic{})
 
 	greeterMod := greeter.NewAppModule(greeterKeeper)
 

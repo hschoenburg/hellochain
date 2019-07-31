@@ -3,22 +3,20 @@ package main
 import (
 	app "github.com/cosmos/hellochain"
 	"github.com/cosmos/hellochain/starter"
+	"github.com/cosmos/hellochain/x/greeter"
 
 	"github.com/tendermint/tendermint/libs/cli"
 )
 
 func main() {
 
-	cdc := app.MakeCodec()
+	starter.BuildModuleBasics(greeter.AppModuleBasic{})
 
 	params := starter.ServerCommandParams{
 
-		Cdc:          cdc,
-		CmdName:      "hcd",
-		CmdDesc:      "hellochain AppDaemon",
-		ModuleBasics: app.ModuleBasics,
-		AppCreator:   starter.NewAppCreator(app.NewHelloChainApp),
-		// TODO AppExporter is hacky
+		CmdName:     "hcd",
+		CmdDesc:     "hellochain AppDaemon",
+		AppCreator:  starter.NewAppCreator(app.NewHelloChainApp),
 		AppExporter: starter.NewAppExporter(app.NewHelloChainApp),
 	}
 
