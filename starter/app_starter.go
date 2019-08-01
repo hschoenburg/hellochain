@@ -42,7 +42,6 @@ var (
 func init() {
 	ModuleBasics = module.NewBasicManager(
 		genaccounts.AppModuleBasic{},
-		genutil.AppModuleBasic{},
 		auth.AppModuleBasic{},
 		bank.AppModuleBasic{},
 		params.AppModuleBasic{},
@@ -206,7 +205,6 @@ func (app *AppStarter) InitializeStarter() {
 		genaccounts.ModuleName,
 		auth.ModuleName,
 		bank.ModuleName,
-		genutil.ModuleName,
 	)
 
 	app.Mm.RegisterRoutes(app.Router(), app.QueryRouter())

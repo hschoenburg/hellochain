@@ -2,13 +2,14 @@
 
 ### WIP not ready for public yet
 
-A "Hello World" tutorial for the Cosmos SDK
+install with `make install`
 
-#Questions
-1. Why the traceStore io.Writer in cmd/hcd/main.go NewApp()?
+init with `hcd init --chain-id=<chainID> <moniker`
 
-WHere did ModuleClient go and what was it for?
+run with `hcd start`
 
-Routing is confusing, two sets of routes and handlers? Rest routes, MSG handling routes, 
+query with `hccli status`
 
-How can we add more testing to esure succesfull incremental builds?
+TODO:
+starter/app_starter.go
+  app.ExportAppStateAndValidators currently a hack atm
