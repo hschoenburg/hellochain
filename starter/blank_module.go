@@ -67,7 +67,7 @@ func (bm BlankModule) Name() string {
 }
 
 // TODO comment
-func (bm BlankModule) RegisterInvariants(ir sdk.InvariantRouter) {}
+func (bm BlankModule) RegisterInvariants(ir sdk.InvariantRegistry) {}
 
 // TODO comment
 func (bm BlankModule) Route() string {
@@ -90,19 +90,17 @@ func (bm BlankModuleBasic) GetTxCmd(*codec.Codec) *cobra.Command {
 }
 
 // Register rest routes
-func (BlankModuleBasic) RegisterRESTRoutes(ctx context.CLIContext, rtr *mux.Router, cdc *codec.Codec) {
+func (BlankModuleBasic) RegisterRESTRoutes(ctx context.CLIContext, rtr *mux.Router) {
 	//rest.RegisterRoutes(ctx, rtr, cdc, StoreKey)
 	panic("RegisterRESTRoutes not implemented")
 }
 
 // TODO comment
-func (bm BlankModule) BeginBlock(_ sdk.Context, _ abci.RequestBeginBlock) sdk.Tags {
-	return sdk.EmptyTags()
-}
+func (bm BlankModule) BeginBlock(_ sdk.Context, _ abci.RequestBeginBlock) {}
 
 // TODO comment
-func (bm BlankModule) EndBlock(sdk.Context, abci.RequestEndBlock) ([]abci.ValidatorUpdate, sdk.Tags) {
-	return []abci.ValidatorUpdate{}, sdk.EmptyTags()
+func (bm BlankModule) EndBlock(sdk.Context, abci.RequestEndBlock) []abci.ValidatorUpdate {
+	return []abci.ValidatorUpdate{}
 }
 
 // TODO comment

@@ -7,7 +7,6 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
 
 	types "github.com/cosmos/hellochain/x/greeter/types"
@@ -21,7 +20,7 @@ func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 		Short:                      "Querying commands for the greeter module",
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
-		RunE:                       utils.ValidateCmd,
+		RunE:                       client.ValidateCmd,
 	}
 	greeterQueryCmd.AddCommand(client.GetCommands(
 		GetCmdListGreetings(storeKey, cdc),
@@ -40,7 +39,9 @@ func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			addr := args[0]
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list/%s", queryRoute, addr), nil)
+			//res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", queryRoute, name), nil)
+
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list/%s", queryRoute, addr), nil)
 			if err != nil {
 
 				return nil

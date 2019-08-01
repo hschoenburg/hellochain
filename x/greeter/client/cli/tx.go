@@ -6,7 +6,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
+	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
@@ -20,7 +21,7 @@ func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 		Short:                      "greeter transaction subcommands",
 		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
-		RunE:                       utils.ValidateCmd,
+		RunE:                       client.ValidateCmd,
 	}
 
 	greetingTxCmd.AddCommand(client.PostCommands(
@@ -37,7 +38,7 @@ func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 		Short: "send a greeting to another user. Usage: say [body] [address]",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
 			sender := cliCtx.GetFromAddress()
 			body := args[0]
@@ -49,9 +50,9 @@ func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 
 			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 
-			if err := cliCtx.EnsureAccountExists(); err != nil {
-				return err
-			}
+			//if err := cliCtx.EnsureAccountExists(); err != nil {
+			//return err
+			//}
 
 			msg := gtypes.NewMsgSayHello(sender, body, recipient)
 			err = msg.ValidateBasic()
@@ -59,7 +60,7 @@ func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			cliCtx.PrintResponse = true
+			//cliCtx.PrintResponse = true
 
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
