@@ -5,7 +5,6 @@ import (
 	"io"
 	"os"
 
-	. "github.com/tendermint/tendermint/abci/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 	cmn "github.com/tendermint/tendermint/libs/common"
 	dbm "github.com/tendermint/tendermint/libs/db"
@@ -25,6 +24,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/params"
 )
 
+// nolint
 var (
 	ModuleBasics    module.BasicManager
 	Cdc             *codec.Codec
@@ -46,6 +46,7 @@ func init() {
 
 }
 
+// TODO comment
 type AppStarter struct {
 	*bam.BaseApp
 
@@ -65,6 +66,10 @@ type AppStarter struct {
 	Mm                  *module.Manager
 }
 
+// TODO comment
+var _ abci.Application = AppStarter{}
+
+// TODO comment
 func MakeCodec() *codec.Codec {
 	cdc := codec.New()
 	ModuleBasics.RegisterCodec(cdc)
@@ -74,6 +79,7 @@ func MakeCodec() *codec.Codec {
 	return cdc
 }
 
+// TODO comment
 func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	config := server.NewDefaultContext().Config
 	config.SetRoot(DefaultNodeHome)
@@ -81,6 +87,9 @@ func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) a
 	server.UpgradeOldPrivValFile(config)
 
 	_, _, err := genutil.InitializeNodeValidatorFiles(config)
+	if err != nil {
+		panic(err)
+	}
 
 	privValidator := pvm.LoadOrGenFilePV(
 		config.PrivValidatorKeyFile(), config.PrivValidatorStateFile())
@@ -102,16 +111,22 @@ func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) a
 	return genesis
 }
 
+// TODO comment
 func (app *AppStarter) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
 	return app.Mm.BeginBlock(ctx, req)
 }
+
+// TODO comment
 func (app *AppStarter) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	return app.Mm.EndBlock(ctx, req)
 }
+
+// TODO comment
 func (app *AppStarter) LoadHeight(height int64) error {
 	return app.LoadVersion(height, app.keyMain)
 }
 
+// TODO comment
 func (app *AppStarter) ExportAppStateAndValidators(forZeroHeight bool, jailWhiteList []string,
 ) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 
@@ -126,6 +141,7 @@ func (app *AppStarter) ExportAppStateAndValidators(forZeroHeight bool, jailWhite
 	return appState, validators, nil
 }
 
+// TODO comment
 func BuildModuleBasics(moduleBasics ...module.AppModuleBasic) {
 
 	for _, mb := range moduleBasics {
@@ -134,6 +150,7 @@ func BuildModuleBasics(moduleBasics ...module.AppModuleBasic) {
 	Cdc = MakeCodec()
 }
 
+// TODO comment
 func NewAppStarter(appName string, logger log.Logger, db dbm.DB, moduleBasics ...module.AppModuleBasic) *AppStarter {
 
 	BuildModuleBasics(moduleBasics...)
@@ -180,16 +197,20 @@ func NewAppStarter(appName string, logger log.Logger, db dbm.DB, moduleBasics ..
 	return app
 }
 
+// TODO comment
 type GenesisState map[string]json.RawMessage
 
+// TODO comment
 func NewDefaultGenesisState() GenesisState {
 	return ModuleBasics.DefaultGenesis()
 }
 
+// TODO comment
 func (app *AppStarter) GetCodec() *codec.Codec {
 	return app.Cdc
 }
 
+// TODO comment
 func (app *AppStarter) InitializeStarter() {
 
 	app.Mm.SetOrderInitGenesis(
@@ -226,6 +247,7 @@ func (app *AppStarter) InitializeStarter() {
 	}
 }
 
+// TODO comment
 func NewAppCreator(creator func(log.Logger, dbm.DB) abci.Application) server.AppCreator {
 	return func(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
 		app := creator(logger, db)
@@ -233,6 +255,7 @@ func NewAppCreator(creator func(log.Logger, dbm.DB) abci.Application) server.App
 	}
 }
 
+// TODO comment
 func NewAppExporter(creator func(log.Logger, dbm.DB) abci.Application) server.AppExporter {
 	return func(logger log.Logger, db dbm.DB, traceStore io.Writer, height int64, forZeroHeight bool, jailWhiteList []string) (json.RawMessage, []tmtypes.GenesisValidator, error) {
 
@@ -257,5 +280,3 @@ func NewAppExporter(creator func(log.Logger, dbm.DB) abci.Application) server.Ap
 		*/
 	}
 }
-
-var _ abci.Application = AppStarter{}

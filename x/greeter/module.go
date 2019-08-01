@@ -1,57 +1,31 @@
 package greeter
 
 import (
+	"github.com/spf13/cobra"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	starter "github.com/cosmos/hellochain/starter"
+
 	"github.com/cosmos/hellochain/x/greeter/client/cli"
-	. "github.com/cosmos/hellochain/x/greeter/types"
-	"github.com/spf13/cobra"
 )
 
 var (
+	// TODO Comment
 	ModuleCdc = codec.New()
 )
 
+// TODO Comment
 type AppModuleBasic struct {
 	starter.BlankModuleBasic
 }
 
+// TODO Comment
 type AppModule struct {
 	starter.BlankModule
 	keeper     Keeper
 	ModuleName string
-}
-
-func (AppModuleBasic) RegisterCodec(cdc *codec.Codec) {
-	cdc.RegisterConcrete(MsgSayHello{}, "greeter/SayHello", nil)
-}
-
-func (am AppModule) NewHandler() sdk.Handler {
-	return NewHandler(am.keeper)
-}
-
-func (am AppModule) NewQuerierHandler() sdk.Querier {
-	return NewQuerier(am.keeper)
-}
-
-func (am AppModule) QuerierRoute() string {
-	return am.ModuleName
-}
-
-func (ab AppModuleBasic) GetQueryCmd(cdc *codec.Codec) *cobra.Command {
-	return cli.GetQueryCmd(StoreKey, cdc)
-
-}
-
-func (ab AppModuleBasic) GetTxCmd(cdc *codec.Codec) *cobra.Command {
-	return cli.GetTxCmd(StoreKey, cdc)
-}
-
-func NewAppModule(keeper Keeper) AppModule {
-	blank := starter.NewBlankModule(ModuleName, keeper)
-	return AppModule{blank, keeper, ModuleName}
 }
 
 // type check to ensure the interface is properly implemented
@@ -59,3 +33,40 @@ var (
 	_ module.AppModule      = AppModule{}
 	_ module.AppModuleBasic = AppModuleBasic{}
 )
+
+// TODO Comment
+func (AppModuleBasic) RegisterCodec(cdc *codec.Codec) {
+	cdc.RegisterConcrete(MsgSayHello{}, "greeter/SayHello", nil)
+}
+
+// TODO Comment
+func (am AppModule) NewHandler() sdk.Handler {
+	return NewHandler(am.keeper)
+}
+
+// TODO Comment
+func (am AppModule) NewQuerierHandler() sdk.Querier {
+	return NewQuerier(am.keeper)
+}
+
+// TODO Comment
+func (am AppModule) QuerierRoute() string {
+	return am.ModuleName
+}
+
+// TODO Comment
+func (ab AppModuleBasic) GetQueryCmd(cdc *codec.Codec) *cobra.Command {
+	return cli.GetQueryCmd(StoreKey, cdc)
+
+}
+
+// TODO Comment
+func (ab AppModuleBasic) GetTxCmd(cdc *codec.Codec) *cobra.Command {
+	return cli.GetTxCmd(StoreKey, cdc)
+}
+
+// TODO Comment
+func NewAppModule(keeper Keeper) AppModule {
+	blank := starter.NewBlankModule(ModuleName, keeper)
+	return AppModule{blank, keeper, ModuleName}
+}

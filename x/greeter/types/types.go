@@ -5,18 +5,21 @@ import (
 	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	yaml "gopkg.in/yaml.v2"
 )
 
 const (
+	// TODO CODE COMMENT
 	ModuleName = "greeter"
-	StoreKey   = ModuleName
+	// TODO CODE COMMENT
+	StoreKey = ModuleName
 )
 
 // Whois is a struct that contains all the metadata of a name
 type Greeting struct {
-	Sender    sdk.AccAddress `json:"sender"`
-	Recipient sdk.AccAddress `json:"receiver"`
-	Body      string         `json:"body"`
+	Sender    sdk.AccAddress `json:"sender" yaml:"sender"`
+	Recipient sdk.AccAddress `json:"receiver" yaml:"receiver"`
+	Body      string         `json:"body" yaml:"body"`
 }
 
 // Returns a new Whois with the minprice as the price
@@ -34,10 +37,15 @@ func (g Greeting) String() string {
 
 }
 
+// TODO description
 type QueryResGreetings map[string][]Greeting
 
 func (q QueryResGreetings) String() string {
-	return fmt.Sprintf("%v", q)
+	b, err := yaml.Marshal(q)
+	if err != nil {
+		panic(err)
+	}
+	return string(b)
 }
 
 func NewQueryResGreetings() QueryResGreetings {

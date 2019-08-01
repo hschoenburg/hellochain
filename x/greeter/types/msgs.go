@@ -2,9 +2,11 @@ package types
 
 import (
 	"encoding/json"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// TODO comment
 const RouterKey = "greeter"
 
 // MsgSetName defines a SetName message
@@ -41,6 +43,7 @@ func (msg MsgSayHello) ValidateBasic() sdk.Error {
 	return nil
 }
 
+// TODO comment
 func (msg MsgSayHello) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Sender}
 }

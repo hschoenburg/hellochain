@@ -69,6 +69,7 @@ func NewCLICommand() *cobra.Command {
 
 }
 
+// TODO comment
 func RegisterRoutes(rs *lcd.RestServer) {
 	rs.CliCtx = rs.CliCtx.WithAccountDecoder(rs.Cdc)
 	rpc.RegisterRPCRoutes(rs.CliCtx, rs.Mux)
@@ -78,6 +79,7 @@ func RegisterRoutes(rs *lcd.RestServer) {
 	stakingClient.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 }
 
+// TODO comment
 func QueryCmd(cdc *amino.Codec) *cobra.Command {
 	queryCmd := &cobra.Command{
 		Use:     "query",
@@ -97,6 +99,7 @@ func QueryCmd(cdc *amino.Codec) *cobra.Command {
 	return queryCmd
 }
 
+// TODO comment
 func TxCmd(cdc *amino.Codec) *cobra.Command {
 	txCmd := &cobra.Command{
 		Use:   "tx",
@@ -141,6 +144,7 @@ func initConfig(cmd *cobra.Command) error {
 
 ///////////////////////////////////////////////////////////////////////////////
 
+// TODO comment
 type ServerCommandParams struct {
 	//Cdc          *codec.Codec
 	CmdName string
@@ -150,6 +154,7 @@ type ServerCommandParams struct {
 	AppExporter server.AppExporter
 }
 
+// NewServerCommandParams creates a new ServerCommandParams object
 func NewServerCommand(params ServerCommandParams) *cobra.Command {
 
 	cobra.EnableCommandSorting = false

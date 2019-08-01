@@ -13,6 +13,7 @@ import (
 	types "github.com/cosmos/hellochain/x/greeter/types"
 )
 
+// TODO comment
 func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 
 	greeterQueryCmd := &cobra.Command{

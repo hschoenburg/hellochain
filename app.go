@@ -1,12 +1,12 @@
 package hellochain
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/hellochain/starter"
 	abci "github.com/tendermint/tendermint/abci/types"
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/hellochain/starter"
 	"github.com/cosmos/hellochain/x/greeter"
 	gtypes "github.com/cosmos/hellochain/x/greeter/types"
 )
@@ -14,6 +14,7 @@ import (
 const appName = "hellochain"
 
 var (
+	// TODO comment
 	ModuleBasics = starter.ModuleBasics
 )
 

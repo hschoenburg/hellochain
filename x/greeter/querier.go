@@ -1,10 +1,10 @@
 package greeter
 
 import (
+	abci "github.com/tendermint/tendermint/abci/types"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	. "github.com/cosmos/hellochain/x/greeter/types"
-	abci "github.com/tendermint/tendermint/abci/types"
 )
 
 // query endpoints supported by the hellochain Querier

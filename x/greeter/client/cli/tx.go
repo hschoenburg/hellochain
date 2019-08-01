@@ -13,6 +13,7 @@ import (
 	gtypes "github.com/cosmos/hellochain/x/greeter/types"
 )
 
+// TODO comment
 func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	greetingTxCmd := &cobra.Command{
 		Use:                        "greeter",
