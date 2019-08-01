@@ -7,22 +7,19 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/keys"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/server"
-	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
-	genaccscli "github.com/cosmos/cosmos-sdk/x/auth/genaccounts/client/cli"
+	"github.com/cosmos/cosmos-sdk/x/genaccounts"
+	genaccscli "github.com/cosmos/cosmos-sdk/x/genaccounts/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	amino "github.com/tendermint/go-amino"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/lcd"
-	"github.com/cosmos/cosmos-sdk/client/tx"
+	//"github.com/cosmos/cosmos-sdk/client/tx"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	//"github.com/cosmos/cosmos-sdk/types/module"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
-	auth "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
-	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
-	stakingClient "github.com/cosmos/cosmos-sdk/x/staking/client/rest"
 	"github.com/spf13/cobra"
 
 	"github.com/spf13/viper"
@@ -60,7 +57,7 @@ func NewCLICommand() *cobra.Command {
 		rpc.StatusCommand(),
 		client.ConfigCmd(DefaultCLIHome),
 		client.LineBreak,
-		lcd.ServeCommand(Cdc, RegisterRoutes),
+		lcd.ServeCommand(Cdc, registerRoutes),
 		client.LineBreak,
 		keys.Commands(),
 		client.LineBreak,
@@ -69,13 +66,9 @@ func NewCLICommand() *cobra.Command {
 
 }
 
-func RegisterRoutes(rs *lcd.RestServer) {
-	rs.CliCtx = rs.CliCtx.WithAccountDecoder(rs.Cdc)
-	rpc.RegisterRPCRoutes(rs.CliCtx, rs.Mux)
-	tx.RegisterTxRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
-	auth.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, storeAcc)
-	bank.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
-	stakingClient.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
+func registerRoutes(rs *lcd.RestServer) {
+	client.RegisterRoutes(rs.CliCtx, rs.Mux)
+	ModuleBasics.RegisterRESTRoutes(rs.CliCtx, rs.Mux)
 }
 
 func QueryCmd(cdc *amino.Codec) *cobra.Command {
@@ -88,10 +81,10 @@ func QueryCmd(cdc *amino.Codec) *cobra.Command {
 	queryCmd.AddCommand(
 		rpc.ValidatorCommand(cdc),
 		rpc.BlockCommand(),
-		tx.SearchTxCmd(cdc),
-		tx.QueryTxCmd(cdc),
 		client.LineBreak,
 		authcmd.GetAccountCmd(cdc),
+		authcmd.QueryTxCmd(cdc),
+		authcmd.QueryTxsByEventsCmd(cdc),
 	)
 
 	return queryCmd
@@ -107,10 +100,11 @@ func TxCmd(cdc *amino.Codec) *cobra.Command {
 		bankcmd.SendTxCmd(cdc),
 		client.LineBreak,
 		authcmd.GetSignCommand(cdc),
-		tx.GetBroadcastCommand(cdc),
+		authcmd.GetMultiSignCommand(cdc),
 		client.LineBreak,
-		tx.GetBroadcastCommand(cdc),
-		tx.GetEncodeCommand(cdc),
+		authcmd.GetBroadcastCommand(cdc),
+		authcmd.GetEncodeCommand(cdc),
+		client.LineBreak,
 	)
 
 	return txCmd

@@ -19,10 +19,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/auth/genaccounts"
 	"github.com/cosmos/cosmos-sdk/x/bank"
+	"github.com/cosmos/cosmos-sdk/x/genaccounts"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/cosmos/cosmos-sdk/x/supply"
 )
 
 var (
@@ -30,6 +31,9 @@ var (
 	Cdc             *codec.Codec
 	DefaultCLIHome  = os.ExpandEnv("$HOME/.hellocli")
 	DefaultNodeHome = os.ExpandEnv("$HOME/.hellod")
+	maccPerms       = map[string][]string{
+		auth.FeeCollectorName: nil,
+	}
 )
 
 //AppStarter is a drop in to make simple hello world blockchains
@@ -42,27 +46,27 @@ func init() {
 		auth.AppModuleBasic{},
 		bank.AppModuleBasic{},
 		params.AppModuleBasic{},
+		supply.AppModuleBasic{},
 	)
-
 }
 
 type AppStarter struct {
 	*bam.BaseApp
 
 	// Keys to access the substores
-	keyMain          *sdk.KVStoreKey
-	keyAccount       *sdk.KVStoreKey
-	keyFeeCollection *sdk.KVStoreKey
-	keyParams        *sdk.KVStoreKey
-	tkeyParams       *sdk.TransientStoreKey
+	keyMain    *sdk.KVStoreKey
+	keyAccount *sdk.KVStoreKey
+	keySupply  *sdk.KVStoreKey
+	keyParams  *sdk.KVStoreKey
+	tkeyParams *sdk.TransientStoreKey
 
 	// Keepers
-	accountKeeper       auth.AccountKeeper
-	bankKeeper          bank.Keeper
-	feeCollectionKeeper auth.FeeCollectionKeeper
-	paramsKeeper        params.Keeper
-	Cdc                 *codec.Codec
-	Mm                  *module.Manager
+	accountKeeper auth.AccountKeeper
+	bankKeeper    bank.Keeper
+	supplyKeeper  supply.Keeper
+	paramsKeeper  params.Keeper
+	Cdc           *codec.Codec
+	Mm            *module.Manager
 }
 
 func MakeCodec() *codec.Codec {
@@ -143,14 +147,14 @@ func NewAppStarter(appName string, logger log.Logger, db dbm.DB, moduleBasics ..
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(Cdc))
 
 	var app = &AppStarter{
-		Cdc:              Cdc,
-		BaseApp:          bApp,
-		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
-		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
-		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
-		keyParams:        sdk.NewKVStoreKey(params.StoreKey),
-		tkeyParams:       sdk.NewTransientStoreKey(params.TStoreKey),
-		Mm:               &module.Manager{},
+		Cdc:        Cdc,
+		BaseApp:    bApp,
+		keyMain:    sdk.NewKVStoreKey(bam.MainStoreKey),
+		keySupply:  sdk.NewKVStoreKey(supply.StoreKey),
+		keyAccount: sdk.NewKVStoreKey(auth.StoreKey),
+		keyParams:  sdk.NewKVStoreKey(params.StoreKey),
+		tkeyParams: sdk.NewTransientStoreKey(params.TStoreKey),
+		Mm:         &module.Manager{},
 	}
 
 	app.paramsKeeper = params.NewKeeper(app.Cdc, app.keyParams, app.tkeyParams, params.DefaultCodespace)
@@ -170,11 +174,17 @@ func NewAppStarter(appName string, logger log.Logger, db dbm.DB, moduleBasics ..
 		bank.DefaultCodespace,
 	)
 
-	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(Cdc, app.keyFeeCollection)
+	app.supplyKeeper = supply.NewKeeper(
+		app.Cdc,
+		app.keySupply,
+		app.accountKeeper,
+		app.bankKeeper,
+		supply.DefaultCodespace,
+		maccPerms)
 
 	app.Mm = module.NewManager(
 		genaccounts.NewAppModule(app.accountKeeper),
-		auth.NewAppModule(app.accountKeeper, app.feeCollectionKeeper),
+		auth.NewAppModule(app.accountKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 	)
 	return app
@@ -207,7 +217,7 @@ func (app *AppStarter) InitializeStarter() {
 	app.SetAnteHandler(
 		auth.NewAnteHandler(
 			app.accountKeeper,
-			app.feeCollectionKeeper,
+			app.supplyKeeper,
 			auth.DefaultSigVerificationGasConsumer,
 		),
 	)
@@ -215,7 +225,7 @@ func (app *AppStarter) InitializeStarter() {
 	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
-		app.keyFeeCollection,
+		app.keySupply,
 		app.keyParams,
 		app.tkeyParams,
 	)
