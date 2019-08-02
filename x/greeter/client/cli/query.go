@@ -12,7 +12,7 @@ import (
 	types "github.com/cosmos/hellochain/x/greeter/types"
 )
 
-// TODO comment
+// GetQueryCmd returns the parent query command for the greeter module
 func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 
 	greeterQueryCmd := &cobra.Command{
@@ -28,7 +28,7 @@ func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	return greeterQueryCmd
 }
 
-// GetCmdResolveGreetings queries all greetings
+// GetCmdListGreetings returns the command to list greetings for a given address
 func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 	return &cobra.Command{
@@ -38,8 +38,6 @@ func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			addr := args[0]
-
-			//res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", queryRoute, name), nil)
 
 			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list/%s", queryRoute, addr), nil)
 			if err != nil {

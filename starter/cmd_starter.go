@@ -26,10 +26,7 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 )
 
-const (
-	storeAcc = "acc"
-)
-
+// NewCLICommand returns a basic root CLI cmd to interact with a running SDK chain.
 func NewCLICommand() *cobra.Command {
 
 	cobra.EnableCommandSorting = false
@@ -71,7 +68,7 @@ func registerRoutes(rs *lcd.RestServer) {
 	ModuleBasics.RegisterRESTRoutes(rs.CliCtx, rs.Mux)
 }
 
-// TODO comment
+// QueryCmd builds a basic collection of query commands for your SDK CLI tool.
 func QueryCmd(cdc *amino.Codec) *cobra.Command {
 	queryCmd := &cobra.Command{
 		Use:     "query",
@@ -91,7 +88,7 @@ func QueryCmd(cdc *amino.Codec) *cobra.Command {
 	return queryCmd
 }
 
-// TODO comment
+// TxCmd builds a basic collection of transaction commands.
 func TxCmd(cdc *amino.Codec) *cobra.Command {
 	txCmd := &cobra.Command{
 		Use:   "tx",
@@ -135,19 +132,15 @@ func initConfig(cmd *cobra.Command) error {
 	return viper.BindPFlag(cli.OutputFlag, cmd.PersistentFlags().Lookup(cli.OutputFlag))
 }
 
-///////////////////////////////////////////////////////////////////////////////
-
-// TODO comment
+// ServerCommandParams described the params needed to build a basic server CLI command.
 type ServerCommandParams struct {
-	//Cdc          *codec.Codec
-	CmdName string
-	CmdDesc string
-	//ModuleBasics module.BasicManager
+	CmdName     string
+	CmdDesc     string
 	AppCreator  server.AppCreator
 	AppExporter server.AppExporter
 }
 
-// NewServerCommandParams creates a new ServerCommandParams object
+// NewServerCommand creates a new ServerCommandParams object
 func NewServerCommand(params ServerCommandParams) *cobra.Command {
 
 	cobra.EnableCommandSorting = false

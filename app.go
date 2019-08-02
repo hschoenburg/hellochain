@@ -14,7 +14,7 @@ import (
 const appName = "hellochain"
 
 var (
-	// TODO comment
+	// ModuleBasics holds the AppModuleBasic struct of all modules included in the app
 	ModuleBasics = starter.ModuleBasics
 )
 
@@ -24,6 +24,7 @@ type helloChainApp struct {
 	greeterKeeper greeter.Keeper
 }
 
+// NewHelloChainApp returns a fully constructed SDK application
 func NewHelloChainApp(logger log.Logger, db dbm.DB) abci.Application {
 
 	appStarter := starter.NewAppStarter(appName, logger, db, greeter.AppModuleBasic{})

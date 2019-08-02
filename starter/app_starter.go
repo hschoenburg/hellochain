@@ -37,7 +37,6 @@ var (
 )
 
 //AppStarter is a drop in to make simple hello world blockchains
-// TODO put starter in a utils/ dir of the tutorials repo
 
 func init() {
 	ModuleBasics = module.NewBasicManager(
@@ -49,7 +48,7 @@ func init() {
 	)
 }
 
-// TODO comment
+// AppStarter is a basic app
 type AppStarter struct {
 	*bam.BaseApp
 
@@ -69,10 +68,10 @@ type AppStarter struct {
 	Mm            *module.Manager
 }
 
-// TODO comment
+// AppStarter implements abci.Application
 var _ abci.Application = AppStarter{}
 
-// TODO comment
+// MakeCodec registers the structs for encoding in amino
 func MakeCodec() *codec.Codec {
 	cdc := codec.New()
 	ModuleBasics.RegisterCodec(cdc)
@@ -82,7 +81,7 @@ func MakeCodec() *codec.Codec {
 	return cdc
 }
 
-// TODO comment
+// InitChainer is called by Tendermint to start the chain.
 func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	config := server.NewDefaultContext().Config
 	config.SetRoot(DefaultNodeHome)
@@ -114,22 +113,22 @@ func (app *AppStarter) InitChainer(ctx sdk.Context, req abci.RequestInitChain) a
 	return genesis
 }
 
-// TODO comment
+// BeginBlocker runs before each block is committed.
 func (app *AppStarter) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
 	return app.Mm.BeginBlock(ctx, req)
 }
 
-// TODO comment
+// EndBlocker runs after each block is committed.
 func (app *AppStarter) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	return app.Mm.EndBlock(ctx, req)
 }
 
-// TODO comment
+// LoadHeight loads the state at a given block height
 func (app *AppStarter) LoadHeight(height int64) error {
 	return app.LoadVersion(height, app.keyMain)
 }
 
-// TODO comment
+// ExportAppStateAndValidators returns the Genesis and AppState for the apps modules
 func (app *AppStarter) ExportAppStateAndValidators(forZeroHeight bool, jailWhiteList []string,
 ) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 
@@ -144,7 +143,7 @@ func (app *AppStarter) ExportAppStateAndValidators(forZeroHeight bool, jailWhite
 	return appState, validators, nil
 }
 
-// TODO comment
+// BuildModuleBasics adds more moduleBasics to the app
 func BuildModuleBasics(moduleBasics ...module.AppModuleBasic) {
 
 	for _, mb := range moduleBasics {
@@ -153,7 +152,7 @@ func BuildModuleBasics(moduleBasics ...module.AppModuleBasic) {
 	Cdc = MakeCodec()
 }
 
-// TODO comment
+// NewAppStarter created a basic app with bank, auth, supply and any other ModuleBasics passed to it
 func NewAppStarter(appName string, logger log.Logger, db dbm.DB, moduleBasics ...module.AppModuleBasic) *AppStarter {
 
 	BuildModuleBasics(moduleBasics...)
@@ -206,20 +205,20 @@ func NewAppStarter(appName string, logger log.Logger, db dbm.DB, moduleBasics ..
 	return app
 }
 
-// TODO comment
+// GenesisState holds the genesis state data for every module
 type GenesisState map[string]json.RawMessage
 
-// TODO comment
+// NewDefaultGenesisState populates a GenesisState with each module's default
 func NewDefaultGenesisState() GenesisState {
 	return ModuleBasics.DefaultGenesis()
 }
 
-// TODO comment
+// GetCodec returns the app's codec
 func (app *AppStarter) GetCodec() *codec.Codec {
 	return app.Cdc
 }
 
-// TODO comment
+// InitializeStarter configures the app. NOTE ModuleBasics must be complete before calling this
 func (app *AppStarter) InitializeStarter() {
 
 	app.Mm.SetOrderInitGenesis(
@@ -255,7 +254,7 @@ func (app *AppStarter) InitializeStarter() {
 	}
 }
 
-// TODO comment
+// NewAppCreator wraps and returns a function for instantiaing an app
 func NewAppCreator(creator func(log.Logger, dbm.DB) abci.Application) server.AppCreator {
 	return func(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
 		app := creator(logger, db)
@@ -263,28 +262,9 @@ func NewAppCreator(creator func(log.Logger, dbm.DB) abci.Application) server.App
 	}
 }
 
-// TODO comment
+// NewAppExporter wraps and returns a function for exporting application state
 func NewAppExporter(creator func(log.Logger, dbm.DB) abci.Application) server.AppExporter {
 	return func(logger log.Logger, db dbm.DB, traceStore io.Writer, height int64, forZeroHeight bool, jailWhiteList []string) (json.RawMessage, []tmtypes.GenesisValidator, error) {
-
-		//App := creator(logger, db)
-
 		return nil, nil, nil
-
-		/*
-			TODO
-			Missing functionality here.
-			Not sure how to fix this. LoadHeight and ExportAppState are not on abci.Application interface
-
-				if height != -1 {
-					err := App.LoadHeight(height)
-					if err != nil {
-					}
-				}
-
-				json, vals, err := App.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
-				return json, vals, err
-
-		*/
 	}
-}
+

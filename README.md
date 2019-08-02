@@ -1,7 +1,9 @@
-# Hello Chain
+# HelloChain
 
-### WIP not ready for public yet
+A "hello world" blockchain with the Cosmos-SDK
 
+
+### Get Started
 install with `make install`
 
 init with `hcd init --chain-id=<chainID> <moniker`
@@ -10,6 +12,7 @@ run with `hcd start`
 
 query with `hccli status`
 
-TODO:
-starter/app_starter.go
-  app.ExportAppStateAndValidators currently a hack atm
+
+
+TODO: 
+Fix store so that keys are addresses and values are ARRAYS of greetings

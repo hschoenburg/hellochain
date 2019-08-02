@@ -5,6 +5,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	gtypes "github.com/cosmos/hellochain/x/greeter/types"
 )
 
 // query endpoints supported by the hellochain Querier
@@ -25,7 +26,7 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 }
 
 func listGreetings(ctx sdk.Context, params []string, req abci.RequestQuery, keeper Keeper) ([]byte, sdk.Error) {
-	greetingList := NewQueryResGreetings()
+	greetingList := gtypes.NewQueryResGreetings()
 	iterator := keeper.GetGreetingsIterator(ctx)
 
 	addr, err := sdk.AccAddressFromBech32(params[0])
@@ -35,7 +36,7 @@ func listGreetings(ctx sdk.Context, params []string, req abci.RequestQuery, keep
 
 	for ; iterator.Valid(); iterator.Next() {
 
-		var greeting Greeting
+		var greeting gtypes.Greeting
 
 		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &greeting)
 

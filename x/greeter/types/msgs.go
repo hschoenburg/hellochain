@@ -6,19 +6,19 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// TODO comment
+// RouterKey is used to route messages and queriers to the greeter module
 const RouterKey = "greeter"
 
-// MsgSetName defines a SetName message
-type MsgSayHello struct {
+// MsgGreet defines the MsgGreet Message
+type MsgGreet struct {
 	Body      string
 	Sender    sdk.AccAddress
 	Recipient sdk.AccAddress
 }
 
-// NewMsgSetName is a constructor function for MsgSetName
-func NewMsgSayHello(sender sdk.AccAddress, body string, recipient sdk.AccAddress) MsgSayHello {
-	return MsgSayHello{
+// NewMsgGreet is a constructor function for MsgGreet
+func NewMsgGreet(sender sdk.AccAddress, body string, recipient sdk.AccAddress) MsgGreet {
+	return MsgGreet{
 		Body:      body,
 		Sender:    sender,
 		Recipient: recipient,
@@ -26,13 +26,13 @@ func NewMsgSayHello(sender sdk.AccAddress, body string, recipient sdk.AccAddress
 }
 
 // Route should return the name of the module
-func (msg MsgSayHello) Route() string { return RouterKey }
+func (msg MsgGreet) Route() string { return RouterKey }
 
 // Type should return the action
-func (msg MsgSayHello) Type() string { return "say_hello" }
+func (msg MsgGreet) Type() string { return "greet" }
 
 // ValidateBasic runs stateless checks on the message
-func (msg MsgSayHello) ValidateBasic() sdk.Error {
+func (msg MsgGreet) ValidateBasic() sdk.Error {
 	if msg.Recipient.Empty() {
 		return sdk.ErrInvalidAddress(msg.Recipient.String())
 	}
@@ -43,13 +43,13 @@ func (msg MsgSayHello) ValidateBasic() sdk.Error {
 	return nil
 }
 
-// TODO comment
-func (msg MsgSayHello) GetSigners() []sdk.AccAddress {
+// GetSigners returns the addresses of those required to sign the message
+func (msg MsgGreet) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Sender}
 }
 
 // GetSignBytes encodes the message for signing
-func (msg MsgSayHello) GetSignBytes() []byte {
+func (msg MsgGreet) GetSignBytes() []byte {
 	b, err := json.Marshal(msg)
 	if err != nil {
 		panic(err)

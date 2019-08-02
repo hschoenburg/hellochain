@@ -9,20 +9,23 @@ import (
 )
 
 const (
-	// TODO CODE COMMENT
+	// ModuleName is the name of the module
 	ModuleName = "greeter"
-	// TODO CODE COMMENT
+	// StoreKey is used to register the module's store
 	StoreKey = ModuleName
 )
 
-// Whois is a struct that contains all the metadata of a name
+// Greeting is a struct that contains all the metadata of a name
 type Greeting struct {
 	Sender    sdk.AccAddress `json:"sender" yaml:"sender"`
 	Recipient sdk.AccAddress `json:"receiver" yaml:"receiver"`
 	Body      string         `json:"body" yaml:"body"`
 }
 
-// Returns a new Whois with the minprice as the price
+// GreetingsList stores all the greeting for a given address
+type GreetingsList []Greeting
+
+// NewGreeting Returns a new Greeting
 func NewGreeting(sender sdk.AccAddress, body string, receiver sdk.AccAddress) Greeting {
 	return Greeting{
 		Recipient: receiver,
@@ -37,7 +40,7 @@ func (g Greeting) String() string {
 
 }
 
-// TODO description
+// QueryResGreetings holds greetings for a given address
 type QueryResGreetings map[string][]Greeting
 
 func (q QueryResGreetings) String() string {
@@ -48,6 +51,7 @@ func (q QueryResGreetings) String() string {
 	return string(b)
 }
 
+// NewQueryResGreetings constructs a new instance
 func NewQueryResGreetings() QueryResGreetings {
 	return make(map[string][]Greeting)
 }

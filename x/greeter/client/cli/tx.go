@@ -14,7 +14,7 @@ import (
 	gtypes "github.com/cosmos/hellochain/x/greeter/types"
 )
 
-// TODO comment
+// GetTxCmd returns the parent transaction command for the greeting module
 func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	greetingTxCmd := &cobra.Command{
 		Use:                        "greeter",
@@ -31,7 +31,7 @@ func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 	return greetingTxCmd
 }
 
-// GetCmdBuyName is the CLI command for sending a BuyName transaction
+// GetCmdSayHello returns the tx say command for the greeter module
 func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "say [body] [addr]",
@@ -50,17 +50,11 @@ func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 
 			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 
-			//if err := cliCtx.EnsureAccountExists(); err != nil {
-			//return err
-			//}
-
-			msg := gtypes.NewMsgSayHello(sender, body, recipient)
+			msg := gtypes.NewMsgGreet(sender, body, recipient)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
 			}
-
-			//cliCtx.PrintResponse = true
 
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
