@@ -13,6 +13,6 @@ run with `hcd start`
 query with `hccli status`
 
 
-
 TODO: 
-Fix store so that keys are addresses and values are ARRAYS of greetings
+How to seed genesis account with coins so that they exist?
+

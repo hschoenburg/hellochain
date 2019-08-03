@@ -22,28 +22,41 @@ func NewKeeper(storeKey sdk.StoreKey, cdc *codec.Codec) Keeper {
 	}
 }
 
-// GetGreeting returns the latest greeting for a given address
-func (k Keeper) GetGreeting(ctx sdk.Context, addr sdk.AccAddress) gtypes.Greeting {
+// GetGreetings returns the greetings for a given address and given sender
+func (k Keeper) GetGreetings(ctx sdk.Context, addr sdk.AccAddress, from sdk.Address) gtypes.GreetingsList {
 	store := ctx.KVStore(k.storeKey)
 	if !store.Has([]byte(addr)) {
-		return gtypes.Greeting{}
+		return gtypes.GreetingsList{}
 	}
 	bz := store.Get([]byte(addr))
-	var greeting gtypes.Greeting
-	k.cdc.MustUnmarshalBinaryBare(bz, &greeting)
-	return greeting
+	var list gtypes.GreetingsList
+	k.cdc.MustUnmarshalBinaryBare(bz, &list)
+
+	if from != nil {
+		// return only those from specified sender
+		var fromList gtypes.GreetingsList
+		for _, g := range list {
+			if g.Sender.Equals(from) {
+				fromList = append(fromList, g)
+			}
+		}
+		return fromList
+	}
+	return list
 }
 
-// SetGreeting saves a greeeting for a given address.
+// SetGreeting saves a greeting for a given address.
 func (k Keeper) SetGreeting(ctx sdk.Context, greeting gtypes.Greeting) {
 	if greeting.Sender.Empty() {
 		return
 	}
 	store := ctx.KVStore(k.storeKey)
-	store.Set(greeting.Recipient.Bytes(), k.cdc.MustMarshalBinaryBare(greeting))
+	list := k.GetGreetings(ctx, greeting.Recipient, nil)
+	list = append(list, greeting)
+	store.Set(greeting.Recipient.Bytes(), k.cdc.MustMarshalBinaryBare(list))
 }
 
-// GetGreetingsIterator returns  an iterator over all names in which the keys are the addresses and the values are the greetings.
+// GetGreetingsIterator returns  an iterator over all names in which the keys are the addresses and the values are lists of greetings.
 func (k Keeper) GetGreetingsIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.storeKey)
 	return sdk.KVStorePrefixIterator(store, nil)
