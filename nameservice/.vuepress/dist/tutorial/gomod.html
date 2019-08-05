@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Building your app</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.0fa35ecc.css" as="style"><link rel="preload" href="/assets/js/app.358745d0.js" as="script"><link rel="preload" href="/assets/js/35.37ad73ec.js" as="script"><link rel="prefetch" href="/assets/js/10.ed56b2dd.js"><link rel="prefetch" href="/assets/js/11.b9448339.js"><link rel="prefetch" href="/assets/js/12.d9540af2.js"><link rel="prefetch" href="/assets/js/13.8738af6e.js"><link rel="prefetch" href="/assets/js/14.7ef7ba9a.js"><link rel="prefetch" href="/assets/js/15.01af3069.js"><link rel="prefetch" href="/assets/js/16.5f272536.js"><link rel="prefetch" href="/assets/js/17.950b1488.js"><link rel="prefetch" href="/assets/js/18.97cd0ce2.js"><link rel="prefetch" href="/assets/js/19.c15b4c92.js"><link rel="prefetch" href="/assets/js/2.7459dab1.js"><link rel="prefetch" href="/assets/js/20.46ad9e71.js"><link rel="prefetch" href="/assets/js/21.1aaf8749.js"><link rel="prefetch" href="/assets/js/22.ed2cbdbe.js"><link rel="prefetch" href="/assets/js/23.d29efe89.js"><link rel="prefetch" href="/assets/js/24.6efbd344.js"><link rel="prefetch" href="/assets/js/25.99eafa78.js"><link rel="prefetch" href="/assets/js/26.59c51545.js"><link rel="prefetch" href="/assets/js/27.09db857f.js"><link rel="prefetch" href="/assets/js/28.de9e6f97.js"><link rel="prefetch" href="/assets/js/29.a95ec837.js"><link rel="prefetch" href="/assets/js/3.3b8bb6a2.js"><link rel="prefetch" href="/assets/js/30.ec4f2e27.js"><link rel="prefetch" href="/assets/js/31.39335b08.js"><link rel="prefetch" href="/assets/js/32.5e4a40ba.js"><link rel="prefetch" href="/assets/js/33.2d12c22c.js"><link rel="prefetch" href="/assets/js/34.6a06e4fa.js"><link rel="prefetch" href="/assets/js/36.c90ef3a4.js"><link rel="prefetch" href="/assets/js/37.fcf1b3b5.js"><link rel="prefetch" href="/assets/js/38.549dbd91.js"><link rel="prefetch" href="/assets/js/39.c25f4a9a.js"><link rel="prefetch" href="/assets/js/4.ff53f1d1.js"><link rel="prefetch" href="/assets/js/40.29b6dbc5.js"><link rel="prefetch" href="/assets/js/41.003066df.js"><link rel="prefetch" href="/assets/js/42.59cc5a5a.js"><link rel="prefetch" href="/assets/js/43.5877f03f.js"><link rel="prefetch" href="/assets/js/44.97ed4d02.js"><link rel="prefetch" href="/assets/js/45.2be01aab.js"><link rel="prefetch" href="/assets/js/5.d936167e.js"><link rel="prefetch" href="/assets/js/6.f824f7e2.js"><link rel="prefetch" href="/assets/js/7.e6534aea.js"><link rel="prefetch" href="/assets/js/8.1b43487c.js"><link rel="prefetch" href="/assets/js/9.a7040e01.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.0fa35ecc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <!----> </div> <div class="page"> <div class="content"><h1 id="building-your-app"><a href="#building-your-app" aria-hidden="true" class="header-anchor">#</a> Building your app</h1> <h2 id="makefile"><a href="#makefile" aria-hidden="true" class="header-anchor">#</a> <code>Makefile</code></h2> <p>Help users build your application by writing a <code>./Makefile</code> in the root directory that includes common commands:</p> <blockquote><p><em><em>NOTE</em></em>: The below Makefile contains some of same commands as the Cosmos SDK and Tendermint Makefiles.</p></blockquote> <div class="language-makefile extra-class"><pre class="language-makefile"><code><span class="token symbol">all</span><span class="token punctuation">:</span> lint install
+
+<span class="token symbol">install</span><span class="token punctuation">:</span> go.sum
+		go install -mod<span class="token operator">=</span>readonly <span class="token variable">$</span><span class="token punctuation">(</span>BUILD_FLAGS<span class="token punctuation">)</span> ./cmd/nsd
+		go install -mod<span class="token operator">=</span>readonly <span class="token variable">$</span><span class="token punctuation">(</span>BUILD_FLAGS<span class="token punctuation">)</span> ./cmd/nscli
+
+<span class="token symbol">go.sum</span><span class="token punctuation">:</span> go.mod
+		<span class="token operator">@</span>echo <span class="token string">&quot;--&gt; Ensure dependencies have not been modified&quot;</span>
+		GO111MODULE<span class="token operator">=</span>on go mod verify
+
+<span class="token symbol">lint</span><span class="token punctuation">:</span>
+	golangci-lint run
+	find . -name <span class="token string">'*.go'</span> -type f -not -path <span class="token string">&quot;./vendor*&quot;</span> -not -path <span class="token string">&quot;*.git*&quot;</span> <span class="token operator">|</span> xargs gofmt -d -s
+	go mod verify
+</code></pre></div><h3 id="how-about-including-ledger-nano-s-support"><a href="#how-about-including-ledger-nano-s-support" aria-hidden="true" class="header-anchor">#</a> How about including Ledger Nano S support?</h3> <p>This requires a few small changes:</p> <ul><li>Create a file <code>Makefile.ledger</code> with the following content:</li></ul> <div class="language-makefile extra-class"><pre class="language-makefile"><code>LEDGER_ENABLED <span class="token operator">?=</span> true
+
+build_tags <span class="token operator">=</span>
+<span class="token keyword">ifeq</span> <span class="token punctuation">(</span><span class="token variable">$</span><span class="token punctuation">(</span>LEDGER_ENABLED<span class="token punctuation">)</span>,true<span class="token punctuation">)</span>
+  <span class="token keyword">ifeq</span> <span class="token punctuation">(</span><span class="token variable">$</span><span class="token punctuation">(</span>OS<span class="token punctuation">)</span>,Windows_NT<span class="token punctuation">)</span>
+    GCCEXE <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token keyword">shell</span> where gcc.exe 2&gt; NUL<span class="token punctuation">)</span>
+    <span class="token keyword">ifeq</span> <span class="token punctuation">(</span><span class="token variable">$</span><span class="token punctuation">(</span>GCCEXE<span class="token punctuation">)</span>,<span class="token punctuation">)</span>
+      <span class="token variable">$</span><span class="token punctuation">(</span><span class="token keyword">error</span> gcc.exe not installed for ledger support, please install or set LEDGER_ENABLED<span class="token operator">=</span>false<span class="token punctuation">)</span>
+    <span class="token keyword">else</span>
+      build_tags <span class="token operator">+=</span> ledger
+    <span class="token keyword">endif</span>
+  <span class="token keyword">else</span>
+    UNAME_S <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token keyword">shell</span> uname -s<span class="token punctuation">)</span>
+    <span class="token keyword">ifeq</span> <span class="token punctuation">(</span><span class="token variable">$</span><span class="token punctuation">(</span>UNAME_S<span class="token punctuation">)</span>,OpenBSD<span class="token punctuation">)</span>
+<span class="token symbol">      <span class="token variable">$</span>(warning OpenBSD detected, disabling ledger support (https</span><span class="token punctuation">:</span>//github.com/cosmos/cosmos-sdk/issues/1988<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span>
+      GCC <span class="token operator">=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token keyword">shell</span> command -v gcc 2&gt; /dev/null<span class="token punctuation">)</span>
+      <span class="token keyword">ifeq</span> <span class="token punctuation">(</span><span class="token variable">$</span><span class="token punctuation">(</span>GCC<span class="token punctuation">)</span>,<span class="token punctuation">)</span>
+        <span class="token variable">$</span><span class="token punctuation">(</span><span class="token keyword">error</span> gcc not installed for ledger support, please install or set LEDGER_ENABLED<span class="token operator">=</span>false<span class="token punctuation">)</span>
+      <span class="token keyword">else</span>
+        build_tags <span class="token operator">+=</span> ledger
+      <span class="token keyword">endif</span>
+    <span class="token keyword">endif</span>
+  <span class="token keyword">endif</span>
+<span class="token keyword">endif</span>
+</code></pre></div><ul><li>Add <code>include Makefile.ledger</code> at the beginning of the Makefile:</li></ul> <div class="language-makefile extra-class"><pre class="language-makefile"><code><span class="token keyword">include</span> Makefile.ledger
+<span class="token symbol">all</span><span class="token punctuation">:</span> lint install
+
+<span class="token symbol">install</span><span class="token punctuation">:</span> go.sum
+		go install -mod<span class="token operator">=</span>readonly <span class="token variable">$</span><span class="token punctuation">(</span>BUILD_FLAGS<span class="token punctuation">)</span> ./cmd/nsd
+		go install -mod<span class="token operator">=</span>readonly <span class="token variable">$</span><span class="token punctuation">(</span>BUILD_FLAGS<span class="token punctuation">)</span> ./cmd/nscli
+
+<span class="token symbol">go.sum</span><span class="token punctuation">:</span> go.mod
+		<span class="token operator">@</span>echo <span class="token string">&quot;--&gt; Ensure dependencies have not been modified&quot;</span>
+		GO111MODULE<span class="token operator">=</span>on go mod verify
+
+<span class="token symbol">lint</span><span class="token punctuation">:</span>
+	golangci-lint run
+	find . -name <span class="token string">'*.go'</span> -type f -not -path <span class="token string">&quot;./vendor*&quot;</span> -not -path <span class="token string">&quot;*.git*&quot;</span> <span class="token operator">|</span> xargs gofmt -d -s
+	go mod verify
+
+</code></pre></div><h2 id="go-mod"><a href="#go-mod" aria-hidden="true" class="header-anchor">#</a> <code>go.mod</code></h2> <p>Golang has a few dependency management tools. In this tutorial you will be using <a href="https://github.com/golang/go/wiki/Modules" target="_blank" rel="noopener noreferrer"><code>Go Modules</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. <code>Go Modules</code> uses a <code>go.mod</code> file in the root of the repository to define what dependencies the application needs. Cosmos SDK apps currently depend on specific versions of some libraries. The below manifest contains all the necessary versions. To get started replace the contents of the <code>./go.mod</code> file with the <code>constraints</code> and <code>overrides</code> below:</p> <blockquote><p><em><em>NOTE</em></em>: If you are following along in your own repo you will need to change the module path to reflect that (<code>github.com/{ .Username }/{ .Project.Repo }</code>).</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>module github.com/cosmos/sdk-application-tutorial
+
+go 1.12
+
+require (
+	github.com/cosmos/cosmos-sdk v0.28.2-0.20190616100639-18415eedaf25
+	github.com/gorilla/mux v1.7.0
+	github.com/mattn/go-isatty v0.0.7 // indirect
+	github.com/prometheus/procfs v0.0.0-20190328153300-af7bedc223fb // indirect
+	github.com/spf13/afero v1.2.2 // indirect
+	github.com/spf13/cobra v0.0.3
+	github.com/spf13/viper v1.0.3
+	github.com/syndtr/goleveldb v1.0.0 // indirect
+	github.com/tendermint/go-amino v0.15.0
+	github.com/tendermint/tendermint v0.31.5
+	golang.org/x/sys v0.0.0-20190329044733-9eb1bfa1ce65 // indirect
+	google.golang.org/genproto v0.0.0-20190327125643-d831d65fe17d // indirect
+	google.golang.org/grpc v1.19.1 // indirect
+)
+
+replace golang.org/x/crypto =&gt; github.com/tendermint/crypto v0.0.0-20180820045704-3764759f34a5
+
+</code></pre></div><h2 id="building-the-app"><a href="#building-the-app" aria-hidden="true" class="header-anchor">#</a> Building the app</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># Install the app into your $GOBIN</span>
+<span class="token function">make</span> <span class="token function">install</span>
+
+<span class="token comment"># Now you should be able to run the following commands:</span>
+nsd <span class="token function">help</span>
+nscli <span class="token function">help</span>
+</code></pre></div><h3 id="congratulations-you-have-finished-your-nameservice-application-try-running-and-interacting-with-it"><a href="#congratulations-you-have-finished-your-nameservice-application-try-running-and-interacting-with-it" aria-hidden="true" class="header-anchor">#</a> Congratulations, you have finished your nameservice application! Try <a href="/tutorial/build-run.html">running and interacting with it</a>!</h3></div> <div class="page-edit"><!----> <!----></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.358745d0.js" defer></script><script src="/assets/js/35.37ad73ec.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Msg 和 Handler</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.0fa35ecc.css" as="style"><link rel="preload" href="/assets/js/app.358745d0.js" as="script"><link rel="preload" href="/assets/js/18.97cd0ce2.js" as="script"><link rel="prefetch" href="/assets/js/10.ed56b2dd.js"><link rel="prefetch" href="/assets/js/11.b9448339.js"><link rel="prefetch" href="/assets/js/12.d9540af2.js"><link rel="prefetch" href="/assets/js/13.8738af6e.js"><link rel="prefetch" href="/assets/js/14.7ef7ba9a.js"><link rel="prefetch" href="/assets/js/15.01af3069.js"><link rel="prefetch" href="/assets/js/16.5f272536.js"><link rel="prefetch" href="/assets/js/17.950b1488.js"><link rel="prefetch" href="/assets/js/19.c15b4c92.js"><link rel="prefetch" href="/assets/js/2.7459dab1.js"><link rel="prefetch" href="/assets/js/20.46ad9e71.js"><link rel="prefetch" href="/assets/js/21.1aaf8749.js"><link rel="prefetch" href="/assets/js/22.ed2cbdbe.js"><link rel="prefetch" href="/assets/js/23.d29efe89.js"><link rel="prefetch" href="/assets/js/24.6efbd344.js"><link rel="prefetch" href="/assets/js/25.99eafa78.js"><link rel="prefetch" href="/assets/js/26.59c51545.js"><link rel="prefetch" href="/assets/js/27.09db857f.js"><link rel="prefetch" href="/assets/js/28.de9e6f97.js"><link rel="prefetch" href="/assets/js/29.a95ec837.js"><link rel="prefetch" href="/assets/js/3.3b8bb6a2.js"><link rel="prefetch" href="/assets/js/30.ec4f2e27.js"><link rel="prefetch" href="/assets/js/31.39335b08.js"><link rel="prefetch" href="/assets/js/32.5e4a40ba.js"><link rel="prefetch" href="/assets/js/33.2d12c22c.js"><link rel="prefetch" href="/assets/js/34.6a06e4fa.js"><link rel="prefetch" href="/assets/js/35.37ad73ec.js"><link rel="prefetch" href="/assets/js/36.c90ef3a4.js"><link rel="prefetch" href="/assets/js/37.fcf1b3b5.js"><link rel="prefetch" href="/assets/js/38.549dbd91.js"><link rel="prefetch" href="/assets/js/39.c25f4a9a.js"><link rel="prefetch" href="/assets/js/4.ff53f1d1.js"><link rel="prefetch" href="/assets/js/40.29b6dbc5.js"><link rel="prefetch" href="/assets/js/41.003066df.js"><link rel="prefetch" href="/assets/js/42.59cc5a5a.js"><link rel="prefetch" href="/assets/js/43.5877f03f.js"><link rel="prefetch" href="/assets/js/44.97ed4d02.js"><link rel="prefetch" href="/assets/js/45.2be01aab.js"><link rel="prefetch" href="/assets/js/5.d936167e.js"><link rel="prefetch" href="/assets/js/6.f824f7e2.js"><link rel="prefetch" href="/assets/js/7.e6534aea.js"><link rel="prefetch" href="/assets/js/8.1b43487c.js"><link rel="prefetch" href="/assets/js/9.a7040e01.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.0fa35ecc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <!----> </div> <div class="page"> <div class="content"><h1 id="msg-和-handler"><a href="#msg-和-handler" aria-hidden="true" class="header-anchor">#</a> Msg 和 Handler</h1> <p>现在你已经设置了<code>Keeper</code>，是时候构建允许用户购买域名和设置解析值的<code>Msg</code>和<code>Handler</code>了。</p> <h2 id="msg"><a href="#msg" aria-hidden="true" class="header-anchor">#</a> Msg</h2> <p><code>Msg</code>触发状态转变。<code>Msgs</code>被包裹在客户端提交至网络的<a href="https://github.com/cosmos/cosmos-sdk/blob/develop/types/tx_msg.go#L34-L38" target="_blank" rel="noopener noreferrer"><code>Txs</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>中。Cosmos SDK从<code>Txs</code>中打包和解包来自<code>Msgs</code>，这就意味着，作为一个应用开发者，你只需要去定义<code>Msgs</code>。<code>Msgs</code>必须要满足下面的接口（我们会在下一小节实现）:</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// Transactions messages must fulfill the Msg</span>
+<span class="token keyword">type</span> Msg <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Return the message type.</span>
+	<span class="token comment">// Must be alphanumeric or empty.</span>
+	<span class="token function">Type</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+
+	<span class="token comment">// Returns a human-readable string for the message, intended for utilization</span>
+	<span class="token comment">// within tags</span>
+	<span class="token function">Route</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span>
+
+	<span class="token comment">// ValidateBasic does a simple validation check that</span>
+	<span class="token comment">// doesn't require access to any other information.</span>
+	<span class="token function">ValidateBasic</span><span class="token punctuation">(</span><span class="token punctuation">)</span> Error
+
+	<span class="token comment">// Get the canonical byte representation of the Msg.</span>
+	<span class="token function">GetSignBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span>
+
+	<span class="token comment">// Signers returns the addrs of signers that must sign.</span>
+	<span class="token comment">// CONTRACT: All signatures must be present to be valid.</span>
+	<span class="token comment">// CONTRACT: Returns addrs in some deterministic order.</span>
+	<span class="token function">GetSigners</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>AccAddress
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="handler"><a href="#handler" aria-hidden="true" class="header-anchor">#</a> Handler</h2> <p><code>Handler</code>定义了在接收到一个特定<code>Msg</code>时，需要采取的操作（哪些存储需要更新，怎样更新及要满足什么条件）。</p> <p>在此模块中，你有两种类型的<code>Msg</code>，用户可以发送这些<code>Msg</code>来和应用程序状态进行交互：<code>SetName</code>和<code>BuyName</code>。它们各自同其<code>Handler</code>关联。</p> <h3 id="现在你已经更好地理解了-msgs-和-handler，可以开始构建你的第一条消息：setname。"><a href="#现在你已经更好地理解了-msgs-和-handler，可以开始构建你的第一条消息：setname。" aria-hidden="true" class="header-anchor">#</a> 现在你已经更好地理解了 Msgs 和 Handler，可以开始构建你的第一条消息：<a href="/tutorial/cn/06-set-name.html"><code>SetName</code></a>。</h3></div> <div class="page-edit"><!----> <!----></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.358745d0.js" defer></script><script src="/assets/js/18.97cd0ce2.js" defer></script>
+  </body>
+</html>

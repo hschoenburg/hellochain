@@ -28,20 +28,17 @@ module.exports = {
         title: "Hellochain Tutorial",
         collapsable: true,
         children: [
-          "/tutorial/",
-          "/tutorial/app.md",
-          "/tutorial/keeper.md",
-          "/tutorial/querier.md",
-          "/tutorial/handler.md",
+          "/hellochain/",
+          "/hellochain/app.md",
         ]
       },
       {
         title: "Nameservice Tutorial",
         collapsable: true,
         children: [
-          "/nameservice/",
-          "/nameservice/app-complete.md",
-          "/nameservice/codec",
+          "/nameservice/tutorial/",
+          "/nameservice/tutorial/app-complete.md",
+          "/nameservice/tutorial/codec",
         ]
       },
     ]

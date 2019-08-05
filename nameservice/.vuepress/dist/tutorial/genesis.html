@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Genesis</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.0fa35ecc.css" as="style"><link rel="preload" href="/assets/js/app.358745d0.js" as="script"><link rel="preload" href="/assets/js/34.6a06e4fa.js" as="script"><link rel="prefetch" href="/assets/js/10.ed56b2dd.js"><link rel="prefetch" href="/assets/js/11.b9448339.js"><link rel="prefetch" href="/assets/js/12.d9540af2.js"><link rel="prefetch" href="/assets/js/13.8738af6e.js"><link rel="prefetch" href="/assets/js/14.7ef7ba9a.js"><link rel="prefetch" href="/assets/js/15.01af3069.js"><link rel="prefetch" href="/assets/js/16.5f272536.js"><link rel="prefetch" href="/assets/js/17.950b1488.js"><link rel="prefetch" href="/assets/js/18.97cd0ce2.js"><link rel="prefetch" href="/assets/js/19.c15b4c92.js"><link rel="prefetch" href="/assets/js/2.7459dab1.js"><link rel="prefetch" href="/assets/js/20.46ad9e71.js"><link rel="prefetch" href="/assets/js/21.1aaf8749.js"><link rel="prefetch" href="/assets/js/22.ed2cbdbe.js"><link rel="prefetch" href="/assets/js/23.d29efe89.js"><link rel="prefetch" href="/assets/js/24.6efbd344.js"><link rel="prefetch" href="/assets/js/25.99eafa78.js"><link rel="prefetch" href="/assets/js/26.59c51545.js"><link rel="prefetch" href="/assets/js/27.09db857f.js"><link rel="prefetch" href="/assets/js/28.de9e6f97.js"><link rel="prefetch" href="/assets/js/29.a95ec837.js"><link rel="prefetch" href="/assets/js/3.3b8bb6a2.js"><link rel="prefetch" href="/assets/js/30.ec4f2e27.js"><link rel="prefetch" href="/assets/js/31.39335b08.js"><link rel="prefetch" href="/assets/js/32.5e4a40ba.js"><link rel="prefetch" href="/assets/js/33.2d12c22c.js"><link rel="prefetch" href="/assets/js/35.37ad73ec.js"><link rel="prefetch" href="/assets/js/36.c90ef3a4.js"><link rel="prefetch" href="/assets/js/37.fcf1b3b5.js"><link rel="prefetch" href="/assets/js/38.549dbd91.js"><link rel="prefetch" href="/assets/js/39.c25f4a9a.js"><link rel="prefetch" href="/assets/js/4.ff53f1d1.js"><link rel="prefetch" href="/assets/js/40.29b6dbc5.js"><link rel="prefetch" href="/assets/js/41.003066df.js"><link rel="prefetch" href="/assets/js/42.59cc5a5a.js"><link rel="prefetch" href="/assets/js/43.5877f03f.js"><link rel="prefetch" href="/assets/js/44.97ed4d02.js"><link rel="prefetch" href="/assets/js/45.2be01aab.js"><link rel="prefetch" href="/assets/js/5.d936167e.js"><link rel="prefetch" href="/assets/js/6.f824f7e2.js"><link rel="prefetch" href="/assets/js/7.e6534aea.js"><link rel="prefetch" href="/assets/js/8.1b43487c.js"><link rel="prefetch" href="/assets/js/9.a7040e01.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.0fa35ecc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <!----> </div> <div class="page"> <div class="content"><h1 id="genesis"><a href="#genesis" aria-hidden="true" class="header-anchor">#</a> Genesis</h1> <p>The AppModule interface includes a number of functions for use in initializing and exporting GenesisState for the chain. The <code>ModuleBasicManager</code> calls these functions on each module when starting, stopping or exporting the chain. Here is a very basic implementation that you can expand upon.</p> <p>Go to <code>x/nameservice/genesis.go</code> and add the following code:</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> nameservice
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;fmt&quot;</span>
+
+	sdk <span class="token string">&quot;github.com/cosmos/cosmos-sdk/types&quot;</span>
+	abci <span class="token string">&quot;github.com/tendermint/tendermint/abci/types&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">type</span> GenesisState <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	WhoisRecords <span class="token punctuation">[</span><span class="token punctuation">]</span>Whois <span class="token string">`json:&quot;whois_records&quot;`</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">NewGenesisState</span><span class="token punctuation">(</span>whoIsRecords <span class="token punctuation">[</span><span class="token punctuation">]</span>Whois<span class="token punctuation">)</span> GenesisState <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> GenesisState<span class="token punctuation">{</span>WhoisRecords<span class="token punctuation">:</span> <span class="token boolean">nil</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">ValidateGenesis</span><span class="token punctuation">(</span>data GenesisState<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+	<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> record <span class="token operator">:=</span> <span class="token keyword">range</span> data<span class="token punctuation">.</span>WhoisRecords <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> record<span class="token punctuation">.</span>Owner <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Invalid WhoisRecord: Value: %s. Error: Missing Owner&quot;</span><span class="token punctuation">,</span> record<span class="token punctuation">.</span>Value<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">if</span> record<span class="token punctuation">.</span>Value <span class="token operator">==</span> <span class="token string">&quot;&quot;</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Invalid WhoisRecord: Owner: %s. Error: Missing Value&quot;</span><span class="token punctuation">,</span> record<span class="token punctuation">.</span>Owner<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">if</span> record<span class="token punctuation">.</span>Price <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Invalid WhoisRecord: Value: %s. Error: Missing Price&quot;</span><span class="token punctuation">,</span> record<span class="token punctuation">.</span>Value<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">DefaultGenesisState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> GenesisState <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> GenesisState<span class="token punctuation">{</span>
+		WhoisRecords<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>Whois<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">InitGenesis</span><span class="token punctuation">(</span>ctx sdk<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> keeper Keeper<span class="token punctuation">,</span> data GenesisState<span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>abci<span class="token punctuation">.</span>ValidatorUpdate <span class="token punctuation">{</span>
+	<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> record <span class="token operator">:=</span> <span class="token keyword">range</span> data<span class="token punctuation">.</span>WhoisRecords <span class="token punctuation">{</span>
+		keeper<span class="token punctuation">.</span><span class="token function">SetWhois</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> record<span class="token punctuation">.</span>Value<span class="token punctuation">,</span> record<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>abci<span class="token punctuation">.</span>ValidatorUpdate<span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">ExportGenesis</span><span class="token punctuation">(</span>ctx sdk<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> k Keeper<span class="token punctuation">)</span> GenesisState <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> records <span class="token punctuation">[</span><span class="token punctuation">]</span>Whois
+	iterator <span class="token operator">:=</span> k<span class="token punctuation">.</span><span class="token function">GetNamesIterator</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span>
+	<span class="token keyword">for</span> <span class="token punctuation">;</span> iterator<span class="token punctuation">.</span><span class="token function">Valid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> iterator<span class="token punctuation">.</span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		name <span class="token operator">:=</span> <span class="token function">string</span><span class="token punctuation">(</span>iterator<span class="token punctuation">.</span><span class="token function">Key</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token keyword">var</span> whois Whois
+		whois <span class="token operator">=</span> k<span class="token punctuation">.</span><span class="token function">GetWhois</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+		records <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>records<span class="token punctuation">,</span> whois<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> GenesisState<span class="token punctuation">{</span>WhoisRecords<span class="token punctuation">:</span> records<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>A few notes about the above code:</p> <ul><li><code>ValidateGenesis()</code> validates the provided genesis state to ensure that expected invariants hold</li> <li><code>DefaultGenesisState()</code> is used mostly for testing. This provides a minimal GenesisState.</li> <li><code>InitGenesis()</code> is called on chain start, this function imports genesis state into the keeper.</li> <li><code>ExportGenesis()</code> is called after stopping the chain, this function loads application state into a GenesisState stuct to later be exported to <code>genesis.json</code> alongside data from the other modules.</li></ul> <h3 id="now-your-module-has-everything-it-needs-to-be-incorporated-into-your-cosmos-sdk-application"><a href="#now-your-module-has-everything-it-needs-to-be-incorporated-into-your-cosmos-sdk-application" aria-hidden="true" class="header-anchor">#</a> Now your module has everything it needs to be <a href="/tutorial/app-complete.html">incorporated into your Cosmos SDK application</a>!</h3></div> <div class="page-edit"><!----> <!----></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.358745d0.js" defer></script><script src="/assets/js/34.6a06e4fa.js" defer></script>
+  </body>
+</html>

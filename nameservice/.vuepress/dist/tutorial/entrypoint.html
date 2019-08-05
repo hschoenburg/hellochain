@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Entrypoints</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.0fa35ecc.css" as="style"><link rel="preload" href="/assets/js/app.358745d0.js" as="script"><link rel="preload" href="/assets/js/33.2d12c22c.js" as="script"><link rel="prefetch" href="/assets/js/10.ed56b2dd.js"><link rel="prefetch" href="/assets/js/11.b9448339.js"><link rel="prefetch" href="/assets/js/12.d9540af2.js"><link rel="prefetch" href="/assets/js/13.8738af6e.js"><link rel="prefetch" href="/assets/js/14.7ef7ba9a.js"><link rel="prefetch" href="/assets/js/15.01af3069.js"><link rel="prefetch" href="/assets/js/16.5f272536.js"><link rel="prefetch" href="/assets/js/17.950b1488.js"><link rel="prefetch" href="/assets/js/18.97cd0ce2.js"><link rel="prefetch" href="/assets/js/19.c15b4c92.js"><link rel="prefetch" href="/assets/js/2.7459dab1.js"><link rel="prefetch" href="/assets/js/20.46ad9e71.js"><link rel="prefetch" href="/assets/js/21.1aaf8749.js"><link rel="prefetch" href="/assets/js/22.ed2cbdbe.js"><link rel="prefetch" href="/assets/js/23.d29efe89.js"><link rel="prefetch" href="/assets/js/24.6efbd344.js"><link rel="prefetch" href="/assets/js/25.99eafa78.js"><link rel="prefetch" href="/assets/js/26.59c51545.js"><link rel="prefetch" href="/assets/js/27.09db857f.js"><link rel="prefetch" href="/assets/js/28.de9e6f97.js"><link rel="prefetch" href="/assets/js/29.a95ec837.js"><link rel="prefetch" href="/assets/js/3.3b8bb6a2.js"><link rel="prefetch" href="/assets/js/30.ec4f2e27.js"><link rel="prefetch" href="/assets/js/31.39335b08.js"><link rel="prefetch" href="/assets/js/32.5e4a40ba.js"><link rel="prefetch" href="/assets/js/34.6a06e4fa.js"><link rel="prefetch" href="/assets/js/35.37ad73ec.js"><link rel="prefetch" href="/assets/js/36.c90ef3a4.js"><link rel="prefetch" href="/assets/js/37.fcf1b3b5.js"><link rel="prefetch" href="/assets/js/38.549dbd91.js"><link rel="prefetch" href="/assets/js/39.c25f4a9a.js"><link rel="prefetch" href="/assets/js/4.ff53f1d1.js"><link rel="prefetch" href="/assets/js/40.29b6dbc5.js"><link rel="prefetch" href="/assets/js/41.003066df.js"><link rel="prefetch" href="/assets/js/42.59cc5a5a.js"><link rel="prefetch" href="/assets/js/43.5877f03f.js"><link rel="prefetch" href="/assets/js/44.97ed4d02.js"><link rel="prefetch" href="/assets/js/45.2be01aab.js"><link rel="prefetch" href="/assets/js/5.d936167e.js"><link rel="prefetch" href="/assets/js/6.f824f7e2.js"><link rel="prefetch" href="/assets/js/7.e6534aea.js"><link rel="prefetch" href="/assets/js/8.1b43487c.js"><link rel="prefetch" href="/assets/js/9.a7040e01.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.0fa35ecc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <!----> </div> <div class="page"> <div class="content"><h1 id="entrypoints"><a href="#entrypoints" aria-hidden="true" class="header-anchor">#</a> Entrypoints</h1> <p>In golang the convention is to place files that compile to a binary in the <code>./cmd</code> folder of a project. For your application there are 2 binaries that you want to create:</p> <ul><li><code>nsd</code>: This binary is similar to <code>bitcoind</code> or other cryptocurrency daemons in that it maintains p2p connections, propagates transactions, handles local storage and provides an RPC interface to interact with the network. In this case, Tendermint is used for networking and transaction ordering.</li> <li><code>nscli</code>: This binary provides commands that allow users to interact with your application.</li></ul> <p>To get started create two files in your project directory that will instantiate these binaries:</p> <ul><li><code>./cmd/nsd/main.go</code></li> <li><code>./cmd/nscli/main.go</code></li></ul> <h2 id="nsd"><a href="#nsd" aria-hidden="true" class="header-anchor">#</a> <code>nsd</code></h2> <p>Start by adding the following code to <code>cmd/nsd/main.go</code>:</p> <blockquote><p><em><em>NOTE</em></em>: Your application needs to import the code you just wrote. Here the import path is set to this repository (<code>github.com/cosmos/sdk-application-tutorial</code>). If you are following along in your own repo you will need to change the import path to reflect that (<code>github.com/{ .Username }/{ .Project.Repo }</code>).</p></blockquote> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;encoding/json&quot;</span>
+	<span class="token string">&quot;io&quot;</span>
+
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/server&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/auth/genaccounts&quot;</span>
+	genaccscli <span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/auth/genaccounts/client/cli&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/staking&quot;</span>
+
+	<span class="token string">&quot;github.com/spf13/cobra&quot;</span>
+	<span class="token string">&quot;github.com/tendermint/tendermint/libs/cli&quot;</span>
+	<span class="token string">&quot;github.com/tendermint/tendermint/libs/log&quot;</span>
+
+	sdk <span class="token string">&quot;github.com/cosmos/cosmos-sdk/types&quot;</span>
+	genutilcli <span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/genutil/client/cli&quot;</span>
+	app <span class="token string">&quot;github.com/cosmos/sdk-application-tutorial&quot;</span>
+	abci <span class="token string">&quot;github.com/tendermint/tendermint/abci/types&quot;</span>
+	dbm <span class="token string">&quot;github.com/tendermint/tendermint/libs/db&quot;</span>
+	tmtypes <span class="token string">&quot;github.com/tendermint/tendermint/types&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	cobra<span class="token punctuation">.</span>EnableCommandSorting <span class="token operator">=</span> <span class="token boolean">false</span>
+
+	cdc <span class="token operator">:=</span> app<span class="token punctuation">.</span><span class="token function">MakeCodec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	config <span class="token operator">:=</span> sdk<span class="token punctuation">.</span><span class="token function">GetConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	config<span class="token punctuation">.</span><span class="token function">SetBech32PrefixForAccount</span><span class="token punctuation">(</span>sdk<span class="token punctuation">.</span>Bech32PrefixAccAddr<span class="token punctuation">,</span> sdk<span class="token punctuation">.</span>Bech32PrefixAccPub<span class="token punctuation">)</span>
+	config<span class="token punctuation">.</span><span class="token function">SetBech32PrefixForValidator</span><span class="token punctuation">(</span>sdk<span class="token punctuation">.</span>Bech32PrefixValAddr<span class="token punctuation">,</span> sdk<span class="token punctuation">.</span>Bech32PrefixValPub<span class="token punctuation">)</span>
+	config<span class="token punctuation">.</span><span class="token function">SetBech32PrefixForConsensusNode</span><span class="token punctuation">(</span>sdk<span class="token punctuation">.</span>Bech32PrefixConsAddr<span class="token punctuation">,</span> sdk<span class="token punctuation">.</span>Bech32PrefixConsPub<span class="token punctuation">)</span>
+	config<span class="token punctuation">.</span><span class="token function">Seal</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	ctx <span class="token operator">:=</span> server<span class="token punctuation">.</span><span class="token function">NewDefaultContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	rootCmd <span class="token operator">:=</span> <span class="token operator">&amp;</span>cobra<span class="token punctuation">.</span>Command<span class="token punctuation">{</span>
+		Use<span class="token punctuation">:</span>               <span class="token string">&quot;nsd&quot;</span><span class="token punctuation">,</span>
+		Short<span class="token punctuation">:</span>             <span class="token string">&quot;nameservice App Daemon (server)&quot;</span><span class="token punctuation">,</span>
+		PersistentPreRunE<span class="token punctuation">:</span> server<span class="token punctuation">.</span><span class="token function">PersistentPreRunEFn</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">// CLI commands to initialize the chain</span>
+	rootCmd<span class="token punctuation">.</span><span class="token function">AddCommand</span><span class="token punctuation">(</span>
+		genutilcli<span class="token punctuation">.</span><span class="token function">InitCmd</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> cdc<span class="token punctuation">,</span> app<span class="token punctuation">.</span>ModuleBasics<span class="token punctuation">,</span> app<span class="token punctuation">.</span>DefaultNodeHome<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		genutilcli<span class="token punctuation">.</span><span class="token function">CollectGenTxsCmd</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> cdc<span class="token punctuation">,</span> genaccounts<span class="token punctuation">.</span>AppModuleBasic<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> app<span class="token punctuation">.</span>DefaultNodeHome<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		genutilcli<span class="token punctuation">.</span><span class="token function">GenTxCmd</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> cdc<span class="token punctuation">,</span> app<span class="token punctuation">.</span>ModuleBasics<span class="token punctuation">,</span> staking<span class="token punctuation">.</span>AppModuleBasic<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> genaccounts<span class="token punctuation">.</span>AppModuleBasic<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> app<span class="token punctuation">.</span>DefaultNodeHome<span class="token punctuation">,</span> app<span class="token punctuation">.</span>DefaultCLIHome<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		genutilcli<span class="token punctuation">.</span><span class="token function">ValidateGenesisCmd</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> cdc<span class="token punctuation">,</span> app<span class="token punctuation">.</span>ModuleBasics<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		<span class="token comment">// AddGenesisAccountCmd allows users to add accounts to the genesis file</span>
+		genaccscli<span class="token punctuation">.</span><span class="token function">AddGenesisAccountCmd</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> cdc<span class="token punctuation">,</span> app<span class="token punctuation">.</span>DefaultNodeHome<span class="token punctuation">,</span> app<span class="token punctuation">.</span>DefaultCLIHome<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	server<span class="token punctuation">.</span><span class="token function">AddCommands</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> cdc<span class="token punctuation">,</span> rootCmd<span class="token punctuation">,</span> newApp<span class="token punctuation">,</span> exportAppStateAndTMValidators<span class="token punctuation">)</span>
+
+	<span class="token comment">// prepare and add flags</span>
+	executor <span class="token operator">:=</span> cli<span class="token punctuation">.</span><span class="token function">PrepareBaseCmd</span><span class="token punctuation">(</span>rootCmd<span class="token punctuation">,</span> <span class="token string">&quot;NS&quot;</span><span class="token punctuation">,</span> app<span class="token punctuation">.</span>DefaultNodeHome<span class="token punctuation">)</span>
+	err <span class="token operator">:=</span> executor<span class="token punctuation">.</span><span class="token function">Execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">newApp</span><span class="token punctuation">(</span>logger log<span class="token punctuation">.</span>Logger<span class="token punctuation">,</span> db dbm<span class="token punctuation">.</span>DB<span class="token punctuation">,</span> traceStore io<span class="token punctuation">.</span>Writer<span class="token punctuation">)</span> abci<span class="token punctuation">.</span>Application <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> app<span class="token punctuation">.</span><span class="token function">NewNameServiceApp</span><span class="token punctuation">(</span>logger<span class="token punctuation">,</span> db<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">exportAppStateAndTMValidators</span><span class="token punctuation">(</span>
+	logger log<span class="token punctuation">.</span>Logger<span class="token punctuation">,</span> db dbm<span class="token punctuation">.</span>DB<span class="token punctuation">,</span> traceStore io<span class="token punctuation">.</span>Writer<span class="token punctuation">,</span> height <span class="token builtin">int64</span><span class="token punctuation">,</span> forZeroHeight <span class="token builtin">bool</span><span class="token punctuation">,</span> jailWhiteList <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token punctuation">(</span>json<span class="token punctuation">.</span>RawMessage<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>tmtypes<span class="token punctuation">.</span>GenesisValidator<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+	<span class="token keyword">if</span> height <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">{</span>
+		nsApp <span class="token operator">:=</span> app<span class="token punctuation">.</span><span class="token function">NewNameServiceApp</span><span class="token punctuation">(</span>logger<span class="token punctuation">,</span> db<span class="token punctuation">)</span>
+		err <span class="token operator">:=</span> nsApp<span class="token punctuation">.</span><span class="token function">LoadHeight</span><span class="token punctuation">(</span>height<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+		<span class="token punctuation">}</span>
+		<span class="token keyword">return</span> nsApp<span class="token punctuation">.</span><span class="token function">ExportAppStateAndValidators</span><span class="token punctuation">(</span>forZeroHeight<span class="token punctuation">,</span> jailWhiteList<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	nsApp <span class="token operator">:=</span> app<span class="token punctuation">.</span><span class="token function">NewNameServiceApp</span><span class="token punctuation">(</span>logger<span class="token punctuation">,</span> db<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> nsApp<span class="token punctuation">.</span><span class="token function">ExportAppStateAndValidators</span><span class="token punctuation">(</span>forZeroHeight<span class="token punctuation">,</span> jailWhiteList<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Notes on the above code:</p> <ul><li>Most of the code above combines the CLI commands from Tendermint, Cosmos-SDK and your Nameservice module.</li></ul> <h2 id="nscli"><a href="#nscli" aria-hidden="true" class="header-anchor">#</a> <code>nscli</code></h2> <p>Finish up by building the <code>nscli</code> command:</p> <blockquote><p><em><em>NOTE</em></em>: Your application needs to import the code you just wrote. Here the import path is set to this repository (<code>github.com/cosmos/sdk-application-tutorial</code>). If you are following along in your own repo you will need to change the import path to reflect that (<code>github.com/{ .Username }/{ .Project.Repo }</code>).</p></blockquote> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;os&quot;</span>
+	<span class="token string">&quot;path&quot;</span>
+
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/client&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/client/keys&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/client/lcd&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/client/rpc&quot;</span>
+	sdk <span class="token string">&quot;github.com/cosmos/cosmos-sdk/types&quot;</span>
+	authcmd <span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/auth/client/cli&quot;</span>
+	bankcmd <span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/bank/client/cli&quot;</span>
+	app <span class="token string">&quot;github.com/cosmos/sdk-application-tutorial&quot;</span>
+	<span class="token string">&quot;github.com/spf13/cobra&quot;</span>
+	<span class="token string">&quot;github.com/spf13/viper&quot;</span>
+	amino <span class="token string">&quot;github.com/tendermint/go-amino&quot;</span>
+	<span class="token string">&quot;github.com/tendermint/tendermint/libs/cli&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+	storeAcc <span class="token operator">=</span> <span class="token string">&quot;acc&quot;</span>
+	storeNS  <span class="token operator">=</span> <span class="token string">&quot;nameservice&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	cobra<span class="token punctuation">.</span>EnableCommandSorting <span class="token operator">=</span> <span class="token boolean">false</span>
+
+	cdc <span class="token operator">:=</span> app<span class="token punctuation">.</span><span class="token function">MakeCodec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// Read in the configuration file for the sdk</span>
+	config <span class="token operator">:=</span> sdk<span class="token punctuation">.</span><span class="token function">GetConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	config<span class="token punctuation">.</span><span class="token function">SetBech32PrefixForAccount</span><span class="token punctuation">(</span>sdk<span class="token punctuation">.</span>Bech32PrefixAccAddr<span class="token punctuation">,</span> sdk<span class="token punctuation">.</span>Bech32PrefixAccPub<span class="token punctuation">)</span>
+	config<span class="token punctuation">.</span><span class="token function">SetBech32PrefixForValidator</span><span class="token punctuation">(</span>sdk<span class="token punctuation">.</span>Bech32PrefixValAddr<span class="token punctuation">,</span> sdk<span class="token punctuation">.</span>Bech32PrefixValPub<span class="token punctuation">)</span>
+	config<span class="token punctuation">.</span><span class="token function">SetBech32PrefixForConsensusNode</span><span class="token punctuation">(</span>sdk<span class="token punctuation">.</span>Bech32PrefixConsAddr<span class="token punctuation">,</span> sdk<span class="token punctuation">.</span>Bech32PrefixConsPub<span class="token punctuation">)</span>
+	config<span class="token punctuation">.</span><span class="token function">Seal</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	rootCmd <span class="token operator">:=</span> <span class="token operator">&amp;</span>cobra<span class="token punctuation">.</span>Command<span class="token punctuation">{</span>
+		Use<span class="token punctuation">:</span>   <span class="token string">&quot;nscli&quot;</span><span class="token punctuation">,</span>
+		Short<span class="token punctuation">:</span> <span class="token string">&quot;nameservice Client&quot;</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// Add --chain-id to persistent flags and mark it required</span>
+	rootCmd<span class="token punctuation">.</span><span class="token function">PersistentFlags</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span>client<span class="token punctuation">.</span>FlagChainID<span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;Chain ID of tendermint node&quot;</span><span class="token punctuation">)</span>
+	rootCmd<span class="token punctuation">.</span>PersistentPreRunE <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token boolean">_</span> <span class="token operator">*</span>cobra<span class="token punctuation">.</span>Command<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token function">initConfig</span><span class="token punctuation">(</span>rootCmd<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// Construct Root Command</span>
+	rootCmd<span class="token punctuation">.</span><span class="token function">AddCommand</span><span class="token punctuation">(</span>
+		rpc<span class="token punctuation">.</span><span class="token function">StatusCommand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		client<span class="token punctuation">.</span><span class="token function">ConfigCmd</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>DefaultCLIHome<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		<span class="token function">queryCmd</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		<span class="token function">txCmd</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		client<span class="token punctuation">.</span>LineBreak<span class="token punctuation">,</span>
+		lcd<span class="token punctuation">.</span><span class="token function">ServeCommand</span><span class="token punctuation">(</span>cdc<span class="token punctuation">,</span> registerRoutes<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		client<span class="token punctuation">.</span>LineBreak<span class="token punctuation">,</span>
+		keys<span class="token punctuation">.</span><span class="token function">Commands</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		client<span class="token punctuation">.</span>LineBreak<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	executor <span class="token operator">:=</span> cli<span class="token punctuation">.</span><span class="token function">PrepareMainCmd</span><span class="token punctuation">(</span>rootCmd<span class="token punctuation">,</span> <span class="token string">&quot;NS&quot;</span><span class="token punctuation">,</span> app<span class="token punctuation">.</span>DefaultCLIHome<span class="token punctuation">)</span>
+	err <span class="token operator">:=</span> executor<span class="token punctuation">.</span><span class="token function">Execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">registerRoutes</span><span class="token punctuation">(</span>rs <span class="token operator">*</span>lcd<span class="token punctuation">.</span>RestServer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	client<span class="token punctuation">.</span><span class="token function">RegisterRoutes</span><span class="token punctuation">(</span>rs<span class="token punctuation">.</span>CliCtx<span class="token punctuation">,</span> rs<span class="token punctuation">.</span>Mux<span class="token punctuation">)</span>
+	app<span class="token punctuation">.</span>ModuleBasics<span class="token punctuation">.</span><span class="token function">RegisterRESTRoutes</span><span class="token punctuation">(</span>rs<span class="token punctuation">.</span>CliCtx<span class="token punctuation">,</span> rs<span class="token punctuation">.</span>Mux<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">queryCmd</span><span class="token punctuation">(</span>cdc <span class="token operator">*</span>amino<span class="token punctuation">.</span>Codec<span class="token punctuation">)</span> <span class="token operator">*</span>cobra<span class="token punctuation">.</span>Command <span class="token punctuation">{</span>
+	queryCmd <span class="token operator">:=</span> <span class="token operator">&amp;</span>cobra<span class="token punctuation">.</span>Command<span class="token punctuation">{</span>
+		Use<span class="token punctuation">:</span>     <span class="token string">&quot;query&quot;</span><span class="token punctuation">,</span>
+		Aliases<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span><span class="token string">&quot;q&quot;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		Short<span class="token punctuation">:</span>   <span class="token string">&quot;Querying subcommands&quot;</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+
+	queryCmd<span class="token punctuation">.</span><span class="token function">AddCommand</span><span class="token punctuation">(</span>
+		authcmd<span class="token punctuation">.</span><span class="token function">GetAccountCmd</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		client<span class="token punctuation">.</span>LineBreak<span class="token punctuation">,</span>
+		rpc<span class="token punctuation">.</span><span class="token function">ValidatorCommand</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		rpc<span class="token punctuation">.</span><span class="token function">BlockCommand</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		authcmd<span class="token punctuation">.</span><span class="token function">QueryTxsByTagsCmd</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		authcmd<span class="token punctuation">.</span><span class="token function">QueryTxCmd</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		client<span class="token punctuation">.</span>LineBreak<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	<span class="token comment">// add modules' query commands</span>
+	app<span class="token punctuation">.</span>ModuleBasics<span class="token punctuation">.</span><span class="token function">AddQueryCommands</span><span class="token punctuation">(</span>queryCmd<span class="token punctuation">,</span> cdc<span class="token punctuation">)</span>
+
+	<span class="token keyword">return</span> queryCmd
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">txCmd</span><span class="token punctuation">(</span>cdc <span class="token operator">*</span>amino<span class="token punctuation">.</span>Codec<span class="token punctuation">)</span> <span class="token operator">*</span>cobra<span class="token punctuation">.</span>Command <span class="token punctuation">{</span>
+	txCmd <span class="token operator">:=</span> <span class="token operator">&amp;</span>cobra<span class="token punctuation">.</span>Command<span class="token punctuation">{</span>
+		Use<span class="token punctuation">:</span>   <span class="token string">&quot;tx&quot;</span><span class="token punctuation">,</span>
+		Short<span class="token punctuation">:</span> <span class="token string">&quot;Transactions subcommands&quot;</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+
+	txCmd<span class="token punctuation">.</span><span class="token function">AddCommand</span><span class="token punctuation">(</span>
+		bankcmd<span class="token punctuation">.</span><span class="token function">SendTxCmd</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		client<span class="token punctuation">.</span>LineBreak<span class="token punctuation">,</span>
+		authcmd<span class="token punctuation">.</span><span class="token function">GetSignCommand</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		authcmd<span class="token punctuation">.</span><span class="token function">GetMultiSignCommand</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		client<span class="token punctuation">.</span>LineBreak<span class="token punctuation">,</span>
+		authcmd<span class="token punctuation">.</span><span class="token function">GetBroadcastCommand</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		authcmd<span class="token punctuation">.</span><span class="token function">GetEncodeCommand</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		client<span class="token punctuation">.</span>LineBreak<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	<span class="token comment">// add modules' tx commands</span>
+	app<span class="token punctuation">.</span>ModuleBasics<span class="token punctuation">.</span><span class="token function">AddTxCommands</span><span class="token punctuation">(</span>txCmd<span class="token punctuation">,</span> cdc<span class="token punctuation">)</span>
+
+	<span class="token keyword">return</span> txCmd
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">initConfig</span><span class="token punctuation">(</span>cmd <span class="token operator">*</span>cobra<span class="token punctuation">.</span>Command<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+	home<span class="token punctuation">,</span> err <span class="token operator">:=</span> cmd<span class="token punctuation">.</span><span class="token function">PersistentFlags</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">GetString</span><span class="token punctuation">(</span>cli<span class="token punctuation">.</span>HomeFlag<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> err
+	<span class="token punctuation">}</span>
+
+	cfgFile <span class="token operator">:=</span> path<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span>home<span class="token punctuation">,</span> <span class="token string">&quot;config&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;config.toml&quot;</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Stat</span><span class="token punctuation">(</span>cfgFile<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		viper<span class="token punctuation">.</span><span class="token function">SetConfigFile</span><span class="token punctuation">(</span>cfgFile<span class="token punctuation">)</span>
+
+		<span class="token keyword">if</span> err <span class="token operator">:=</span> viper<span class="token punctuation">.</span><span class="token function">ReadInConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> err
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> err <span class="token operator">:=</span> viper<span class="token punctuation">.</span><span class="token function">BindPFlag</span><span class="token punctuation">(</span>client<span class="token punctuation">.</span>FlagChainID<span class="token punctuation">,</span> cmd<span class="token punctuation">.</span><span class="token function">PersistentFlags</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Lookup</span><span class="token punctuation">(</span>client<span class="token punctuation">.</span>FlagChainID<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> err
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> err <span class="token operator">:=</span> viper<span class="token punctuation">.</span><span class="token function">BindPFlag</span><span class="token punctuation">(</span>cli<span class="token punctuation">.</span>EncodingFlag<span class="token punctuation">,</span> cmd<span class="token punctuation">.</span><span class="token function">PersistentFlags</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Lookup</span><span class="token punctuation">(</span>cli<span class="token punctuation">.</span>EncodingFlag<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> err
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> viper<span class="token punctuation">.</span><span class="token function">BindPFlag</span><span class="token punctuation">(</span>cli<span class="token punctuation">.</span>OutputFlag<span class="token punctuation">,</span> cmd<span class="token punctuation">.</span><span class="token function">PersistentFlags</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Lookup</span><span class="token punctuation">(</span>cli<span class="token punctuation">.</span>OutputFlag<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Note:</p> <ul><li>The code combines the CLI commands from Tendermint, Cosmos-SDK and your Nameservice module.</li> <li>The <a href="http://github.com/spf13/cobra" target="_blank" rel="noopener noreferrer"><code>cobra</code> CLI documentation<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> will help with understanding the above code.</li> <li>You can see the <code>ModuleClient</code> defined earlier in action here.</li> <li>Note how the routes are included in the <code>registerRoutes</code> function.</li></ul> <h3 id="now-that-you-have-your-binaries-defined-its-time-to-deal-with-dependency-management-and-build-your-app"><a href="#now-that-you-have-your-binaries-defined-its-time-to-deal-with-dependency-management-and-build-your-app" aria-hidden="true" class="header-anchor">#</a> Now that you have your binaries defined its time to deal with <a href="/tutorial/gomod.html">dependency management and build your app</a>!</h3></div> <div class="page-edit"><!----> <!----></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.358745d0.js" defer></script><script src="/assets/js/33.2d12c22c.js" defer></script>
+  </body>
+</html>

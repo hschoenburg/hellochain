@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Building and running the application</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.0fa35ecc.css" as="style"><link rel="preload" href="/assets/js/app.358745d0.js" as="script"><link rel="preload" href="/assets/js/11.b9448339.js" as="script"><link rel="prefetch" href="/assets/js/10.ed56b2dd.js"><link rel="prefetch" href="/assets/js/12.d9540af2.js"><link rel="prefetch" href="/assets/js/13.8738af6e.js"><link rel="prefetch" href="/assets/js/14.7ef7ba9a.js"><link rel="prefetch" href="/assets/js/15.01af3069.js"><link rel="prefetch" href="/assets/js/16.5f272536.js"><link rel="prefetch" href="/assets/js/17.950b1488.js"><link rel="prefetch" href="/assets/js/18.97cd0ce2.js"><link rel="prefetch" href="/assets/js/19.c15b4c92.js"><link rel="prefetch" href="/assets/js/2.7459dab1.js"><link rel="prefetch" href="/assets/js/20.46ad9e71.js"><link rel="prefetch" href="/assets/js/21.1aaf8749.js"><link rel="prefetch" href="/assets/js/22.ed2cbdbe.js"><link rel="prefetch" href="/assets/js/23.d29efe89.js"><link rel="prefetch" href="/assets/js/24.6efbd344.js"><link rel="prefetch" href="/assets/js/25.99eafa78.js"><link rel="prefetch" href="/assets/js/26.59c51545.js"><link rel="prefetch" href="/assets/js/27.09db857f.js"><link rel="prefetch" href="/assets/js/28.de9e6f97.js"><link rel="prefetch" href="/assets/js/29.a95ec837.js"><link rel="prefetch" href="/assets/js/3.3b8bb6a2.js"><link rel="prefetch" href="/assets/js/30.ec4f2e27.js"><link rel="prefetch" href="/assets/js/31.39335b08.js"><link rel="prefetch" href="/assets/js/32.5e4a40ba.js"><link rel="prefetch" href="/assets/js/33.2d12c22c.js"><link rel="prefetch" href="/assets/js/34.6a06e4fa.js"><link rel="prefetch" href="/assets/js/35.37ad73ec.js"><link rel="prefetch" href="/assets/js/36.c90ef3a4.js"><link rel="prefetch" href="/assets/js/37.fcf1b3b5.js"><link rel="prefetch" href="/assets/js/38.549dbd91.js"><link rel="prefetch" href="/assets/js/39.c25f4a9a.js"><link rel="prefetch" href="/assets/js/4.ff53f1d1.js"><link rel="prefetch" href="/assets/js/40.29b6dbc5.js"><link rel="prefetch" href="/assets/js/41.003066df.js"><link rel="prefetch" href="/assets/js/42.59cc5a5a.js"><link rel="prefetch" href="/assets/js/43.5877f03f.js"><link rel="prefetch" href="/assets/js/44.97ed4d02.js"><link rel="prefetch" href="/assets/js/45.2be01aab.js"><link rel="prefetch" href="/assets/js/5.d936167e.js"><link rel="prefetch" href="/assets/js/6.f824f7e2.js"><link rel="prefetch" href="/assets/js/7.e6534aea.js"><link rel="prefetch" href="/assets/js/8.1b43487c.js"><link rel="prefetch" href="/assets/js/9.a7040e01.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.0fa35ecc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <!----> </div> <div class="page"> <div class="content"><h1 id="building-and-running-the-application"><a href="#building-and-running-the-application" aria-hidden="true" class="header-anchor">#</a> Building and running the application</h1> <h2 id="building-the-nameservice-application"><a href="#building-the-nameservice-application" aria-hidden="true" class="header-anchor">#</a> Building the <code>nameservice</code> application</h2> <p>If you want to build the <code>nameservice</code> application in this repo to see the functionalities, <strong>Go 1.12.1+</strong> is required .</p> <p>Add some parameters to environment is necessary if you have never used the <code>go mod</code> before.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">mkdir</span> -p <span class="token variable">$HOME</span>/go/bin
+<span class="token keyword">echo</span> <span class="token string">&quot;export GOPATH=<span class="token variable">$HOME</span>/go&quot;</span> <span class="token operator">&gt;&gt;</span> ~/.bash_profile
+<span class="token keyword">echo</span> <span class="token string">&quot;export GOBIN=\<span class="token variable">$GOPATH</span>/bin&quot;</span> <span class="token operator">&gt;&gt;</span> ~/.bash_profile
+<span class="token keyword">echo</span> <span class="token string">&quot;export PATH=\<span class="token variable">$PATH</span>:\<span class="token variable">$GOBIN</span>&quot;</span> <span class="token operator">&gt;&gt;</span> ~/.bash_profile
+<span class="token keyword">echo</span> <span class="token string">&quot;export GO111MODULE=on&quot;</span> <span class="token operator">&gt;&gt;</span> ~/.bash_profile
+<span class="token function">source</span> ~/.bash_profile
+</code></pre></div><p>Now, you can install and run the application.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># Install the app into your $GOBIN</span>
+<span class="token function">make</span> <span class="token function">install</span>
+
+<span class="token comment"># Now you should be able to run the following commands:</span>
+nsd <span class="token function">help</span>
+nscli <span class="token function">help</span>
+</code></pre></div><h2 id="running-the-live-network-and-using-the-commands"><a href="#running-the-live-network-and-using-the-commands" aria-hidden="true" class="header-anchor">#</a> Running the live network and using the commands</h2> <p>To initialize configuration and a <code>genesis.json</code> file for your application and an account for the transactions, start by running:</p> <blockquote><p><em><em>NOTE</em></em>: In the below commands addresses are pulled using terminal utilities. You can also just input the raw strings saved from creating keys, shown below. The commands require <a href="https://stedolan.github.io/jq/download/" target="_blank" rel="noopener noreferrer"><code>jq</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> to be installed on your machine.</p></blockquote> <blockquote><p><em><em>NOTE</em></em>: If you have run the tutorial before, you can start from scratch with a <code>nsd unsafe-reset-all</code> or by deleting both of the home folders <code>rm -rf ~/.ns*</code></p></blockquote> <blockquote><p><em><em>NOTE</em></em>: If you have the Cosmos app for ledger and you want to use it, when you create the key with <code>nscli keys add jack</code> just add <code>--ledger</code> at the end. That's all you need. When you sign, <code>jack</code> will be recognized as a Ledger key and will require a device.</p></blockquote> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># Initialize configuration files and genesis file</span>
+  <span class="token comment"># moniker is the name of your node</span>
+nsd init <span class="token operator">&lt;</span>moniker<span class="token operator">&gt;</span> --chain-id namechain
+
+
+<span class="token comment"># Copy the `Address` output here and save it for later use</span>
+<span class="token comment"># [optional] add &quot;--ledger&quot; at the end to use a Ledger Nano S</span>
+nscli keys <span class="token function">add</span> jack
+
+<span class="token comment"># Copy the `Address` output here and save it for later use</span>
+nscli keys <span class="token function">add</span> alice
+
+<span class="token comment"># Add both accounts, with coins to the genesis file</span>
+nsd add-genesis-account <span class="token variable"><span class="token variable">$(</span>nscli keys show jack -a<span class="token variable">)</span></span> 1000nametoken,100000000stake
+nsd add-genesis-account <span class="token variable"><span class="token variable">$(</span>nscli keys show alice -a<span class="token variable">)</span></span> 1000nametoken,100000000stake
+
+<span class="token comment"># Configure your CLI to eliminate need for chain-id flag</span>
+nscli config chain-id namechain
+nscli config output json
+nscli config indent <span class="token boolean">true</span>
+nscli config trust-node <span class="token boolean">true</span>
+
+nsd gentx --name jack <span class="token operator">&lt;</span>or your key_name<span class="token operator">&gt;</span>
+</code></pre></div><p>After you have generated a genesis transcation, you will have to input the gentx into the genesis file, so that your nameservice chain is aware of the validators. To do so, run:</p> <p><code>nsd collect-gentxs</code></p> <p>and to make sure your genesis file is correct, run:</p> <p><code>nsd validate-genesis</code></p> <p>You can now start <code>nsd</code> by calling <code>nsd start</code>. You will see logs begin streaming that represent blocks being produced, this will take a couple of seconds.</p> <p>You have run your first node successfully.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># First check the accounts to ensure they have funds</span>
+nscli query account <span class="token variable"><span class="token variable">$(</span>nscli keys show jack -a<span class="token variable">)</span></span>
+nscli query account <span class="token variable"><span class="token variable">$(</span>nscli keys show alice -a<span class="token variable">)</span></span>
+
+<span class="token comment"># Buy your first name using your coins from the genesis file</span>
+nscli tx nameservice buy-name jack.id 5nametoken --from jack
+
+<span class="token comment"># Set the value for the name you just bought</span>
+nscli tx nameservice set-name jack.id 8.8.8.8 --from jack
+
+<span class="token comment"># Try out a resolve query against the name you registered</span>
+nscli query nameservice resolve jack.id
+<span class="token comment"># &gt; 8.8.8.8</span>
+
+<span class="token comment"># Try out a whois query against the name you just registered</span>
+nscli query nameservice whois jack.id
+<span class="token comment"># &gt; {&quot;value&quot;:&quot;8.8.8.8&quot;,&quot;owner&quot;:&quot;cosmos1l7k5tdt2qam0zecxrx78yuw447ga54dsmtpk2s&quot;,&quot;price&quot;:[{&quot;denom&quot;:&quot;nametoken&quot;,&quot;amount&quot;:&quot;5&quot;}]}</span>
+
+<span class="token comment"># Alice buys name from jack</span>
+nscli tx nameservice buy-name jack.id 10nametoken --from alice
+</code></pre></div><h3 id="congratulations-you-have-built-a-cosmos-sdk-application-this-tutorial-is-now-complete-if-you-want-to-see-how-to-run-the-same-commands-using-the-rest-server-click-here"><a href="#congratulations-you-have-built-a-cosmos-sdk-application-this-tutorial-is-now-complete-if-you-want-to-see-how-to-run-the-same-commands-using-the-rest-server-click-here" aria-hidden="true" class="header-anchor">#</a> Congratulations, you have built a Cosmos SDK application! This tutorial is now complete. If you want to see how to run the same commands using the REST server <a href="/tutorial/run-rest.html">click here</a>.</h3> <h1 id="run-second-node-on-another-machine-optional"><a href="#run-second-node-on-another-machine-optional" aria-hidden="true" class="header-anchor">#</a> Run second node on another machine (Optional)</h1> <p>Open terminal to run commands against that just created to install nsd and nscli</p> <h2 id="init-use-another-moniker-and-same-namechain"><a href="#init-use-another-moniker-and-same-namechain" aria-hidden="true" class="header-anchor">#</a> init use another moniker and same namechain</h2> <div class="language-bash extra-class"><pre class="language-bash"><code>nsd init <span class="token operator">&lt;</span>moniker-2<span class="token operator">&gt;</span> --chain-id namechain
+</code></pre></div><h2 id="overwrite-nsd-config-genesis-json-with-first-node-s-genesis-json"><a href="#overwrite-nsd-config-genesis-json-with-first-node-s-genesis-json" aria-hidden="true" class="header-anchor">#</a> overwrite ~/.nsd/config/genesis.json with first node's genesis.json</h2> <h2 id="change-persistent-peers"><a href="#change-persistent-peers" aria-hidden="true" class="header-anchor">#</a> change persistent_peers</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">vim</span> /.nsd/config/config.toml
+persistent_peers <span class="token operator">=</span> <span class="token string">&quot;id@firt_node_ip:26656&quot;</span>
+run <span class="token string">&quot;nscli status&quot;</span> on first node to get id.
+</code></pre></div><h2 id="start-this-second-node"><a href="#start-this-second-node" aria-hidden="true" class="header-anchor">#</a> start this second node</h2> <div class="language-bash extra-class"><pre class="language-bash"><code>nsd start
+</code></pre></div></div> <div class="page-edit"><!----> <!----></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.358745d0.js" defer></script><script src="/assets/js/11.b9448339.js" defer></script>
+  </body>
+</html>

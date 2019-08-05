@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Types</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.0fa35ecc.css" as="style"><link rel="preload" href="/assets/js/app.358745d0.js" as="script"><link rel="preload" href="/assets/js/44.97ed4d02.js" as="script"><link rel="prefetch" href="/assets/js/10.ed56b2dd.js"><link rel="prefetch" href="/assets/js/11.b9448339.js"><link rel="prefetch" href="/assets/js/12.d9540af2.js"><link rel="prefetch" href="/assets/js/13.8738af6e.js"><link rel="prefetch" href="/assets/js/14.7ef7ba9a.js"><link rel="prefetch" href="/assets/js/15.01af3069.js"><link rel="prefetch" href="/assets/js/16.5f272536.js"><link rel="prefetch" href="/assets/js/17.950b1488.js"><link rel="prefetch" href="/assets/js/18.97cd0ce2.js"><link rel="prefetch" href="/assets/js/19.c15b4c92.js"><link rel="prefetch" href="/assets/js/2.7459dab1.js"><link rel="prefetch" href="/assets/js/20.46ad9e71.js"><link rel="prefetch" href="/assets/js/21.1aaf8749.js"><link rel="prefetch" href="/assets/js/22.ed2cbdbe.js"><link rel="prefetch" href="/assets/js/23.d29efe89.js"><link rel="prefetch" href="/assets/js/24.6efbd344.js"><link rel="prefetch" href="/assets/js/25.99eafa78.js"><link rel="prefetch" href="/assets/js/26.59c51545.js"><link rel="prefetch" href="/assets/js/27.09db857f.js"><link rel="prefetch" href="/assets/js/28.de9e6f97.js"><link rel="prefetch" href="/assets/js/29.a95ec837.js"><link rel="prefetch" href="/assets/js/3.3b8bb6a2.js"><link rel="prefetch" href="/assets/js/30.ec4f2e27.js"><link rel="prefetch" href="/assets/js/31.39335b08.js"><link rel="prefetch" href="/assets/js/32.5e4a40ba.js"><link rel="prefetch" href="/assets/js/33.2d12c22c.js"><link rel="prefetch" href="/assets/js/34.6a06e4fa.js"><link rel="prefetch" href="/assets/js/35.37ad73ec.js"><link rel="prefetch" href="/assets/js/36.c90ef3a4.js"><link rel="prefetch" href="/assets/js/37.fcf1b3b5.js"><link rel="prefetch" href="/assets/js/38.549dbd91.js"><link rel="prefetch" href="/assets/js/39.c25f4a9a.js"><link rel="prefetch" href="/assets/js/4.ff53f1d1.js"><link rel="prefetch" href="/assets/js/40.29b6dbc5.js"><link rel="prefetch" href="/assets/js/41.003066df.js"><link rel="prefetch" href="/assets/js/42.59cc5a5a.js"><link rel="prefetch" href="/assets/js/43.5877f03f.js"><link rel="prefetch" href="/assets/js/45.2be01aab.js"><link rel="prefetch" href="/assets/js/5.d936167e.js"><link rel="prefetch" href="/assets/js/6.f824f7e2.js"><link rel="prefetch" href="/assets/js/7.e6534aea.js"><link rel="prefetch" href="/assets/js/8.1b43487c.js"><link rel="prefetch" href="/assets/js/9.a7040e01.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.0fa35ecc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <!----> </div> <div class="page"> <div class="content"><h1 id="types"><a href="#types" aria-hidden="true" class="header-anchor">#</a> Types</h1> <p>First Thing we're going to do is define a struct that holds all the metadata of a name. We will call this struct Whois after the ICANN DNS terminology.</p> <h2 id="types-go"><a href="#types-go" aria-hidden="true" class="header-anchor">#</a> <code>types.go</code></h2> <p>Begin by creating the file <code>./x/nameservice/types/types.go</code> to hold the customs types for your module. In Cosmos SDK applications, the convention is that modules live in the <code>./x/</code> folder.</p> <h2 id="whois"><a href="#whois" aria-hidden="true" class="header-anchor">#</a> Whois</h2> <p>Each name will have three pieces of data associated with it.</p> <ul><li>Value - The value that a name resolves to. This is just an arbitrary string, but in the future you can modify this to require it fitting a specific format, such as an IP address, DNS Zone file, or blockchain address.</li> <li>Owner - The address of the current owner of the name</li> <li>Price - The price you will need to pay in order to buy the name</li></ul> <p>To start your SDK module, define your <code>nameservice.Whois</code> struct in the <code>./x/nameservice/types/types.go</code> file:</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> types
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;fmt&quot;</span>
+	<span class="token string">&quot;strings&quot;</span>
+	sdk <span class="token string">&quot;github.com/cosmos/cosmos-sdk/types&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// Whois is a struct that contains all the metadata of a name</span>
+<span class="token keyword">type</span> Whois <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	Value <span class="token builtin">string</span>         <span class="token string">`json:&quot;value&quot;`</span>
+	Owner sdk<span class="token punctuation">.</span>AccAddress <span class="token string">`json:&quot;owner&quot;`</span>
+	Price sdk<span class="token punctuation">.</span>Coins      <span class="token string">`json:&quot;price&quot;`</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>As mentioned in the <a href="/tutorial/app-design.html">Design doc</a>, if a name does not already have an owner, we want to initialize it with some MinPrice.</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// Initial Starting Price for a name that was never previously owned</span>
+<span class="token keyword">var</span> MinNamePrice <span class="token operator">=</span> sdk<span class="token punctuation">.</span>Coins<span class="token punctuation">{</span>sdk<span class="token punctuation">.</span><span class="token function">NewInt64Coin</span><span class="token punctuation">(</span><span class="token string">&quot;nametoken&quot;</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment">// Returns a new Whois with the minprice as the price</span>
+<span class="token keyword">func</span> <span class="token function">NewWhois</span><span class="token punctuation">(</span><span class="token punctuation">)</span> Whois <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> Whois<span class="token punctuation">{</span>
+		Price<span class="token punctuation">:</span> MinNamePrice<span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// implement fmt.Stringer</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>w Whois<span class="token punctuation">)</span> <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> strings<span class="token punctuation">.</span><span class="token function">TrimSpace</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">`Owner: %s
+Value: %s
+Price: %s`</span><span class="token punctuation">,</span> w<span class="token punctuation">.</span>Owner<span class="token punctuation">,</span> w<span class="token punctuation">.</span>Value<span class="token punctuation">,</span> w<span class="token punctuation">.</span>Price<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="now-we-can-create-our-key-file"><a href="#now-we-can-create-our-key-file" aria-hidden="true" class="header-anchor">#</a> Now we can create our <a href="/tutorial/key.html">key file</a></h3></div> <div class="page-edit"><!----> <!----></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.358745d0.js" defer></script><script src="/assets/js/44.97ed4d02.js" defer></script>
+  </body>
+</html>

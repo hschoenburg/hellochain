@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>引入你的模块并完成程序</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.0fa35ecc.css" as="style"><link rel="preload" href="/assets/js/app.358745d0.js" as="script"><link rel="preload" href="/assets/js/25.99eafa78.js" as="script"><link rel="prefetch" href="/assets/js/10.ed56b2dd.js"><link rel="prefetch" href="/assets/js/11.b9448339.js"><link rel="prefetch" href="/assets/js/12.d9540af2.js"><link rel="prefetch" href="/assets/js/13.8738af6e.js"><link rel="prefetch" href="/assets/js/14.7ef7ba9a.js"><link rel="prefetch" href="/assets/js/15.01af3069.js"><link rel="prefetch" href="/assets/js/16.5f272536.js"><link rel="prefetch" href="/assets/js/17.950b1488.js"><link rel="prefetch" href="/assets/js/18.97cd0ce2.js"><link rel="prefetch" href="/assets/js/19.c15b4c92.js"><link rel="prefetch" href="/assets/js/2.7459dab1.js"><link rel="prefetch" href="/assets/js/20.46ad9e71.js"><link rel="prefetch" href="/assets/js/21.1aaf8749.js"><link rel="prefetch" href="/assets/js/22.ed2cbdbe.js"><link rel="prefetch" href="/assets/js/23.d29efe89.js"><link rel="prefetch" href="/assets/js/24.6efbd344.js"><link rel="prefetch" href="/assets/js/26.59c51545.js"><link rel="prefetch" href="/assets/js/27.09db857f.js"><link rel="prefetch" href="/assets/js/28.de9e6f97.js"><link rel="prefetch" href="/assets/js/29.a95ec837.js"><link rel="prefetch" href="/assets/js/3.3b8bb6a2.js"><link rel="prefetch" href="/assets/js/30.ec4f2e27.js"><link rel="prefetch" href="/assets/js/31.39335b08.js"><link rel="prefetch" href="/assets/js/32.5e4a40ba.js"><link rel="prefetch" href="/assets/js/33.2d12c22c.js"><link rel="prefetch" href="/assets/js/34.6a06e4fa.js"><link rel="prefetch" href="/assets/js/35.37ad73ec.js"><link rel="prefetch" href="/assets/js/36.c90ef3a4.js"><link rel="prefetch" href="/assets/js/37.fcf1b3b5.js"><link rel="prefetch" href="/assets/js/38.549dbd91.js"><link rel="prefetch" href="/assets/js/39.c25f4a9a.js"><link rel="prefetch" href="/assets/js/4.ff53f1d1.js"><link rel="prefetch" href="/assets/js/40.29b6dbc5.js"><link rel="prefetch" href="/assets/js/41.003066df.js"><link rel="prefetch" href="/assets/js/42.59cc5a5a.js"><link rel="prefetch" href="/assets/js/43.5877f03f.js"><link rel="prefetch" href="/assets/js/44.97ed4d02.js"><link rel="prefetch" href="/assets/js/45.2be01aab.js"><link rel="prefetch" href="/assets/js/5.d936167e.js"><link rel="prefetch" href="/assets/js/6.f824f7e2.js"><link rel="prefetch" href="/assets/js/7.e6534aea.js"><link rel="prefetch" href="/assets/js/8.1b43487c.js"><link rel="prefetch" href="/assets/js/9.a7040e01.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.0fa35ecc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <!----> </div> <div class="page"> <div class="content"><h1 id="引入你的模块并完成程序"><a href="#引入你的模块并完成程序" aria-hidden="true" class="header-anchor">#</a> 引入你的模块并完成程序</h1> <p>现在你的模块已就绪，它可以和其它两个模块<a href="https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth" target="_blank" rel="noopener noreferrer"><code>auth</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>和<a href="https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank" target="_blank" rel="noopener noreferrer"><code>bank</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>被合并到<code>./app.go</code>文件中:</p> <blockquote><p>你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（github.com/cosmos/sdk-application-tutorial/x/nameservice）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}/x/nameservice）。</p></blockquote> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> app
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;encoding/json&quot;</span>
+
+	<span class="token string">&quot;github.com/tendermint/tendermint/libs/log&quot;</span>
+
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/codec&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/auth&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/bank&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/params&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/staking&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/sdk-application-tutorial/x/nameservice&quot;</span>
+
+	bam <span class="token string">&quot;github.com/cosmos/cosmos-sdk/baseapp&quot;</span>
+	sdk <span class="token string">&quot;github.com/cosmos/cosmos-sdk/types&quot;</span>
+	abci <span class="token string">&quot;github.com/tendermint/tendermint/abci/types&quot;</span>
+	cmn <span class="token string">&quot;github.com/tendermint/tendermint/libs/common&quot;</span>
+	dbm <span class="token string">&quot;github.com/tendermint/tendermint/libs/db&quot;</span>
+	tmtypes <span class="token string">&quot;github.com/tendermint/tendermint/types&quot;</span>
+<span class="token punctuation">)</span>
+</code></pre></div><p>接下来，你需要在<code>nameServiceApp</code>结构体中添加存储的key和<code>Keepers</code>，并更新构造函数：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">const</span> <span class="token punctuation">(</span>
+	appName <span class="token operator">=</span> <span class="token string">&quot;nameservice&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">type</span> nameServiceApp <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	<span class="token operator">*</span>bam<span class="token punctuation">.</span>BaseApp
+	cdc <span class="token operator">*</span>codec<span class="token punctuation">.</span>Codec
+
+	keyMain          <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	keyAccount       <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	keyNS            <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	keyFeeCollection <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	keyParams        <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	tkeyParams       <span class="token operator">*</span>sdk<span class="token punctuation">.</span>TransientStoreKey
+
+	accountKeeper       auth<span class="token punctuation">.</span>AccountKeeper
+	bankKeeper          bank<span class="token punctuation">.</span>Keeper
+	feeCollectionKeeper auth<span class="token punctuation">.</span>FeeCollectionKeeper
+	paramsKeeper        params<span class="token punctuation">.</span>Keeper
+	nsKeeper            nameservice<span class="token punctuation">.</span>Keeper
+<span class="token punctuation">}</span>
+
+<span class="token comment">// NewNameServiceApp is a constructor function for nameServiceApp</span>
+<span class="token keyword">func</span> <span class="token function">NewNameServiceApp</span><span class="token punctuation">(</span>logger log<span class="token punctuation">.</span>Logger<span class="token punctuation">,</span> db dbm<span class="token punctuation">.</span>DB<span class="token punctuation">)</span> <span class="token operator">*</span>nameServiceApp <span class="token punctuation">{</span>
+
+	<span class="token comment">// First define the top level codec that will be shared by the different modules</span>
+	cdc <span class="token operator">:=</span> <span class="token function">MakeCodec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// BaseApp handles interactions with Tendermint through the ABCI protocol</span>
+	bApp <span class="token operator">:=</span> bam<span class="token punctuation">.</span><span class="token function">NewBaseApp</span><span class="token punctuation">(</span>appName<span class="token punctuation">,</span> logger<span class="token punctuation">,</span> db<span class="token punctuation">,</span> auth<span class="token punctuation">.</span><span class="token function">DefaultTxDecoder</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// Here you initialize your application with the store keys it requires</span>
+	<span class="token keyword">var</span> app <span class="token operator">=</span> <span class="token operator">&amp;</span>nameServiceApp<span class="token punctuation">{</span>
+		BaseApp<span class="token punctuation">:</span> bApp<span class="token punctuation">,</span>
+		cdc<span class="token punctuation">:</span>     cdc<span class="token punctuation">,</span>
+
+		keyMain<span class="token punctuation">:</span>          sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;main&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyAccount<span class="token punctuation">:</span>       sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;acc&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyNS<span class="token punctuation">:</span>            sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;ns&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyFeeCollection<span class="token punctuation">:</span> sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;fee_collection&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyParams<span class="token punctuation">:</span>        sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;params&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		tkeyParams<span class="token punctuation">:</span>       sdk<span class="token punctuation">.</span><span class="token function">NewTransientStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;transient_params&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">return</span> app
+<span class="token punctuation">}</span>
+</code></pre></div><p>此时，构造函数仍然缺少重要的逻辑。它需要：</p> <ul><li>从每个所需模块中实例化所需的<code>Keeper</code>。</li> <li>生成每个<code>Keeper</code>所需的<code>storeKey</code>。</li> <li>注册每个模块的<code>handler</code>。<code>baseapp</code>的<code>路由器</code>的 <code>AddRoute()</code> 方法用来做这个。</li> <li>注册每个模块的<code>querier</code>。<code>baseapp</code>的<code>queryRouter</code>中的<code>AddRoute()</code>方法用来做这个。</li> <li>将<code>KVStores</code>挂载到<code>baseApp</code>的multistore提供的key值。</li> <li>设置<code>initChainer</code>来定义初始应用程序状态。</li></ul> <p>你最终的构造函数应该如下所示：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// NewNameServiceApp is a constructor function for nameServiceApp</span>
+<span class="token keyword">func</span> <span class="token function">NewNameServiceApp</span><span class="token punctuation">(</span>logger log<span class="token punctuation">.</span>Logger<span class="token punctuation">,</span> db dbm<span class="token punctuation">.</span>DB<span class="token punctuation">)</span> <span class="token operator">*</span>nameServiceApp <span class="token punctuation">{</span>
+
+	<span class="token comment">// First define the top level codec that will be shared by the different modules</span>
+	cdc <span class="token operator">:=</span> <span class="token function">MakeCodec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// BaseApp handles interactions with Tendermint through the ABCI protocol</span>
+	bApp <span class="token operator">:=</span> bam<span class="token punctuation">.</span><span class="token function">NewBaseApp</span><span class="token punctuation">(</span>appName<span class="token punctuation">,</span> logger<span class="token punctuation">,</span> db<span class="token punctuation">,</span> auth<span class="token punctuation">.</span><span class="token function">DefaultTxDecoder</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// Here you initialize your application with the store keys it requires</span>
+	<span class="token keyword">var</span> app <span class="token operator">=</span> <span class="token operator">&amp;</span>nameServiceApp<span class="token punctuation">{</span>
+		BaseApp<span class="token punctuation">:</span> bApp<span class="token punctuation">,</span>
+		cdc<span class="token punctuation">:</span>     cdc<span class="token punctuation">,</span>
+
+		keyMain<span class="token punctuation">:</span>          sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;main&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyAccount<span class="token punctuation">:</span>       sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;acc&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyNS<span class="token punctuation">:</span>            sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;ns&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyFeeCollection<span class="token punctuation">:</span> sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;fee_collection&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyParams<span class="token punctuation">:</span>        sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;params&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		tkeyParams<span class="token punctuation">:</span>       sdk<span class="token punctuation">.</span><span class="token function">NewTransientStoreKey</span><span class="token punctuation">(</span><span class="token string">&quot;transient_params&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// The ParamsKeeper handles parameter storage for the application</span>
+	app<span class="token punctuation">.</span>paramsKeeper <span class="token operator">=</span> params<span class="token punctuation">.</span><span class="token function">NewKeeper</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span> app<span class="token punctuation">.</span>keyParams<span class="token punctuation">,</span> app<span class="token punctuation">.</span>tkeyParams<span class="token punctuation">)</span>
+
+	<span class="token comment">// The AccountKeeper handles address -&gt; account lookups</span>
+	app<span class="token punctuation">.</span>accountKeeper <span class="token operator">=</span> auth<span class="token punctuation">.</span><span class="token function">NewAccountKeeper</span><span class="token punctuation">(</span>
+		app<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyAccount<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>paramsKeeper<span class="token punctuation">.</span><span class="token function">Subspace</span><span class="token punctuation">(</span>auth<span class="token punctuation">.</span>DefaultParamspace<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		auth<span class="token punctuation">.</span>ProtoBaseAccount<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	<span class="token comment">// The BankKeeper allows you perform sdk.Coins interactions</span>
+	app<span class="token punctuation">.</span>bankKeeper <span class="token operator">=</span> bank<span class="token punctuation">.</span><span class="token function">NewBaseKeeper</span><span class="token punctuation">(</span>
+		app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>paramsKeeper<span class="token punctuation">.</span><span class="token function">Subspace</span><span class="token punctuation">(</span>bank<span class="token punctuation">.</span>DefaultParamspace<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		bank<span class="token punctuation">.</span>DefaultCodespace<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	<span class="token comment">// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module</span>
+	app<span class="token punctuation">.</span>feeCollectionKeeper <span class="token operator">=</span> auth<span class="token punctuation">.</span><span class="token function">NewFeeCollectionKeeper</span><span class="token punctuation">(</span>cdc<span class="token punctuation">,</span> app<span class="token punctuation">.</span>keyFeeCollection<span class="token punctuation">)</span>
+
+	<span class="token comment">// The NameserviceKeeper is the Keeper from the module for this tutorial</span>
+	<span class="token comment">// It handles interactions with the namestore</span>
+	app<span class="token punctuation">.</span>nsKeeper <span class="token operator">=</span> nameservice<span class="token punctuation">.</span><span class="token function">NewKeeper</span><span class="token punctuation">(</span>
+		app<span class="token punctuation">.</span>bankKeeper<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyNS<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	<span class="token comment">// The AnteHandler handles signature verification and transaction pre-processing</span>
+	app<span class="token punctuation">.</span><span class="token function">SetAnteHandler</span><span class="token punctuation">(</span>auth<span class="token punctuation">.</span><span class="token function">NewAnteHandler</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">,</span> app<span class="token punctuation">.</span>feeCollectionKeeper<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// The app.Router is the main transaction router where each module registers its routes</span>
+	<span class="token comment">// Register the bank and nameservice routes here</span>
+	app<span class="token punctuation">.</span><span class="token function">Router</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+		<span class="token function">AddRoute</span><span class="token punctuation">(</span><span class="token string">&quot;bank&quot;</span><span class="token punctuation">,</span> bank<span class="token punctuation">.</span><span class="token function">NewHandler</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>bankKeeper<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+		<span class="token function">AddRoute</span><span class="token punctuation">(</span><span class="token string">&quot;nameservice&quot;</span><span class="token punctuation">,</span> nameservice<span class="token punctuation">.</span><span class="token function">NewHandler</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>nsKeeper<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// The app.QueryRouter is the main query router where each module registers its routes</span>
+	app<span class="token punctuation">.</span><span class="token function">QueryRouter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+		<span class="token function">AddRoute</span><span class="token punctuation">(</span><span class="token string">&quot;nameservice&quot;</span><span class="token punctuation">,</span> nameservice<span class="token punctuation">.</span><span class="token function">NewQuerier</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>nsKeeper<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+		<span class="token function">AddRoute</span><span class="token punctuation">(</span><span class="token string">&quot;acc&quot;</span><span class="token punctuation">,</span> auth<span class="token punctuation">.</span><span class="token function">NewQuerier</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// The initChainer handles translating the genesis.json file into initial state for the network</span>
+	app<span class="token punctuation">.</span><span class="token function">SetInitChainer</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>initChainer<span class="token punctuation">)</span>
+
+	app<span class="token punctuation">.</span><span class="token function">MountStores</span><span class="token punctuation">(</span>
+		app<span class="token punctuation">.</span>keyMain<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyAccount<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyNS<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyFeeCollection<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyParams<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>tkeyParams<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	err <span class="token operator">:=</span> app<span class="token punctuation">.</span><span class="token function">LoadLatestVersion</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>keyMain<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		cmn<span class="token punctuation">.</span><span class="token function">Exit</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">return</span> app
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>注意：上面提到的 TransientStore 是 KVStore 的内存实现，用于未持久化的状态。</p></blockquote> <p><code>initChainer</code>定义了<code>genesis.json</code>中的帐户如何在初始化区块链时被映射到应用程序状态。<code>ExportAppStateAndValidators</code>函数可帮助引导初始化应用程序的状态。你现在不需要太关心它们。</p> <p>构造函数注册了<code>initChainer</code>函数，但尚未定义。继续创建它：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.</span>
+<span class="token keyword">type</span> GenesisState <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	AuthData auth<span class="token punctuation">.</span>GenesisState   <span class="token string">`json:&quot;auth&quot;`</span>
+	BankData bank<span class="token punctuation">.</span>GenesisState   <span class="token string">`json:&quot;bank&quot;`</span>
+	Accounts <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>auth<span class="token punctuation">.</span>BaseAccount <span class="token string">`json:&quot;accounts&quot;`</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>app <span class="token operator">*</span>nameServiceApp<span class="token punctuation">)</span> <span class="token function">initChainer</span><span class="token punctuation">(</span>ctx sdk<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> req abci<span class="token punctuation">.</span>RequestInitChain<span class="token punctuation">)</span> abci<span class="token punctuation">.</span>ResponseInitChain <span class="token punctuation">{</span>
+	stateJSON <span class="token operator">:=</span> req<span class="token punctuation">.</span>AppStateBytes
+
+	genesisState <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>GenesisState<span class="token punctuation">)</span>
+	err <span class="token operator">:=</span> app<span class="token punctuation">.</span>cdc<span class="token punctuation">.</span><span class="token function">UnmarshalJSON</span><span class="token punctuation">(</span>stateJSON<span class="token punctuation">,</span> genesisState<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> acc <span class="token operator">:=</span> <span class="token keyword">range</span> genesisState<span class="token punctuation">.</span>Accounts <span class="token punctuation">{</span>
+		acc<span class="token punctuation">.</span>AccountNumber <span class="token operator">=</span> app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">.</span><span class="token function">GetNextAccountNumber</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span>
+		app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">.</span><span class="token function">SetAccount</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> acc<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	auth<span class="token punctuation">.</span><span class="token function">InitGenesis</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">,</span> app<span class="token punctuation">.</span>feeCollectionKeeper<span class="token punctuation">,</span> genesisState<span class="token punctuation">.</span>AuthData<span class="token punctuation">)</span>
+	bank<span class="token punctuation">.</span><span class="token function">InitGenesis</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> app<span class="token punctuation">.</span>bankKeeper<span class="token punctuation">,</span> genesisState<span class="token punctuation">.</span>BankData<span class="token punctuation">)</span>
+
+	<span class="token keyword">return</span> abci<span class="token punctuation">.</span>ResponseInitChain<span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// ExportAppStateAndValidators does the things</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>app <span class="token operator">*</span>nameServiceApp<span class="token punctuation">)</span> <span class="token function">ExportAppStateAndValidators</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>appState json<span class="token punctuation">.</span>RawMessage<span class="token punctuation">,</span> validators <span class="token punctuation">[</span><span class="token punctuation">]</span>tmtypes<span class="token punctuation">.</span>GenesisValidator<span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	ctx <span class="token operator">:=</span> app<span class="token punctuation">.</span><span class="token function">NewContext</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">,</span> abci<span class="token punctuation">.</span>Header<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+	accounts <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>auth<span class="token punctuation">.</span>BaseAccount<span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+	appendAccountsFn <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>acc auth<span class="token punctuation">.</span>Account<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+		account <span class="token operator">:=</span> <span class="token operator">&amp;</span>auth<span class="token punctuation">.</span>BaseAccount<span class="token punctuation">{</span>
+			Address<span class="token punctuation">:</span> acc<span class="token punctuation">.</span><span class="token function">GetAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+			Coins<span class="token punctuation">:</span>   acc<span class="token punctuation">.</span><span class="token function">GetCoins</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		<span class="token punctuation">}</span>
+
+		accounts <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>accounts<span class="token punctuation">,</span> account<span class="token punctuation">)</span>
+		<span class="token keyword">return</span> <span class="token boolean">false</span>
+	<span class="token punctuation">}</span>
+
+	app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">.</span><span class="token function">IterateAccounts</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> appendAccountsFn<span class="token punctuation">)</span>
+
+	genState <span class="token operator">:=</span> GenesisState<span class="token punctuation">{</span>
+		Accounts<span class="token punctuation">:</span> accounts<span class="token punctuation">,</span>
+		AuthData<span class="token punctuation">:</span> auth<span class="token punctuation">.</span><span class="token function">DefaultGenesisState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		BankData<span class="token punctuation">:</span> bank<span class="token punctuation">.</span><span class="token function">DefaultGenesisState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+
+	appState<span class="token punctuation">,</span> err <span class="token operator">=</span> codec<span class="token punctuation">.</span><span class="token function">MarshalJSONIndent</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span> genState<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">return</span> appState<span class="token punctuation">,</span> validators<span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+</code></pre></div><p>最后添加一个辅助函数来生成一个animo--<a href="https://godoc.org/github.com/cosmos/cosmos-sdk/codec#Codec" target="_blank" rel="noopener noreferrer"><code>*codec.Codec</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>，它可以正确地注册你应用程序中使用的所有模块：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// MakeCodec generates the necessary codecs for Amino</span>
+<span class="token keyword">func</span> <span class="token function">MakeCodec</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span>codec<span class="token punctuation">.</span>Codec <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> cdc <span class="token operator">=</span> codec<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	auth<span class="token punctuation">.</span><span class="token function">RegisterCodec</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span>
+	bank<span class="token punctuation">.</span><span class="token function">RegisterCodec</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span>
+	nameservice<span class="token punctuation">.</span><span class="token function">RegisterCodec</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span>
+	staking<span class="token punctuation">.</span><span class="token function">RegisterCodec</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span>
+	sdk<span class="token punctuation">.</span><span class="token function">RegisterCodec</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span>
+	codec<span class="token punctuation">.</span><span class="token function">RegisterCrypto</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span>
+	<span class="token keyword">return</span> cdc
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="现在您已经创建了一个包含模块的应用程序，现在是时候构建入口点了！"><a href="#现在您已经创建了一个包含模块的应用程序，现在是时候构建入口点了！" aria-hidden="true" class="header-anchor">#</a> 现在您已经创建了一个包含模块的应用程序，现在是时候<a href="/tutorial/cn/13-entrypoint.html">构建入口点了</a>！</h3></div> <div class="page-edit"><!----> <!----></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.358745d0.js" defer></script><script src="/assets/js/25.99eafa78.js" defer></script>
+  </body>
+</html>

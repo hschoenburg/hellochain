@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Querier</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.0fa35ecc.css" as="style"><link rel="preload" href="/assets/js/app.358745d0.js" as="script"><link rel="preload" href="/assets/js/21.1aaf8749.js" as="script"><link rel="prefetch" href="/assets/js/10.ed56b2dd.js"><link rel="prefetch" href="/assets/js/11.b9448339.js"><link rel="prefetch" href="/assets/js/12.d9540af2.js"><link rel="prefetch" href="/assets/js/13.8738af6e.js"><link rel="prefetch" href="/assets/js/14.7ef7ba9a.js"><link rel="prefetch" href="/assets/js/15.01af3069.js"><link rel="prefetch" href="/assets/js/16.5f272536.js"><link rel="prefetch" href="/assets/js/17.950b1488.js"><link rel="prefetch" href="/assets/js/18.97cd0ce2.js"><link rel="prefetch" href="/assets/js/19.c15b4c92.js"><link rel="prefetch" href="/assets/js/2.7459dab1.js"><link rel="prefetch" href="/assets/js/20.46ad9e71.js"><link rel="prefetch" href="/assets/js/22.ed2cbdbe.js"><link rel="prefetch" href="/assets/js/23.d29efe89.js"><link rel="prefetch" href="/assets/js/24.6efbd344.js"><link rel="prefetch" href="/assets/js/25.99eafa78.js"><link rel="prefetch" href="/assets/js/26.59c51545.js"><link rel="prefetch" href="/assets/js/27.09db857f.js"><link rel="prefetch" href="/assets/js/28.de9e6f97.js"><link rel="prefetch" href="/assets/js/29.a95ec837.js"><link rel="prefetch" href="/assets/js/3.3b8bb6a2.js"><link rel="prefetch" href="/assets/js/30.ec4f2e27.js"><link rel="prefetch" href="/assets/js/31.39335b08.js"><link rel="prefetch" href="/assets/js/32.5e4a40ba.js"><link rel="prefetch" href="/assets/js/33.2d12c22c.js"><link rel="prefetch" href="/assets/js/34.6a06e4fa.js"><link rel="prefetch" href="/assets/js/35.37ad73ec.js"><link rel="prefetch" href="/assets/js/36.c90ef3a4.js"><link rel="prefetch" href="/assets/js/37.fcf1b3b5.js"><link rel="prefetch" href="/assets/js/38.549dbd91.js"><link rel="prefetch" href="/assets/js/39.c25f4a9a.js"><link rel="prefetch" href="/assets/js/4.ff53f1d1.js"><link rel="prefetch" href="/assets/js/40.29b6dbc5.js"><link rel="prefetch" href="/assets/js/41.003066df.js"><link rel="prefetch" href="/assets/js/42.59cc5a5a.js"><link rel="prefetch" href="/assets/js/43.5877f03f.js"><link rel="prefetch" href="/assets/js/44.97ed4d02.js"><link rel="prefetch" href="/assets/js/45.2be01aab.js"><link rel="prefetch" href="/assets/js/5.d936167e.js"><link rel="prefetch" href="/assets/js/6.f824f7e2.js"><link rel="prefetch" href="/assets/js/7.e6534aea.js"><link rel="prefetch" href="/assets/js/8.1b43487c.js"><link rel="prefetch" href="/assets/js/9.a7040e01.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.0fa35ecc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <!----> </div> <div class="page"> <div class="content"><h1 id="querier"><a href="#querier" aria-hidden="true" class="header-anchor">#</a> Querier</h1> <p>首先创建<code>./x/nameservice/querier.go</code>文件。在这里定义应用程序用户可以对那些状态进行查询。你的<code>nameservice</code>模块会暴露两个querier:</p> <ul><li><code>resolve</code> : 传入一个<code>域名</code>返回<code>nameservice</code>给定的<code>解析值</code>。类似于DNS查询。</li> <li><code>whois</code> : 传入一个<code>域名</code>返回<code>价格</code>，<code>解析值</code>和域名的<code>所有者</code>。用于确定你想要购买名称的成本。</li></ul> <p>首先定义<code>NewQuerier</code>函数，该函数充当查询此模块的子路由器（类似于<code>NewHandler</code>函数）。请注意，因为querier没有类似于Msg的接口，所以需要手动定义switch语句（它们无法从query.Route()函数中删除）：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> nameservice
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;fmt&quot;</span>
+	<span class="token string">&quot;strings&quot;</span>
+
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/codec&quot;</span>
+
+	sdk <span class="token string">&quot;github.com/cosmos/cosmos-sdk/types&quot;</span>
+	abci <span class="token string">&quot;github.com/tendermint/tendermint/abci/types&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// query endpoints supported by the nameservice Querier</span>
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+	QueryResolve <span class="token operator">=</span> <span class="token string">&quot;resolve&quot;</span>
+	QueryWhois   <span class="token operator">=</span> <span class="token string">&quot;whois&quot;</span>
+	QueryNames   <span class="token operator">=</span> <span class="token string">&quot;names&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment">// NewQuerier is the module level router for state queries</span>
+<span class="token keyword">func</span> <span class="token function">NewQuerier</span><span class="token punctuation">(</span>keeper Keeper<span class="token punctuation">)</span> sdk<span class="token punctuation">.</span>Querier <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> <span class="token keyword">func</span><span class="token punctuation">(</span>ctx sdk<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> path <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">,</span> req abci<span class="token punctuation">.</span>RequestQuery<span class="token punctuation">)</span> <span class="token punctuation">(</span>res <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err sdk<span class="token punctuation">.</span>Error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">switch</span> path<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+		<span class="token keyword">case</span> QueryResolve<span class="token punctuation">:</span>
+			<span class="token keyword">return</span> <span class="token function">queryResolve</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> path<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> req<span class="token punctuation">,</span> keeper<span class="token punctuation">)</span>
+		<span class="token keyword">case</span> QueryWhois<span class="token punctuation">:</span>
+			<span class="token keyword">return</span> <span class="token function">queryWhois</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> path<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> req<span class="token punctuation">,</span> keeper<span class="token punctuation">)</span>
+		<span class="token keyword">case</span> QueryNames<span class="token punctuation">:</span>
+			<span class="token keyword">return</span> <span class="token function">queryNames</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> req<span class="token punctuation">,</span> keeper<span class="token punctuation">)</span>
+		<span class="token keyword">default</span><span class="token punctuation">:</span>
+			<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> sdk<span class="token punctuation">.</span><span class="token function">ErrUnknownRequest</span><span class="token punctuation">(</span><span class="token string">&quot;unknown nameservice query endpoint&quot;</span><span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>现在已定义路由器，为每个查询定义输入和响应：</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// nolint: unparam</span>
+<span class="token keyword">func</span> <span class="token function">queryResolve</span><span class="token punctuation">(</span>ctx sdk<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> path <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">,</span> req abci<span class="token punctuation">.</span>RequestQuery<span class="token punctuation">,</span> keeper Keeper<span class="token punctuation">)</span> <span class="token punctuation">(</span>res <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err sdk<span class="token punctuation">.</span>Error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	name <span class="token operator">:=</span> path<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+	value <span class="token operator">:=</span> keeper<span class="token punctuation">.</span><span class="token function">ResolveName</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+
+	<span class="token keyword">if</span> value <span class="token operator">==</span> <span class="token string">&quot;&quot;</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> sdk<span class="token punctuation">.</span><span class="token function">ErrUnknownRequest</span><span class="token punctuation">(</span><span class="token string">&quot;could not resolve name&quot;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	bz<span class="token punctuation">,</span> err2 <span class="token operator">:=</span> codec<span class="token punctuation">.</span><span class="token function">MarshalJSONIndent</span><span class="token punctuation">(</span>keeper<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span> QueryResResolve<span class="token punctuation">{</span>value<span class="token punctuation">}</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err2 <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">&quot;could not marshal result to JSON&quot;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">return</span> bz<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Query Result Payload for a resolve query</span>
+<span class="token keyword">type</span> QueryResResolve <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	Value <span class="token builtin">string</span> <span class="token string">`json:&quot;value&quot;`</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// implement fmt.Stringer</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>r QueryResResolve<span class="token punctuation">)</span> <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> r<span class="token punctuation">.</span>Value
+<span class="token punctuation">}</span>
+
+<span class="token comment">// nolint: unparam</span>
+<span class="token keyword">func</span> <span class="token function">queryWhois</span><span class="token punctuation">(</span>ctx sdk<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> path <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">,</span> req abci<span class="token punctuation">.</span>RequestQuery<span class="token punctuation">,</span> keeper Keeper<span class="token punctuation">)</span> <span class="token punctuation">(</span>res <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err sdk<span class="token punctuation">.</span>Error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	name <span class="token operator">:=</span> path<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+	whois <span class="token operator">:=</span> keeper<span class="token punctuation">.</span><span class="token function">GetWhois</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+
+	bz<span class="token punctuation">,</span> err2 <span class="token operator">:=</span> codec<span class="token punctuation">.</span><span class="token function">MarshalJSONIndent</span><span class="token punctuation">(</span>keeper<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span> whois<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err2 <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">&quot;could not marshal result to JSON&quot;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">return</span> bz<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// implement fmt.Stringer</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>w Whois<span class="token punctuation">)</span> <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> strings<span class="token punctuation">.</span><span class="token function">TrimSpace</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">`Owner: %s
+Value: %s
+Price: %s`</span><span class="token punctuation">,</span> w<span class="token punctuation">.</span>Owner<span class="token punctuation">,</span> w<span class="token punctuation">.</span>Value<span class="token punctuation">,</span> w<span class="token punctuation">.</span>Price<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">queryNames</span><span class="token punctuation">(</span>ctx sdk<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> req abci<span class="token punctuation">.</span>RequestQuery<span class="token punctuation">,</span> keeper Keeper<span class="token punctuation">)</span> <span class="token punctuation">(</span>res <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> err sdk<span class="token punctuation">.</span>Error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> namesList QueryResNames
+
+	iterator <span class="token operator">:=</span> keeper<span class="token punctuation">.</span><span class="token function">GetNamesIterator</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span>
+
+	<span class="token keyword">for</span> <span class="token punctuation">;</span> iterator<span class="token punctuation">.</span><span class="token function">Valid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> iterator<span class="token punctuation">.</span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		name <span class="token operator">:=</span> <span class="token function">string</span><span class="token punctuation">(</span>iterator<span class="token punctuation">.</span><span class="token function">Key</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		namesList <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>namesList<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	bz<span class="token punctuation">,</span> err2 <span class="token operator">:=</span> codec<span class="token punctuation">.</span><span class="token function">MarshalJSONIndent</span><span class="token punctuation">(</span>keeper<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span> namesList<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err2 <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">&quot;could not marshal result to JSON&quot;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">return</span> bz<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Query Result Payload for a names query</span>
+<span class="token keyword">type</span> QueryResNames <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
+
+<span class="token comment">// implement fmt.Stringer</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>n QueryResNames<span class="token punctuation">)</span> <span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> strings<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span>n<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">&quot;\n&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>上述代码中要注意：</p> <ul><li>在这里你的<code>Keeper</code>的 getter 和 setter 方法被大量使用。在构建使用此模块的任何其他应用程序时，你可能需要返回并定义更多getter/setter以访问所需的状态。</li> <li>按照惯例，每个输出类型都应该是 JSON marshallable 和 stringable（实现 Golang fmt.Stringer 接口）。 返回的字节应该是输出结果的JSON编码。
+<ul><li>因此，对于输出类型的解析，我们将解析字符串包装在一个名为 QueryResResolve 的结构中，该结构既是JSON marshallable 的又有.String（）方法。</li> <li>对于 Whois 的输出，正常的 Whois 结构已经是 JSON marshallable 的，但我们需要在其上添加.String（）方法。</li> <li>名称查询的输出也一样，[]字符串本身已经可 marshallable ，但我们需要在其上添加.String（）方法。</li></ul></li></ul> <h3 id="既然你有办法改变和查看模块状态，那么现在是时候完成它了！-接下来以amino编码格式注册类型！"><a href="#既然你有办法改变和查看模块状态，那么现在是时候完成它了！-接下来以amino编码格式注册类型！" aria-hidden="true" class="header-anchor">#</a> 既然你有办法改变和查看模块状态，那么现在是时候完成它了！ 接下来以<a href="/tutorial/cn/09-codec.html">Amino编码</a>格式注册类型！</h3></div> <div class="page-edit"><!----> <!----></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.358745d0.js" defer></script><script src="/assets/js/21.1aaf8749.js" defer></script>
+  </body>
+</html>

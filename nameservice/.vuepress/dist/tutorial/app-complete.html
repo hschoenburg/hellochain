@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Import your modules and finish your application</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.0fa35ecc.css" as="style"><link rel="preload" href="/assets/js/app.358745d0.js" as="script"><link rel="preload" href="/assets/js/8.1b43487c.js" as="script"><link rel="prefetch" href="/assets/js/10.ed56b2dd.js"><link rel="prefetch" href="/assets/js/11.b9448339.js"><link rel="prefetch" href="/assets/js/12.d9540af2.js"><link rel="prefetch" href="/assets/js/13.8738af6e.js"><link rel="prefetch" href="/assets/js/14.7ef7ba9a.js"><link rel="prefetch" href="/assets/js/15.01af3069.js"><link rel="prefetch" href="/assets/js/16.5f272536.js"><link rel="prefetch" href="/assets/js/17.950b1488.js"><link rel="prefetch" href="/assets/js/18.97cd0ce2.js"><link rel="prefetch" href="/assets/js/19.c15b4c92.js"><link rel="prefetch" href="/assets/js/2.7459dab1.js"><link rel="prefetch" href="/assets/js/20.46ad9e71.js"><link rel="prefetch" href="/assets/js/21.1aaf8749.js"><link rel="prefetch" href="/assets/js/22.ed2cbdbe.js"><link rel="prefetch" href="/assets/js/23.d29efe89.js"><link rel="prefetch" href="/assets/js/24.6efbd344.js"><link rel="prefetch" href="/assets/js/25.99eafa78.js"><link rel="prefetch" href="/assets/js/26.59c51545.js"><link rel="prefetch" href="/assets/js/27.09db857f.js"><link rel="prefetch" href="/assets/js/28.de9e6f97.js"><link rel="prefetch" href="/assets/js/29.a95ec837.js"><link rel="prefetch" href="/assets/js/3.3b8bb6a2.js"><link rel="prefetch" href="/assets/js/30.ec4f2e27.js"><link rel="prefetch" href="/assets/js/31.39335b08.js"><link rel="prefetch" href="/assets/js/32.5e4a40ba.js"><link rel="prefetch" href="/assets/js/33.2d12c22c.js"><link rel="prefetch" href="/assets/js/34.6a06e4fa.js"><link rel="prefetch" href="/assets/js/35.37ad73ec.js"><link rel="prefetch" href="/assets/js/36.c90ef3a4.js"><link rel="prefetch" href="/assets/js/37.fcf1b3b5.js"><link rel="prefetch" href="/assets/js/38.549dbd91.js"><link rel="prefetch" href="/assets/js/39.c25f4a9a.js"><link rel="prefetch" href="/assets/js/4.ff53f1d1.js"><link rel="prefetch" href="/assets/js/40.29b6dbc5.js"><link rel="prefetch" href="/assets/js/41.003066df.js"><link rel="prefetch" href="/assets/js/42.59cc5a5a.js"><link rel="prefetch" href="/assets/js/43.5877f03f.js"><link rel="prefetch" href="/assets/js/44.97ed4d02.js"><link rel="prefetch" href="/assets/js/45.2be01aab.js"><link rel="prefetch" href="/assets/js/5.d936167e.js"><link rel="prefetch" href="/assets/js/6.f824f7e2.js"><link rel="prefetch" href="/assets/js/7.e6534aea.js"><link rel="prefetch" href="/assets/js/9.a7040e01.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.0fa35ecc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><!---->  <!----> </div> <div class="page"> <div class="content"><h1 id="import-your-modules-and-finish-your-application"><a href="#import-your-modules-and-finish-your-application" aria-hidden="true" class="header-anchor">#</a> Import your modules and finish your application</h1> <p>Now that your module is ready, it can be incorporated in the <code>./app.go</code> file, along with the other two modules <a href="https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth" target="_blank" rel="noopener noreferrer"><code>auth</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and <a href="https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank" target="_blank" rel="noopener noreferrer"><code>bank</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. Let's begin by adding your new nameservice module to the imports:</p> <blockquote><p><em><em>NOTE</em></em>: Your application needs to import the code you just wrote. Here the import path is set to this repository (<code>github.com/cosmos/sdk-application-tutorial/x/nameservice</code>). If you are following along in your own repo you will need to change the import path to reflect that (<code>github.com/{ .Username }/{ .Project.Repo }/x/nameservice</code>).</p></blockquote> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> app
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;encoding/json&quot;</span>
+	<span class="token string">&quot;os&quot;</span>
+
+	abci <span class="token string">&quot;github.com/tendermint/tendermint/abci/types&quot;</span>
+	cmn <span class="token string">&quot;github.com/tendermint/tendermint/libs/common&quot;</span>
+	dbm <span class="token string">&quot;github.com/tendermint/tendermint/libs/db&quot;</span>
+	<span class="token string">&quot;github.com/tendermint/tendermint/libs/log&quot;</span>
+	tmtypes <span class="token string">&quot;github.com/tendermint/tendermint/types&quot;</span>
+
+	bam <span class="token string">&quot;github.com/cosmos/cosmos-sdk/baseapp&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/codec&quot;</span>
+	sdk <span class="token string">&quot;github.com/cosmos/cosmos-sdk/types&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/types/module&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/auth&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/auth/genaccounts&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/bank&quot;</span>
+	distr <span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/distribution&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/genutil&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/params&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/slashing&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/cosmos-sdk/x/staking&quot;</span>
+	<span class="token string">&quot;github.com/cosmos/sdk-application-tutorial/x/nameservice&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> appName <span class="token operator">=</span> <span class="token string">&quot;nameservice&quot;</span>
+
+<span class="token keyword">var</span> <span class="token punctuation">(</span>
+	<span class="token comment">// default home directories for the application CLI</span>
+	DefaultCLIHome <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">ExpandEnv</span><span class="token punctuation">(</span><span class="token string">&quot;$HOME/.nscli&quot;</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// DefaultNodeHome sets the folder where the application data and configuration will be stored</span>
+	DefaultNodeHome <span class="token operator">=</span> os<span class="token punctuation">.</span><span class="token function">ExpandEnv</span><span class="token punctuation">(</span><span class="token string">&quot;$HOME/.nsd&quot;</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// ModuleBasicManager is in charge of setting up basic module elements</span>
+	ModuleBasics <span class="token operator">=</span> module<span class="token punctuation">.</span><span class="token function">NewBasicManager</span><span class="token punctuation">(</span>
+		genaccounts<span class="token punctuation">.</span>AppModuleBasic<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		genutil<span class="token punctuation">.</span>AppModuleBasic<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		auth<span class="token punctuation">.</span>AppModuleBasic<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		bank<span class="token punctuation">.</span>AppModuleBasic<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		params<span class="token punctuation">.</span>AppModuleBasic<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		nameservice<span class="token punctuation">.</span>AppModule<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		staking<span class="token punctuation">.</span>AppModuleBasic<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		distr<span class="token punctuation">.</span>AppModuleBasic<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+		slashing<span class="token punctuation">.</span>AppModuleBasic<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+</code></pre></div><p>Next you need to add the stores' keys and the <code>Keepers</code> into your <code>nameServiceApp</code> struct.</p> <div class="language-go extra-class"><pre class="language-go"><code>
+<span class="token keyword">type</span> nameServiceApp <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+	<span class="token operator">*</span>bam<span class="token punctuation">.</span>BaseApp
+	cdc <span class="token operator">*</span>codec<span class="token punctuation">.</span>Codec
+
+	<span class="token comment">// Keys to access the substores</span>
+	keyMain          <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	keyAccount       <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	keyFeeCollection <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	keyStaking       <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	tkeyStaking      <span class="token operator">*</span>sdk<span class="token punctuation">.</span>TransientStoreKey
+	keyDistr         <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	tkeyDistr        <span class="token operator">*</span>sdk<span class="token punctuation">.</span>TransientStoreKey
+	keyNS            <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	keyParams        <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+	tkeyParams       <span class="token operator">*</span>sdk<span class="token punctuation">.</span>TransientStoreKey
+	keySlashing      <span class="token operator">*</span>sdk<span class="token punctuation">.</span>KVStoreKey
+
+	<span class="token comment">// Keepers</span>
+	accountKeeper       auth<span class="token punctuation">.</span>AccountKeeper
+	bankKeeper          bank<span class="token punctuation">.</span>Keeper
+	stakingKeeper       staking<span class="token punctuation">.</span>Keeper
+	slashingKeeper      slashing<span class="token punctuation">.</span>Keeper
+	distrKeeper         distr<span class="token punctuation">.</span>Keeper
+	feeCollectionKeeper auth<span class="token punctuation">.</span>FeeCollectionKeeper
+	paramsKeeper        params<span class="token punctuation">.</span>Keeper
+	nsKeeper            nameservice<span class="token punctuation">.</span>Keeper
+
+	<span class="token comment">// Module Manager</span>
+	mm <span class="token operator">*</span>module<span class="token punctuation">.</span>Manager
+<span class="token punctuation">}</span>
+
+<span class="token comment">// NewNameServiceApp is a constructor function for nameServiceApp</span>
+<span class="token keyword">func</span> <span class="token function">NewNameServiceApp</span><span class="token punctuation">(</span>logger log<span class="token punctuation">.</span>Logger<span class="token punctuation">,</span> db dbm<span class="token punctuation">.</span>DB<span class="token punctuation">)</span> <span class="token operator">*</span>nameServiceApp <span class="token punctuation">{</span>
+
+	<span class="token comment">// First define the top level codec that will be shared by the different modules</span>
+	cdc <span class="token operator">:=</span> <span class="token function">MakeCodec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// BaseApp handles interactions with Tendermint through the ABCI protocol</span>
+	bApp <span class="token operator">:=</span> bam<span class="token punctuation">.</span><span class="token function">NewBaseApp</span><span class="token punctuation">(</span>appName<span class="token punctuation">,</span> logger<span class="token punctuation">,</span> db<span class="token punctuation">,</span> auth<span class="token punctuation">.</span><span class="token function">DefaultTxDecoder</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// Here you initialize your application with the store keys it requires</span>
+	<span class="token keyword">var</span> app <span class="token operator">=</span> <span class="token operator">&amp;</span>nameServiceApp<span class="token punctuation">{</span>
+		BaseApp<span class="token punctuation">:</span> bApp<span class="token punctuation">,</span>
+		cdc<span class="token punctuation">:</span>     cdc<span class="token punctuation">,</span>
+
+		keyMain<span class="token punctuation">:</span>          sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>bam<span class="token punctuation">.</span>MainStoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyAccount<span class="token punctuation">:</span>       sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>auth<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyFeeCollection<span class="token punctuation">:</span> sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>auth<span class="token punctuation">.</span>FeeStoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyStaking<span class="token punctuation">:</span>       sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>staking<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		tkeyStaking<span class="token punctuation">:</span>      sdk<span class="token punctuation">.</span><span class="token function">NewTransientStoreKey</span><span class="token punctuation">(</span>staking<span class="token punctuation">.</span>TStoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyDistr<span class="token punctuation">:</span>         sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>distr<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		tkeyDistr<span class="token punctuation">:</span>        sdk<span class="token punctuation">.</span><span class="token function">NewTransientStoreKey</span><span class="token punctuation">(</span>distr<span class="token punctuation">.</span>TStoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyNS<span class="token punctuation">:</span>            sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>nameservice<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyParams<span class="token punctuation">:</span>        sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>params<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		tkeyParams<span class="token punctuation">:</span>       sdk<span class="token punctuation">.</span><span class="token function">NewTransientStoreKey</span><span class="token punctuation">(</span>params<span class="token punctuation">.</span>TStoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keySlashing<span class="token punctuation">:</span>      sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>slashing<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>At this point, the constructor still lacks important logic. Namely, it needs to:</p> <ul><li>Instantiate required <code>Keepers</code> from each desired module.</li> <li>Generate <code>storeKeys</code> required by each <code>Keeper</code>.</li> <li>Register <code>Handler</code>s from each module. The <code>AddRoute()</code> method from <code>baseapp</code>'s <code>router</code> is used to this end.</li> <li>Register <code>Querier</code>s from each module. The <code>AddRoute()</code> method from <code>baseapp</code>'s <code>queryRouter</code> is used to this end.</li> <li>Mount <code>KVStore</code>s to the provided keys in the <code>baseApp</code> multistore.</li> <li>Set the <code>initChainer</code> for defining the initial application state.</li></ul> <p>Your finalized constructor should look like this:</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// NewNameServiceApp is a constructor function for nameServiceApp</span>
+<span class="token keyword">func</span> <span class="token function">NewNameServiceApp</span><span class="token punctuation">(</span>logger log<span class="token punctuation">.</span>Logger<span class="token punctuation">,</span> db dbm<span class="token punctuation">.</span>DB<span class="token punctuation">)</span> <span class="token operator">*</span>nameServiceApp <span class="token punctuation">{</span>
+
+	<span class="token comment">// First define the top level codec that will be shared by the different modules</span>
+	cdc <span class="token operator">:=</span> <span class="token function">MakeCodec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// BaseApp handles interactions with Tendermint through the ABCI protocol</span>
+	bApp <span class="token operator">:=</span> bam<span class="token punctuation">.</span><span class="token function">NewBaseApp</span><span class="token punctuation">(</span>appName<span class="token punctuation">,</span> logger<span class="token punctuation">,</span> db<span class="token punctuation">,</span> auth<span class="token punctuation">.</span><span class="token function">DefaultTxDecoder</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// Here you initialize your application with the store keys it requires</span>
+	<span class="token keyword">var</span> app <span class="token operator">=</span> <span class="token operator">&amp;</span>nameServiceApp<span class="token punctuation">{</span>
+		BaseApp<span class="token punctuation">:</span> bApp<span class="token punctuation">,</span>
+		cdc<span class="token punctuation">:</span>     cdc<span class="token punctuation">,</span>
+
+		keyMain<span class="token punctuation">:</span>          sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>bam<span class="token punctuation">.</span>MainStoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyAccount<span class="token punctuation">:</span>       sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>auth<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyFeeCollection<span class="token punctuation">:</span> sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>auth<span class="token punctuation">.</span>FeeStoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyStaking<span class="token punctuation">:</span>       sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>staking<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		tkeyStaking<span class="token punctuation">:</span>      sdk<span class="token punctuation">.</span><span class="token function">NewTransientStoreKey</span><span class="token punctuation">(</span>staking<span class="token punctuation">.</span>TStoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyDistr<span class="token punctuation">:</span>         sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>distr<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		tkeyDistr<span class="token punctuation">:</span>        sdk<span class="token punctuation">.</span><span class="token function">NewTransientStoreKey</span><span class="token punctuation">(</span>distr<span class="token punctuation">.</span>TStoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyNS<span class="token punctuation">:</span>            sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>nameservice<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keyParams<span class="token punctuation">:</span>        sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>params<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		tkeyParams<span class="token punctuation">:</span>       sdk<span class="token punctuation">.</span><span class="token function">NewTransientStoreKey</span><span class="token punctuation">(</span>params<span class="token punctuation">.</span>TStoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		keySlashing<span class="token punctuation">:</span>      sdk<span class="token punctuation">.</span><span class="token function">NewKVStoreKey</span><span class="token punctuation">(</span>slashing<span class="token punctuation">.</span>StoreKey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// The ParamsKeeper handles parameter storage for the application</span>
+	app<span class="token punctuation">.</span>paramsKeeper <span class="token operator">=</span> params<span class="token punctuation">.</span><span class="token function">NewKeeper</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span> app<span class="token punctuation">.</span>keyParams<span class="token punctuation">,</span> app<span class="token punctuation">.</span>tkeyParams<span class="token punctuation">,</span> params<span class="token punctuation">.</span>DefaultCodespace<span class="token punctuation">)</span>
+	<span class="token comment">// Set specific subspaces</span>
+	authSubspace <span class="token operator">:=</span> app<span class="token punctuation">.</span>paramsKeeper<span class="token punctuation">.</span><span class="token function">Subspace</span><span class="token punctuation">(</span>auth<span class="token punctuation">.</span>DefaultParamspace<span class="token punctuation">)</span>
+	bankSubspace <span class="token operator">:=</span> app<span class="token punctuation">.</span>paramsKeeper<span class="token punctuation">.</span><span class="token function">Subspace</span><span class="token punctuation">(</span>bank<span class="token punctuation">.</span>DefaultParamspace<span class="token punctuation">)</span>
+	stakingSubspace <span class="token operator">:=</span> app<span class="token punctuation">.</span>paramsKeeper<span class="token punctuation">.</span><span class="token function">Subspace</span><span class="token punctuation">(</span>staking<span class="token punctuation">.</span>DefaultParamspace<span class="token punctuation">)</span>
+	distrSubspace <span class="token operator">:=</span> app<span class="token punctuation">.</span>paramsKeeper<span class="token punctuation">.</span><span class="token function">Subspace</span><span class="token punctuation">(</span>distr<span class="token punctuation">.</span>DefaultParamspace<span class="token punctuation">)</span>
+	slashingSubspace <span class="token operator">:=</span> app<span class="token punctuation">.</span>paramsKeeper<span class="token punctuation">.</span><span class="token function">Subspace</span><span class="token punctuation">(</span>slashing<span class="token punctuation">.</span>DefaultParamspace<span class="token punctuation">)</span>
+
+	<span class="token comment">// The AccountKeeper handles address -&gt; account lookups</span>
+	app<span class="token punctuation">.</span>accountKeeper <span class="token operator">=</span> auth<span class="token punctuation">.</span><span class="token function">NewAccountKeeper</span><span class="token punctuation">(</span>
+		app<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyAccount<span class="token punctuation">,</span>
+		authSubspace<span class="token punctuation">,</span>
+		auth<span class="token punctuation">.</span>ProtoBaseAccount<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	<span class="token comment">// The BankKeeper allows you perform sdk.Coins interactions</span>
+	app<span class="token punctuation">.</span>bankKeeper <span class="token operator">=</span> bank<span class="token punctuation">.</span><span class="token function">NewBaseKeeper</span><span class="token punctuation">(</span>
+		app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">,</span>
+		banksubspace<span class="token punctuation">,</span>
+		bank<span class="token punctuation">.</span>DefaultCodespace<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	<span class="token comment">// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module</span>
+	app<span class="token punctuation">.</span>feeCollectionKeeper <span class="token operator">=</span> auth<span class="token punctuation">.</span><span class="token function">NewFeeCollectionKeeper</span><span class="token punctuation">(</span>cdc<span class="token punctuation">,</span> app<span class="token punctuation">.</span>keyFeeCollection<span class="token punctuation">)</span>
+
+	<span class="token comment">// The staking keeper</span>
+	stakingKeeper <span class="token operator">:=</span> staking<span class="token punctuation">.</span><span class="token function">NewKeeper</span><span class="token punctuation">(</span>
+		app<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyStaking<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>tkeyStaking<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>bankKeeper<span class="token punctuation">,</span>
+		stakingSubspace<span class="token punctuation">,</span>
+		staking<span class="token punctuation">.</span>DefaultCodespace<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	app<span class="token punctuation">.</span>distrKeeper <span class="token operator">=</span> distr<span class="token punctuation">.</span><span class="token function">NewKeeper</span><span class="token punctuation">(</span>
+		app<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyDistr<span class="token punctuation">,</span>
+		distrSubspace<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>bankKeeper<span class="token punctuation">,</span>
+		<span class="token operator">&amp;</span>stakingKeeper<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>feeCollectionKeeper<span class="token punctuation">,</span>
+		distr<span class="token punctuation">.</span>DefaultCodespace<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	app<span class="token punctuation">.</span>slashingKeeper <span class="token operator">=</span> slashing<span class="token punctuation">.</span><span class="token function">NewKeeper</span><span class="token punctuation">(</span>
+		app<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keySlashing<span class="token punctuation">,</span>
+		<span class="token operator">&amp;</span>stakingKeeper<span class="token punctuation">,</span>
+		slashingSubspace<span class="token punctuation">,</span>
+		slashing<span class="token punctuation">.</span>DefaultCodespace<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	<span class="token comment">// register the staking hooks</span>
+	<span class="token comment">// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks</span>
+	app<span class="token punctuation">.</span>stakingKeeper <span class="token operator">=</span> <span class="token operator">*</span>stakingKeeper<span class="token punctuation">.</span><span class="token function">SetHooks</span><span class="token punctuation">(</span>
+		staking<span class="token punctuation">.</span><span class="token function">NewMultiStakingHooks</span><span class="token punctuation">(</span>
+			app<span class="token punctuation">.</span>distrKeeper<span class="token punctuation">.</span><span class="token function">Hooks</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+			app<span class="token punctuation">.</span>slashingKeeper<span class="token punctuation">.</span><span class="token function">Hooks</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	<span class="token comment">// The NameserviceKeeper is the Keeper from the module for this tutorial</span>
+	<span class="token comment">// It handles interactions with the namestore</span>
+	app<span class="token punctuation">.</span>nsKeeper <span class="token operator">=</span> nameservice<span class="token punctuation">.</span><span class="token function">NewKeeper</span><span class="token punctuation">(</span>
+		app<span class="token punctuation">.</span>bankKeeper<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyNS<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	app<span class="token punctuation">.</span>mm <span class="token operator">=</span> module<span class="token punctuation">.</span><span class="token function">NewManager</span><span class="token punctuation">(</span>
+		genaccounts<span class="token punctuation">.</span><span class="token function">NewAppModule</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		genutil<span class="token punctuation">.</span><span class="token function">NewAppModule</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">,</span> app<span class="token punctuation">.</span>stakingKeeper<span class="token punctuation">,</span> app<span class="token punctuation">.</span>BaseApp<span class="token punctuation">.</span>DeliverTx<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		auth<span class="token punctuation">.</span><span class="token function">NewAppModule</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">,</span> app<span class="token punctuation">.</span>feeCollectionKeeper<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		bank<span class="token punctuation">.</span><span class="token function">NewAppModule</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>bankKeeper<span class="token punctuation">,</span> app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		nameservice<span class="token punctuation">.</span><span class="token function">NewAppModule</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>nsKeeper<span class="token punctuation">,</span> app<span class="token punctuation">.</span>bankKeeper<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		distr<span class="token punctuation">.</span><span class="token function">NewAppModule</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>distrKeeper<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		slashing<span class="token punctuation">.</span><span class="token function">NewAppModule</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>slashingKeeper<span class="token punctuation">,</span> app<span class="token punctuation">.</span>stakingKeeper<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		staking<span class="token punctuation">.</span><span class="token function">NewAppModule</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>stakingKeeper<span class="token punctuation">,</span> app<span class="token punctuation">.</span>feeCollectionKeeper<span class="token punctuation">,</span> app<span class="token punctuation">.</span>distrKeeper<span class="token punctuation">,</span> app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	app<span class="token punctuation">.</span>mm<span class="token punctuation">.</span><span class="token function">SetOrderBeginBlockers</span><span class="token punctuation">(</span>distr<span class="token punctuation">.</span>ModuleName<span class="token punctuation">,</span> slashing<span class="token punctuation">.</span>ModuleName<span class="token punctuation">)</span>
+	app<span class="token punctuation">.</span>mm<span class="token punctuation">.</span><span class="token function">SetOrderEndBlockers</span><span class="token punctuation">(</span>staking<span class="token punctuation">.</span>ModuleName<span class="token punctuation">)</span>
+
+	<span class="token comment">// Sets the order of Genesis - Order matters, genutil is to always come last</span>
+	app<span class="token punctuation">.</span>mm<span class="token punctuation">.</span><span class="token function">SetOrderInitGenesis</span><span class="token punctuation">(</span>
+		genaccounts<span class="token punctuation">.</span>ModuleName<span class="token punctuation">,</span>
+		distr<span class="token punctuation">.</span>ModuleName<span class="token punctuation">,</span>
+		staking<span class="token punctuation">.</span>ModuleName<span class="token punctuation">,</span>
+		auth<span class="token punctuation">.</span>ModuleName<span class="token punctuation">,</span>
+		bank<span class="token punctuation">.</span>ModuleName<span class="token punctuation">,</span>
+		slashing<span class="token punctuation">.</span>ModuleName<span class="token punctuation">,</span>
+		nameservice<span class="token punctuation">.</span>ModuleName<span class="token punctuation">,</span>
+		genutil<span class="token punctuation">.</span>ModuleName<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	<span class="token comment">// register all module routes and module queriers</span>
+	app<span class="token punctuation">.</span>mm<span class="token punctuation">.</span><span class="token function">RegisterRoutes</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span><span class="token function">Router</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> app<span class="token punctuation">.</span><span class="token function">QueryRouter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// The initChainer handles translating the genesis.json file into initial state for the network</span>
+	app<span class="token punctuation">.</span><span class="token function">SetInitChainer</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>InitChainer<span class="token punctuation">)</span>
+	app<span class="token punctuation">.</span><span class="token function">SetBeginBlocker</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>BeginBlocker<span class="token punctuation">)</span>
+	app<span class="token punctuation">.</span><span class="token function">SetEndBlocker</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>EndBlocker<span class="token punctuation">)</span>
+
+	<span class="token comment">// The AnteHandler handles signature verification and transaction pre-processing</span>
+	app<span class="token punctuation">.</span><span class="token function">SetAnteHandler</span><span class="token punctuation">(</span>
+		auth<span class="token punctuation">.</span><span class="token function">NewAnteHandler</span><span class="token punctuation">(</span>
+			app<span class="token punctuation">.</span>accountKeeper<span class="token punctuation">,</span>
+			app<span class="token punctuation">.</span>feeCollectionKeeper<span class="token punctuation">,</span>
+			auth<span class="token punctuation">.</span>DefaultSigVerificationGasConsumer<span class="token punctuation">,</span>
+		<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	app<span class="token punctuation">.</span><span class="token function">MountStores</span><span class="token punctuation">(</span>
+		app<span class="token punctuation">.</span>keyMain<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyAccount<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyFeeCollection<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyStaking<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>tkeyStaking<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyDistr<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>tkeyDistr<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keySlashing<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyNS<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>keyParams<span class="token punctuation">,</span>
+		app<span class="token punctuation">.</span>tkeyParams<span class="token punctuation">,</span>
+	<span class="token punctuation">)</span>
+
+	err <span class="token operator">:=</span> app<span class="token punctuation">.</span><span class="token function">LoadLatestVersion</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>keyMain<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		cmn<span class="token punctuation">.</span><span class="token function">Exit</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">return</span> app
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p><em><em>NOTE</em></em>: The TransientStore mentioned above is an in-memory implementation of the KVStore for state that is not persisted.</p></blockquote> <blockquote><p><em><em>NOTE</em></em>: Pay attention to how the modules are initiated: the order matters! Here the sequence goes Auth --&gt; Bank --&gt; Feecollection --&gt; Staking --&gt; Distribution --&gt; Slashing, then the hooks were set for the staking module. This is because some of these modules depend on others existing before they can be used.</p></blockquote> <p>The <code>initChainer</code> defines how accounts in <code>genesis.json</code> are mapped into the application state on initial chain start. The <code>ExportAppStateAndValidators</code> function helps bootstrap the initial state for the application. You don't need to worry too much about either of these for now. We also need to add a few more methods to our app <code>BeginBlocker</code>, <code>EndBlocker</code> and <code>LoadHeight</code>.</p> <p>The constructor registers the <code>initChainer</code> function, but it isn't defined yet. Go ahead and create it:</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.</span>
+<span class="token keyword">type</span> GenesisState <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>json<span class="token punctuation">.</span>RawMessage
+
+<span class="token keyword">func</span> <span class="token function">NewDefaultGenesisState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> GenesisState <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> ModuleBasics<span class="token punctuation">.</span><span class="token function">DefaultGenesis</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>app <span class="token operator">*</span>nameServiceApp<span class="token punctuation">)</span> <span class="token function">InitChainer</span><span class="token punctuation">(</span>ctx sdk<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> req abci<span class="token punctuation">.</span>RequestInitChain<span class="token punctuation">)</span> abci<span class="token punctuation">.</span>ResponseInitChain <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> genesisState GenesisState
+
+	err <span class="token operator">:=</span> app<span class="token punctuation">.</span>cdc<span class="token punctuation">.</span><span class="token function">UnmarshalJSON</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>AppStateBytes<span class="token punctuation">,</span> <span class="token operator">&amp;</span>genesisState<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">return</span> app<span class="token punctuation">.</span>mm<span class="token punctuation">.</span><span class="token function">InitGenesis</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> genesisState<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>app <span class="token operator">*</span>nameServiceApp<span class="token punctuation">)</span> <span class="token function">BeginBlocker</span><span class="token punctuation">(</span>ctx sdk<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> req abci<span class="token punctuation">.</span>RequestBeginBlock<span class="token punctuation">)</span> abci<span class="token punctuation">.</span>ResponseBeginBlock <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> app<span class="token punctuation">.</span>mm<span class="token punctuation">.</span><span class="token function">BeginBlock</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> req<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>app <span class="token operator">*</span>nameServiceApp<span class="token punctuation">)</span> <span class="token function">EndBlocker</span><span class="token punctuation">(</span>ctx sdk<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> req abci<span class="token punctuation">.</span>RequestEndBlock<span class="token punctuation">)</span> abci<span class="token punctuation">.</span>ResponseEndBlock <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> app<span class="token punctuation">.</span>mm<span class="token punctuation">.</span><span class="token function">EndBlock</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> req<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>app <span class="token operator">*</span>nameServiceApp<span class="token punctuation">)</span> <span class="token function">LoadHeight</span><span class="token punctuation">(</span>height <span class="token builtin">int64</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> app<span class="token punctuation">.</span><span class="token function">LoadVersion</span><span class="token punctuation">(</span>height<span class="token punctuation">,</span> app<span class="token punctuation">.</span>keyMain<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">//_________________________________________________________</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>app <span class="token operator">*</span>nameServiceApp<span class="token punctuation">)</span> <span class="token function">ExportAppStateAndValidators</span><span class="token punctuation">(</span>forZeroHeight <span class="token builtin">bool</span><span class="token punctuation">,</span> jailWhiteList <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token punctuation">(</span>appState json<span class="token punctuation">.</span>RawMessage<span class="token punctuation">,</span> validators <span class="token punctuation">[</span><span class="token punctuation">]</span>tmtypes<span class="token punctuation">.</span>GenesisValidator<span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+	<span class="token comment">// as if they could withdraw from the start of the next block</span>
+	ctx <span class="token operator">:=</span> app<span class="token punctuation">.</span><span class="token function">NewContext</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">,</span> abci<span class="token punctuation">.</span>Header<span class="token punctuation">{</span>Height<span class="token punctuation">:</span> app<span class="token punctuation">.</span><span class="token function">LastBlockHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+	genState <span class="token operator">:=</span> app<span class="token punctuation">.</span>mm<span class="token punctuation">.</span><span class="token function">ExportGenesis</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span>
+	appState<span class="token punctuation">,</span> err <span class="token operator">=</span> codec<span class="token punctuation">.</span><span class="token function">MarshalJSONIndent</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span>cdc<span class="token punctuation">,</span> genState<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+	<span class="token punctuation">}</span>
+
+	validators <span class="token operator">=</span> staking<span class="token punctuation">.</span><span class="token function">WriteValidators</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> app<span class="token punctuation">.</span>stakingKeeper<span class="token punctuation">)</span>
+
+	<span class="token keyword">return</span> appState<span class="token punctuation">,</span> validators<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Finally add a helper function to generate an amino <a href="https://godoc.org/github.com/cosmos/cosmos-sdk/codec#Codec" target="_blank" rel="noopener noreferrer"><code>*codec.Codec</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> that properly registers all of the modules used in your application:</p> <div class="language-go extra-class"><pre class="language-go"><code><span class="token comment">// MakeCodec generates the necessary codecs for Amino</span>
+<span class="token keyword">func</span> <span class="token function">MakeCodec</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span>codec<span class="token punctuation">.</span>Codec <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> cdc <span class="token operator">=</span> codec<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	ModuleBasics<span class="token punctuation">.</span><span class="token function">RegisterCodec</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span>
+	sdk<span class="token punctuation">.</span><span class="token function">RegisterCodec</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span>
+	codec<span class="token punctuation">.</span><span class="token function">RegisterCrypto</span><span class="token punctuation">(</span>cdc<span class="token punctuation">)</span>
+	<span class="token keyword">return</span> cdc
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="now-that-you-have-created-an-application-that-includes-your-module-it-s-time-to-build-your-entrypoints"><a href="#now-that-you-have-created-an-application-that-includes-your-module-it-s-time-to-build-your-entrypoints" aria-hidden="true" class="header-anchor">#</a> Now that you have created an application that includes your module, it's time to <a href="/tutorial/entrypoint.html">build your entrypoints</a>!</h3></div> <div class="page-edit"><!----> <!----></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.358745d0.js" defer></script><script src="/assets/js/8.1b43487c.js" defer></script>
+  </body>
+</html>
