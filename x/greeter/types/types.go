@@ -40,7 +40,7 @@ func (g Greeting) String() string {
 
 }
 
-// QueryResGreetings holds greetings for a given address
+// QueryResGreetings defines the response to our Querier, containing greetings for a given address
 type QueryResGreetings map[string][]Greeting
 
 func (q QueryResGreetings) String() string {

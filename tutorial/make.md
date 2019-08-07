@@ -1,13 +1,29 @@
 # Makefile
 
-Now lets add a short makefile so we can build our basic app. Open up your `Makefile` and add the following code. Later we will add the command to build our CLI tools as well.
+Now lets add a short makefile so we can build our basic app. Open up your `Makefile` and add the following code. Later we will add an additional command to build our CLI tools.
 
-<<< @/tutorial/samples/MakefileShort
+```bash
+# simple Makefile
+all: lint install
+
+install: go.sum
+    GO111MODULE=on go install -tags "$(build_tags)" ./cmd/hcd
+
+go.sum: go.mod
+    @echo "--> Ensure dependencies have not been modified"
+    GO111MODULE=on go mod verify
+
+lint:
+  golangci-lint run
+  find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" | xargs gofmt -d -s
+  go mod verify
+
+```
 
 Then install your basic blockchain with `make install`.
 
-
 ```bash
+$ make install
 --> Ensure dependencies have not been modified
 GO111MODULE=on go mod verify
 all modules verified
@@ -15,10 +31,16 @@ GO111MODULE=on go install -tags "" ./cmd/hcd
 ```
 
 :::tip
-Remember you need to have Go installed and a proper $GOPATH configured
+Remember you need to have Go installed and a proper \$GOPATH configured
+:::
 
+Once installed you need to initialize your chain with a moniker. This saves a default config and genesis file to `~/.hellod`. We will come back, erase this dir and re-initialize our chain later after we add our greeter module.
 
-Once installed, start up your blockchain node. Dont worry it won't be able to find seeds.
+```bash
+$ hcd init hellochain
+```
+
+Nowstart up your blockchain node. Dont worry it won't be able to find seeds.
 
 ```bash
 $ hcd start
@@ -32,4 +54,4 @@ I[2019-08-06|16:59:36.047] Executed block                               module=s
 ...and watch the blocks roll by!
 ```
 
-Good job! Now lets add some functionality to that blockchain!
+Now lets add some functionality to that blockchain.

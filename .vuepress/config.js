@@ -23,11 +23,21 @@ module.exports = {
         title: "Hellochain Tutorial",
         collapsable: false,
         children: [
+          "/tutorial/intro.md",
           "/tutorial/basic-app.md",
           "/tutorial/simple-start.md",
           "/tutorial/make.md",
+          "tutorial/types.md",
+          "/tutorial/module.md",
           "/tutorial/msgs.md",
           "/tutorial/handler.md",
+          "/tutorial/keeper.md",
+          "/tutorial/querier.md",
+          "/tutorial/full-app.md",
+          "/tutorial/full-cmd.md",
+        "/tutorial/client.md",
+        "/tutorial/cli.md",
+
         ]
       },
     ]

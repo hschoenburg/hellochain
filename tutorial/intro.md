@@ -1,5 +1,7 @@
 # Getting started
 
+We will be building Hellochain, a "Hello World" blockchain. A lot of basic functionality comes packaged for you, not just in the SDK but in the `starter` package we will be using here as well. `starter` will provide basic accounts, a bank, authentication, Tx verification and more. We will implement a `greeter` module that will add the ability so send arbitrary messages (strings) to a given user (account address)
+
 In this tutorial we will create an app with the following file structure.
 
 ```bash
@@ -28,23 +30,19 @@ In this tutorial we will create an app with the following file structure.
 
 ```
 
-
 Start by creating a new git repository:
 
 ```bash
-mkdir -p $GOPATH/src/github.com/{ .Username }/nameservice
-cd $GOPATH/src/github.com/{ .Username }/nameservice
+mkdir -p $GOPATH/src/github.com/{ .Username }/hellochain
+cd $GOPATH/src/github.com/{ .Username }/hellochain
 git init
 ```
 
-Then initialize your go.mod:
+Then initialize your app as a go module:
+
 ```bash
 cd ./hellochain
 go mod init
 ```
 
-[Next start your app.go ->](/tutorial/basic_app.md)
-
-
-
-
+Ok now you are ready to write some code.

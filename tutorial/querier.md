@@ -1,7 +1,7 @@
 # Querier
 
-Now that we have a running replicate state machine, its time to enable quering our blockchain state. This is done through Queriers.
+Now that we have a running distributed state machine, its time to enable quering our blockchain state. This is done through `Queriers`. These define the queries that clients can send via websocket/rpc to which our application will respond. We will keep it simple with a single query for all greetings that takes an optional "from" parameter.
 
-Here is out first message!
+Save this in `x/greeter/querier.go`
 
 <<< @/x/greeter/querier.go{3}

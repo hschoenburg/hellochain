@@ -1,5 +1,7 @@
 # Keeper
 
-These messages update the application state. Next we need to set up a keeper with methods for getting, setting and update records.
+Each module's keeper is responsible for CRUD operations to the main datastore of the application. In MVC terms it would be the "model". With more sophisticated applications, modules may have access to each other's Keepers for cross-module interactions but in this simple case our Keeper will manage the state of Greetings on its own.
+
+Add this to `x/greeter/keeper.go`
 
 <<< @/x/greeter/keeper.go

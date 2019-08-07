@@ -1,3 +1,4 @@
+# simple Makefile
 all: lint install
 
 install: go.sum
