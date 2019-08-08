@@ -20,23 +20,30 @@ module.exports = {
     ],
     sidebar: [
       {
-        title: "Hellochain Tutorial",
+        title: "Simple App",
         collapsable: false,
         children: [
           "/tutorial/intro.md",
-          "/tutorial/basic-app.md",
+          "/tutorial/simple-app.md",
           "/tutorial/simple-start.md",
           "/tutorial/make.md",
+          "/tutorial/try-it-out.md",
+        ]
+      }, {
+      title: "Custom Module",
+      collapsable: false,
+      children: [
           "tutorial/types.md",
           "/tutorial/module.md",
           "/tutorial/msgs.md",
           "/tutorial/handler.md",
           "/tutorial/keeper.md",
           "/tutorial/querier.md",
-          "/tutorial/full-app.md",
-          "/tutorial/full-cmd.md",
         "/tutorial/client.md",
         "/tutorial/cli.md",
+          "/tutorial/full-app.md",
+          "/tutorial/full-cmd.md",
+          "/tutorial/complete.md",
 
         ]
       },

@@ -1,6 +1,10 @@
 # Getting started
 
-We will be building Hellochain, a "Hello World" blockchain. A lot of basic functionality comes packaged for you, not just in the SDK but in the `starter` package we will be using here as well. `starter` will provide basic accounts, a bank, authentication, Tx verification and more. We will implement a `greeter` module that will add the ability so send arbitrary messages (strings) to a given user (account address)
+Welcome to the quick and simple way to try out the Cosmos SDK. In this tutorial will be building Hellochain, a "Hello World" blockchain with a basic `greeter` module.
+
+Blockchains built with the Cosmos SDK are deterministic replicated state machines running [Tendermint Core](https://tendermint.com/docs/) as their conensus and networking layer. Described as application-specific blockchains, they combine modules, some provided by the SDK and others implemented specifically for the application, into a fully-functioning blockchain fullnode. For this tutorial we are going to first build a "blank" application capable of only bank-like interactions and then add some arbitrary "hello world" functionality in the form of our `greeter` module.
+
+To speed up this tutorial, A lot of basic functionality comes packaged for you in the [starter FIX THIS](https://github.com/cosmos/hellochain/tree/master/starter) package. It will provide basic accounts, a bank, authentication, Tx verification as well as some helper functions for building CLI tools. `starter` is your "crutch" for this tutorial. It is a heavily configured abstraction for the point of skipping boilerplate and getting something up and running quickly. Later, when you start the nameservice tutorial, you will kick out this "crutch", but for now lets include it.
 
 In this tutorial we will create an app with the following file structure.
 

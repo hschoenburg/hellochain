@@ -4,6 +4,8 @@
 
 Start here if you looking for a short and simple introduction to building application-specific blockchains with Cosmos. This repo contains both the tutorial walkthough and a working version of the code.
 
+The first half "Simple App" assembles a super basic blockchain and the second half, "Greeter Module" implements some custom application functionality on top of the chain. To get the full overview of what building with the Cosmos SDK involes, complete both sections.
+
 \*\*If you are looking for a more involved tutorial, go ahead and start with the nameservice tutorial.
 
 # Requirements
