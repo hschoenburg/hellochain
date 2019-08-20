@@ -7,7 +7,7 @@ using `starter.AppStarter` which wraps the Cosmos SDK modules `bank`, `auth`,
 
 `app.go` is where you construct your app out of its component modules.
 `starter` is taking care of most of this for now but we will come back later
-when its time to add our own application-specific module.
+when it's time to add our own application-specific module.
 
 Set up your project with the following in `hellochain/app.go`
 

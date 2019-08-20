@@ -16,7 +16,7 @@ functionality in the form of our `greeter` module.
 To speed up this tutorial, A lot of basic functionality comes packaged for you
 in the [starter](https://github.com/cosmos/hellochain/tree/master/starter)
 package. It will provide basic accounts, a bank, authentication, transaction
-(tx) verification as well as some helper functions for building CLI tools.
+(Tx) verification as well as some helper functions for building CLI tools.
 `starter` is your "crutch" for this tutorial. It is a heavily configured
 abstraction for the point of skipping boilerplate and getting something up and
 running quickly.  Later, when you start the nameservice tutorial, you will kick

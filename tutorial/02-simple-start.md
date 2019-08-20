@@ -2,9 +2,13 @@
 
 ### hcd
 
-Lets start with our "daemon". Open the file `cmd/hcd/main.go`, this will be your `hellochain daemon` command. For now we will rely on `starter` to bundle things up, but we will come back later to add our own `greeter` functionality when its ready.
+Let's start with our "daemon". Open the file `cmd/hcd/main.go`, this will be
+your `hellochain daemon` command. For now we will rely on `starter` to bundle
+things up, but we will come back later to add our own `greeter` functionality
+when it's ready.
 
-Your `./cmd/hcd/main.go` should look like this. We will use it to start and run our node.
+Your `./cmd/hcd/main.go` should look like this. We will use it to start and run
+our node.
 
 
 ```go
@@ -40,7 +44,8 @@ func main() {
 
 
 ::: tip
-The Cosmos SDK uses [cobra])(https://github.com/spf13/cobra) for building and running CLI commands.
+The Cosmos SDK uses [cobra])(https://github.com/spf13/cobra) for building and
+running CLI commands.
 :::
 
 Next we will create a Makefile for building and installing the package.

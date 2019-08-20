@@ -1,6 +1,8 @@
 # Makefile
 
-Now lets add a short makefile so we can build our basic app. Open up your `Makefile` and add the following code. Later we will add an additional command to build our CLI tools.
+Now let's add a short makefile so we can build our basic app. Open up your
+`Makefile` and add the following code. Later we will add an additional command
+to build our CLI tools.
 
 ```bash
 # simple Makefile
