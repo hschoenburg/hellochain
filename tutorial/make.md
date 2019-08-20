@@ -4,20 +4,21 @@ Now lets add a short makefile so we can build our basic app. Open up your `Makef
 
 ```bash
 # simple Makefile
+
 all: lint install
 
 install: go.sum
-    GO111MODULE=on go install -tags "$(build_tags)" ./cmd/hcd
+		GO111MODULE=on go install -tags "$(build_tags)" ./cmd/hcd
+		GO111MODULE=on go install -tags "$(build_tags)" ./cmd/hccli
 
 go.sum: go.mod
-    @echo "--> Ensure dependencies have not been modified"
-    GO111MODULE=on go mod verify
+		@echo "--> Ensure dependencies have not been modified"
+		GO111MODULE=on go mod verify
 
 lint:
-  golangci-lint run
-  find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" | xargs gofmt -d -s
-  go mod verify
-
+	golangci-lint run
+	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" | xargs gofmt -d -s
+	go mod verify
 ```
 
 Then install your basic blockchain with `make install`.

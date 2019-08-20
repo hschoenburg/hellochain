@@ -5,12 +5,9 @@ import (
 
 	app "github.com/cosmos/hellochain"
 	"github.com/cosmos/hellochain/starter"
-	"github.com/cosmos/hellochain/x/greeter"
 )
 
 func main() {
-
-	starter.BuildModuleBasics(greeter.AppModuleBasic{})
 
 	params := starter.ServerCommandParams{
 

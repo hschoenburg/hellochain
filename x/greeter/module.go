@@ -13,16 +13,16 @@ import (
 )
 
 var (
-	// TODO Comment
+	// ModuleCdc contains the types for the module that require encoding in amino
 	ModuleCdc = codec.New()
 )
 
-// TODO Comment
+// AppModuleBasic is the minimal struct for a module
 type AppModuleBasic struct {
 	starter.BlankModuleBasic
 }
 
-// TODO Comment
+// AppModule contains the full module
 type AppModule struct {
 	starter.BlankModule
 	keeper     Keeper
