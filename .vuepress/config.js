@@ -10,8 +10,8 @@ module.exports = {
   themeConfig: {
     repo: "cosmos/hellochain",
     editLinks: true,
-    docsDir: "whatisthis",
-    docsBranch: "develop",
+    docsDir: "",
+    docsBranch: "master",
     editLinkText: 'Edit this page on Github',
     lastUpdated: true,
     nav: [
