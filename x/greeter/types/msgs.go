@@ -1,8 +1,6 @@
 package types
 
 import (
-	"encoding/json"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -10,7 +8,7 @@ import (
 const RouterKey = "greeter"
 
 // MsgGreet defines the MsgGreet Message
-type MsgGreet struct {
+type MsgGreet struct { // TODO add comment for all fields
 	Body      string
 	Sender    sdk.AccAddress
 	Recipient sdk.AccAddress
@@ -50,9 +48,6 @@ func (msg MsgGreet) GetSigners() []sdk.AccAddress {
 
 // GetSignBytes encodes the message for signing
 func (msg MsgGreet) GetSignBytes() []byte {
-	b, err := json.Marshal(msg)
-	if err != nil {
-		panic(err)
-	}
-	return sdk.MustSortJSON(b)
+	bz := ModuleCdc.MustMarshalJSON(msg)
+	return sdk.MustSortJSON(bz)
 }

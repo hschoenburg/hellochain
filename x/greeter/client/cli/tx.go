@@ -40,14 +40,18 @@ func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
+			// TODO add comment
 			sender := cliCtx.GetFromAddress()
 			body := args[0]
+
+			// TODO add comment
 			recipient, err := sdk.AccAddressFromBech32(args[1])
 
 			if err != nil {
 				return err
 			}
 
+			// TODO add comment
 			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 
 			msg := gtypes.NewMsgGreet(sender, body, recipient)
@@ -56,6 +60,7 @@ func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
+			// TODO add comment
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
 	}

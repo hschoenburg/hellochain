@@ -56,7 +56,8 @@ func (k Keeper) SetGreeting(ctx sdk.Context, greeting gtypes.Greeting) {
 	store.Set(greeting.Recipient.Bytes(), k.cdc.MustMarshalBinaryBare(list))
 }
 
-// GetGreetingsIterator returns  an iterator over all names in which the keys are the addresses and the values are lists of greetings.
+// GetGreetingsIterator returns  an iterator over all names in which the keys
+// are the addresses and the values are lists of greetings.
 func (k Keeper) GetGreetingsIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.storeKey)
 	return sdk.KVStorePrefixIterator(store, nil)

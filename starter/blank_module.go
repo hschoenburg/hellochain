@@ -6,11 +6,12 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
 
+	abci "github.com/tendermint/tendermint/abci/types"
+
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	abci "github.com/tendermint/tendermint/abci/types"
 )
 
 // BlankModuleBasic implements the AppModuleBasic interface using a given ModuleName
@@ -21,7 +22,7 @@ type BlankModuleBasic struct {
 // BlankModule implements the AppModule interface
 type BlankModule struct {
 	BlankModuleBasic
-	keeper interface{}
+	keeper interface{} // TODO what is this?
 }
 
 type blankModuleGenesisState []string

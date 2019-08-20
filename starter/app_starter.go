@@ -50,7 +50,7 @@ func init() {
 
 // AppStarter is a basic app
 type AppStarter struct {
-	*bam.BaseApp
+	*bam.BaseApp // AppStarter extends BaseApp
 
 	// Keys to access the substores
 	keyMain    *sdk.KVStoreKey

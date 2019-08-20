@@ -5,17 +5,25 @@ import (
 	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/gogo/protobuf/codec"
 	yaml "gopkg.in/yaml.v2"
 )
 
 const (
 	// ModuleName is the name of the module
 	ModuleName = "greeter"
+
 	// StoreKey is used to register the module's store
 	StoreKey = ModuleName
 )
 
+var (
+	// ModuleCdc contains the types for the module that require encoding in amino
+	ModuleCdc = codec.New()
+)
+
 // Greeting is a struct that contains all the metadata of a name
+// TODO explain fields, also explain why we have the `json` and `yaml` tags
 type Greeting struct {
 	Sender    sdk.AccAddress `json:"sender" yaml:"sender"`
 	Recipient sdk.AccAddress `json:"receiver" yaml:"receiver"`
@@ -36,8 +44,10 @@ func NewGreeting(sender sdk.AccAddress, body string, receiver sdk.AccAddress) Gr
 
 // implement fmt.Stringer
 func (g Greeting) String() string {
-	return strings.TrimSpace(fmt.Sprintf(`Sender: %s Recipient: %s Body: %s`, g.Sender.String(), g.Recipient.String(), g.Body))
-
+	return strings.TrimSpace(
+		fmt.Sprintf(`Sender: %s Recipient: %s Body: %s`, g.Sender.String(), g.Recipient.String(),
+			g.Body),
+	)
 }
 
 // QueryResGreetings defines the response to our Querier, containing greetings for a given address

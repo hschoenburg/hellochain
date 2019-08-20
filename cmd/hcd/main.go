@@ -10,7 +10,6 @@ import (
 func main() {
 
 	params := starter.ServerCommandParams{
-
 		CmdName:     "hcd",
 		CmdDesc:     "hellochain AppDaemon",
 		AppCreator:  starter.NewAppCreator(app.NewHelloChainApp),

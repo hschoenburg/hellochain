@@ -39,9 +39,10 @@ func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			addr := args[0]
 
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/list/%s", queryRoute, addr), nil)
+			// TODO add a comment describing this function and the route
+			route := fmt.Sprintf("custom/%s/list/%s", queryRoute, addr)
+			res, _, err := cliCtx.QueryWithData(route, nil)
 			if err != nil {
-
 				return nil
 			}
 

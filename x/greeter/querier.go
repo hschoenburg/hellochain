@@ -37,7 +37,6 @@ func listGreetings(ctx sdk.Context, params []string, req abci.RequestQuery, keep
 	for ; iterator.Valid(); iterator.Next() {
 
 		var greeting gtypes.Greeting
-
 		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &greeting)
 
 		if greeting.Recipient.Equals(addr) {
@@ -45,9 +44,8 @@ func listGreetings(ctx sdk.Context, params []string, req abci.RequestQuery, keep
 		}
 	}
 
-	hellos, err2 := codec.MarshalJSONIndent(keeper.cdc, greetingList)
-
-	if err2 != nil {
+	hellos, err := codec.MarshalJSONIndent(keeper.cdc, greetingList)
+	if err != nil {
 		panic("could not marshal result to JSON")
 	}
 

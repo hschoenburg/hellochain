@@ -22,9 +22,9 @@ var (
 
 // Add the keeper and its key to our app struct
 type helloChainApp struct {
-	*starter.AppStarter
-	greeterKey    *sdk.KVStoreKey
-	greeterKeeper greeter.Keeper
+	*starter.AppStarter // TODO all of these fields should have comments
+	greeterKey          *sdk.KVStoreKey
+	greeterKeeper       greeter.Keeper
 }
 
 // NewHelloChainApp returns a fully constructed SDK application

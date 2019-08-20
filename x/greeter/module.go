@@ -12,11 +12,6 @@ import (
 	"github.com/cosmos/hellochain/x/greeter/client/cli"
 )
 
-var (
-	// ModuleCdc contains the types for the module that require encoding in amino
-	ModuleCdc = codec.New()
-)
-
 // AppModuleBasic is the minimal struct for a module
 type AppModuleBasic struct {
 	starter.BlankModuleBasic

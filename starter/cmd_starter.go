@@ -4,6 +4,9 @@ import (
 	"os"
 	"path"
 
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+
 	"github.com/cosmos/cosmos-sdk/client/keys"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/server"
@@ -11,19 +14,14 @@ import (
 	genaccscli "github.com/cosmos/cosmos-sdk/x/genaccounts/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	amino "github.com/tendermint/go-amino"
+	"github.com/tendermint/tendermint/libs/cli"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/lcd"
-	//"github.com/cosmos/cosmos-sdk/client/tx"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	//"github.com/cosmos/cosmos-sdk/types/module"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
-	"github.com/spf13/cobra"
-
-	"github.com/spf13/viper"
-	"github.com/tendermint/tendermint/libs/cli"
 )
 
 // NewCLICommand returns a basic root CLI cmd to interact with a running SDK chain.
@@ -134,7 +132,7 @@ func initConfig(cmd *cobra.Command) error {
 
 // ServerCommandParams described the params needed to build a basic server CLI command.
 type ServerCommandParams struct {
-	CmdName     string
+	CmdName     string // TODO comments for all of these fields
 	CmdDesc     string
 	AppCreator  server.AppCreator
 	AppExporter server.AppExporter
