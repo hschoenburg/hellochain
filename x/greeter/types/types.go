@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	codec "github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/gogo/protobuf/codec"
-	yaml "gopkg.in/yaml.v2"
 )
 
 const (
@@ -22,12 +21,11 @@ var (
 	ModuleCdc = codec.New()
 )
 
-// Greeting is a struct that contains all the metadata of a name
-// TODO explain fields, also explain why we have the `json` and `yaml` tags
+// struct containing the data of the Greeting. json and yaml tags are used to specify field names when marshalled to json
 type Greeting struct {
-	Sender    sdk.AccAddress `json:"sender" yaml:"sender"`
-	Recipient sdk.AccAddress `json:"receiver" yaml:"receiver"`
-	Body      string         `json:"body" yaml:"body"`
+	Sender    sdk.AccAddress `json:"sender" yaml:"sender"`     // address of the account "sending" the greeting
+	Recipient sdk.AccAddress `json:"receiver" yaml:"receiver"` // address of the account "receiving" the greeting
+	Body      string         `json:"body" yaml:"body"`         // string body of the greeting
 }
 
 // GreetingsList stores all the greeting for a given address
@@ -54,10 +52,7 @@ func (g Greeting) String() string {
 type QueryResGreetings map[string][]Greeting
 
 func (q QueryResGreetings) String() string {
-	b, err := yaml.Marshal(q)
-	if err != nil {
-		panic(err)
-	}
+	b := ModuleCdc.MustMarshalJSON(q)
 	return string(b)
 }
 

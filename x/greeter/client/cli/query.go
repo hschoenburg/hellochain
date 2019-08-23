@@ -39,7 +39,15 @@ func GetCmdListGreetings(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			addr := args[0]
 
-			// TODO add a comment describing this function and the route
+			/*
+				cliCtx.QueryWithData queries your app using a specific URL format described below.
+				The route string formats to "custom/greeter/list/addr"
+				"/custom/" for custom modules added by you,
+				"/greeter/" the module's QuerierRoute
+				"/list/" 		the specific endpoint for greeter's Querier
+				"/addr" 		the query parameter
+			*/
+
 			route := fmt.Sprintf("custom/%s/list/%s", queryRoute, addr)
 			res, _, err := cliCtx.QueryWithData(route, nil)
 			if err != nil {

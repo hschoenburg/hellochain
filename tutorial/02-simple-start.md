@@ -2,14 +2,13 @@
 
 ### hcd
 
-Let's start with our "daemon". Open the file `cmd/hcd/main.go`, this will be
+Let's start with our "daemon". Open the file `cmd/hcd/main.go`. This will be
 your `hellochain daemon` command. For now we will rely on `starter` to bundle
 things up, but we will come back later to add our own `greeter` functionality
 when it's ready.
 
 Your `./cmd/hcd/main.go` should look like this. We will use it to start and run
 our node.
-
 
 ```go
 package main
@@ -23,13 +22,13 @@ import (
 
 func main() {
 
-	params := starter.ServerCommandParams{
 
-		CmdName:     "hcd",
-		CmdDesc:     "hellochain AppDaemon",
-		AppCreator:  starter.NewAppCreator(app.NewHelloChainApp),
-		AppExporter: starter.NewAppExporter(app.NewHelloChainApp),
-	}
+	params := starter.NewServerCommandParams(
+		"hcd", // name of the command
+		"hellochain AppDaemon", // description
+		starter.NewAppCreator(app.NewHelloChainApp), // method for constructing an app
+		starter.NewAppExporter(app.NewHelloChainApp), // method for exporting chain state
+	)
 
 	serverCmd := starter.NewServerCommand(params)
 
@@ -41,7 +40,6 @@ func main() {
 	}
 }
 ```
-
 
 ::: tip
 The Cosmos SDK uses [cobra])(https://github.com/spf13/cobra) for building and

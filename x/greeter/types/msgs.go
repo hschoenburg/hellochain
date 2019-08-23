@@ -8,10 +8,10 @@ import (
 const RouterKey = "greeter"
 
 // MsgGreet defines the MsgGreet Message
-type MsgGreet struct { // TODO add comment for all fields
-	Body      string
-	Sender    sdk.AccAddress
-	Recipient sdk.AccAddress
+type MsgGreet struct {
+	Body      string         // content of the greeting
+	Sender    sdk.AccAddress // account signing and sending the greeting
+	Recipient sdk.AccAddress // account designated as recipient of the greeeting (not a signer)
 }
 
 // NewMsgGreet is a constructor function for MsgGreet
@@ -48,6 +48,5 @@ func (msg MsgGreet) GetSigners() []sdk.AccAddress {
 
 // GetSignBytes encodes the message for signing
 func (msg MsgGreet) GetSignBytes() []byte {
-	bz := ModuleCdc.MustMarshalJSON(msg)
-	return sdk.MustSortJSON(bz)
+	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(msg))
 }

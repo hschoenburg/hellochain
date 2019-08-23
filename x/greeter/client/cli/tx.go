@@ -40,18 +40,18 @@ func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
-			// TODO add comment
+			// Get the sending account address provided to the --from flag
 			sender := cliCtx.GetFromAddress()
 			body := args[0]
 
-			// TODO add comment
+			// Construct the receiving address from the provided argument
 			recipient, err := sdk.AccAddressFromBech32(args[1])
 
 			if err != nil {
 				return err
 			}
 
-			// TODO add comment
+			// used to construct, sign and encode the transaction (Tx) to send our greeting message
 			txBldr := auth.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 
 			msg := gtypes.NewMsgGreet(sender, body, recipient)
@@ -60,7 +60,7 @@ func GetCmdSayHello(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			// TODO add comment
+			// Build, sign and broadcast our transaction containing our greeting message.
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
 	}

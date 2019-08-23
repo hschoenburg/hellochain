@@ -132,10 +132,15 @@ func initConfig(cmd *cobra.Command) error {
 
 // ServerCommandParams described the params needed to build a basic server CLI command.
 type ServerCommandParams struct {
-	CmdName     string // TODO comments for all of these fields
-	CmdDesc     string
-	AppCreator  server.AppCreator
-	AppExporter server.AppExporter
+	CmdName     string             // name of the CLI command
+	CmdDesc     string             // short description of its function
+	AppCreator  server.AppCreator  // method for constructing an ABCI application
+	AppExporter server.AppExporter // method for exporting the chain state of an ABCI application
+}
+
+// NewServerCommandParams collects the params for a server command
+func NewServerCommandParams(name string, desc string, creator server.AppCreator, exporter server.AppExporter) ServerCommandParams {
+	return ServerCommandParams{name, desc, creator, exporter}
 }
 
 // NewServerCommand creates a new ServerCommandParams object

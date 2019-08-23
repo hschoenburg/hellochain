@@ -22,7 +22,7 @@ type BlankModuleBasic struct {
 // BlankModule implements the AppModule interface
 type BlankModule struct {
 	BlankModuleBasic
-	keeper interface{} // TODO what is this?
+	keeper interface{} //modules have keepers, BlankModule just has a placeholder
 }
 
 type blankModuleGenesisState []string

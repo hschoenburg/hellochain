@@ -1,4 +1,4 @@
-# Msg
+# Msgs
 
 `Msgs` define your application's state transitions. They are encoded and passed
 around the network wrapped in `Txs`. Messages are "owned" by a single module,
@@ -10,4 +10,4 @@ well as the body of the "greeting".
 
 Save the following in `x/greeter/types/msgs.go`
 
-<<< @/x/greeter/types/msgs.go{3}
+<<< @/x/greeter/types/msgs.go

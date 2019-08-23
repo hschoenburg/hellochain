@@ -2,7 +2,9 @@
 
 ### A "hello world" blockchain built with the Cosmos-SDK
 
-Start here if you looking for a short and simple introduction to building
+[Ready? Start Here](/tutorial/00-intro.md)
+
+Hellochain is a short and simple introduction to building
 application-specific blockchains with Cosmos. This repo contains both the
 tutorial walkthough and a working version of the code.
 
@@ -11,19 +13,13 @@ half, "Custom Module" implements some custom application functionality on top
 of the chain. To get the full overview of what building with the Cosmos SDK
 involves, complete both sections.
 
-\*\*If you are looking for a more involved tutorial, go ahead and start with
-the nameservice tutorial.
-
-# Requirements
+### Requirements
 
 - Golang >1.12.1 installed
 - A working [\$GOPATH](https://github.com/golang/go/wiki/SettingGOPATH)
 - Desire to create your own blockchain!
 
+\*\*If you are looking for a more involved tutorial, go ahead and start with
+the nameservice tutorial.
+
 #
-
-[Ready? Start Here](./tutorial/intro.md)
-
-Want to run this tutorial locally? Install
-[Vuepress](https://vuepress.vuejs.org/) and run `vuepress dev` to follow along
-at http://localhost:8080

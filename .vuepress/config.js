@@ -41,8 +41,8 @@ module.exports = {
           "/tutorial/15-querier.md",
           "/tutorial/16-client.md",
           "/tutorial/17-cli.md",
-          "/tutorial/18-full-app.md",
-          "/tutorial/19-full-cmd.md",
+          "/tutorial/18-full-cmd.md",
+          "/tutorial/19-full-app.md",
           "/tutorial/20-complete.md",
 
         ]
